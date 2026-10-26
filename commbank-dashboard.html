@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COMPLAINTS DASHBOARD — Commonwealth Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --cba-yellow: #FFCC00;
+    --cba-yellow-hover: #F2A900;
+    --cba-yellow-pale: #FFF7D6;
+    --cba-black: #16150F;
+    --cba-black-soft: #26241D;
+    --cba-ink-mid: #4A473C;
+    --cba-muted: #706C5E;
+    --cba-border: #E5DFD1;
+    --cba-border-subtle: #EFEADB;
+    --cba-paper: #F8F6F0;
+    --cba-surface: #FFFFFF;
+    --cba-brick: #B5482C;
+    --cba-brick-pale: #FDF0EC;
+    --cba-green: #1F7A4C;
+    --cba-green-pale: #EAF6F0;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --fold-size: 16px;
+    --shadow-card: 0 1px 3px rgba(22, 21, 15, 0.05), 0 2px 6px rgba(22, 21, 15, 0.03);
+    --shadow-hover: 0 4px 12px rgba(22, 21, 15, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cba-paper);
+    color: var(--cba-black);
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: "tnum" 1;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px 28px 50px;
+  }
+
+  /* ------------------- HEADER ------------------- */
+  header.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--cba-border);
+  }
+
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-box {
+    width: 52px;
+    height: 52px;
+    background: var(--cba-black);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    flex-shrink: 0;
+  }
+
+  .logo-box img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .title-group h1 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--cba-black);
+  }
+
+  .title-group p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--cba-ink-mid);
+    font-weight: 500;
+  }
+
+  .meta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .count-badge {
+    background: var(--cba-black);
+    color: var(--cba-yellow);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 13.5px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .count-badge span {
+    color: #FFFFFF;
+    font-weight: 400;
+    opacity: 0.85;
+    margin-left: 4px;
+    font-size: 12.5px;
+  }
+
+  .date-span {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--cba-muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* ------------------- FILTERS BAR ------------------- */
+  .filter-bar {
+    background: var(--cba-surface);
+    border: 1px solid var(--cba-border);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .filter-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .filter-label {
+    font-family: 'Archivo', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cba-black);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 4px;
+  }
+
+  .filter-label::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 14px;
+    background: var(--cba-yellow);
+    border-radius: 2px;
+  }
+
+  .select-pill {
+    position: relative;
+  }
+
+  .select-pill select {
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cba-black);
+    background: var(--cba-paper);
+    border: 1px solid var(--cba-border);
+    border-radius: var(--radius-sm);
+    padding: 8px 32px 8px 12px;
+    cursor: pointer;
+    min-width: 140px;
+    transition: all 0.15s ease;
+  }
+
+  .select-pill select:hover {
+    border-color: #C0B7A0;
+    background: #FFFFFF;
+  }
+
+  .select-pill select:focus-visible {
+    outline: 2px solid var(--cba-yellow-hover);
+    outline-offset: 1px;
+    background: #FFFFFF;
+  }
+
+  .select-pill::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-65%) rotate(45deg);
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid var(--cba-ink-mid);
+    border-bottom: 2px solid var(--cba-ink-mid);
+    pointer-events: none;
+  }
+
+  .btn-reset {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--cba-border);
+    color: var(--cba-ink-mid);
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+  }
+
+  .btn-reset:hover {
+    background: var(--cba-black);
+    border-color: var(--cba-black);
+    color: var(--cba-yellow);
+  }
+
+  .btn-reset:focus-visible {
+    outline: 2px solid var(--cba-yellow-hover);
+    outline-offset: 1px;
+  }
+
+  .chips-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .chips-container:empty {
+    display: none;
+    margin-top: 0;
+  }
+
+  .active-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--cba-yellow-pale);
+    border: 1px solid #EED47E;
+    color: var(--cba-black);
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 8px 4px 10px;
+    border-radius: 999px;
+  }
+
+  .active-chip button {
+    background: var(--cba-black);
+    color: var(--cba-yellow);
+    border: none;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+    transition: transform 0.1s ease;
+  }
+
+  .active-chip button:hover {
+    transform: scale(1.15);
+  }
+
+  /* ------------------- CBA FOLD SIGNATURE CARDS ------------------- */
+  .card {
+    position: relative;
+    background: var(--cba-surface);
+    border: 1px solid var(--cba-border);
+    box-shadow: var(--shadow-card);
+    clip-path: polygon(0 0, calc(100% - var(--fold-size)) 0, 100% var(--fold-size), 100% 100%, 0 100%);
+    border-radius: var(--radius-md);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: var(--fold-size);
+    height: var(--fold-size);
+    background: linear-gradient(135deg, var(--cba-yellow) 0%, var(--cba-yellow-hover) 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    box-shadow: -2px 2px 3px rgba(22, 21, 15, 0.12);
+    pointer-events: none;
+  }
+
+  /* ------------------- SIX KPI CARDS ------------------- */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .kpi-card {
+    padding: 16px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 112px;
+  }
+
+  .kpi-card .eyebrow {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cba-muted);
+  }
+
+  .kpi-card .val {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-top: 8px;
+    color: var(--cba-black);
+  }
+
+  .kpi-card.alert .val {
+    color: var(--cba-brick);
+  }
+
+  .kpi-card.success .val {
+    color: var(--cba-green);
+  }
+
+  .kpi-card .val.text-val {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+  }
+
+  .kpi-card .sub {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--cba-ink-mid);
+    margin-top: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ------------------- WIREFRAME COMPONENT LAYOUT ------------------- */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr 1fr;
+    grid-template-rows: minmax(330px, auto) minmax(240px, auto);
+    grid-template-areas:
+      "req-type trend map"
+      "req-type annual annual";
+    gap: 16px;
+  }
+
+  .panel {
+    padding: 18px 20px 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .panel-header h2 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    margin: 0;
+    letter-spacing: 0.01em;
+    color: var(--cba-black);
+  }
+
+  .panel-header .hint {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--cba-muted);
+  }
+
+  .panel-header .clear-link {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cba-brick);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    display: none;
+    padding: 0;
+  }
+
+  .panel-header .clear-link.visible {
+    display: inline-block;
+  }
+
+  .chart-container {
+    position: relative;
+    flex: 1;
+    min-height: 200px;
+    width: 100%;
+  }
+
+  /* Area bindings */
+  #panelReqType {
+    grid-area: req-type;
+  }
+
+  #panelTrend {
+    grid-area: trend;
+  }
+
+  #panelMap {
+    grid-area: map;
+  }
+
+  #panelAnnual {
+    grid-area: annual;
+  }
+
+  /* ------------------- AUSTRALIAN MAP STYLING ------------------- */
+  .map-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+    position: relative;
+  }
+
+  .aus-svg-box {
+    flex: 1;
+    width: 100%;
+    min-height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .aus-svg-box svg {
+    width: 100%;
+    max-height: 230px;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
+  }
+
+  .state-path {
+    stroke: #FFFFFF;
+    stroke-width: 1.5;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .state-path:hover {
+    stroke: var(--cba-black);
+    stroke-width: 2.5;
+    filter: brightness(0.92);
+  }
+
+  .state-path.active {
+    stroke: var(--cba-black);
+    stroke-width: 3.5;
+    filter: drop-shadow(0 0 4px rgba(0,0,0,0.3));
+  }
+
+  .state-label {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    pointer-events: none;
+    text-anchor: middle;
+    user-select: none;
+  }
+
+  .state-count-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    pointer-events: none;
+    text-anchor: middle;
+    user-select: none;
+  }
+
+  /* Map State Badges */
+  .state-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+    justify-content: center;
+  }
+
+  .state-pill-btn {
+    border: 1px solid var(--cba-border);
+    background: var(--cba-paper);
+    color: var(--cba-black);
+    border-radius: 6px;
+    padding: 3px 7px;
+    font-size: 10.5px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.12s ease;
+  }
+
+  .state-pill-btn:hover {
+    border-color: var(--cba-black);
+    background: #FFFFFF;
+  }
+
+  .state-pill-btn.active {
+    background: var(--cba-black);
+    border-color: var(--cba-black);
+    color: var(--cba-yellow);
+  }
+
+  .state-pill-btn .c-cnt {
+    font-weight: 500;
+    opacity: 0.8;
+  }
+
+  /* Map Legend */
+  .map-legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--cba-muted);
+    margin-top: 4px;
+  }
+
+  .legend-bar {
+    flex: 1;
+    height: 7px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #FFF7D6 0%, #FFCC00 45%, #B5482C 100%);
+    border: 1px solid var(--cba-border);
+  }
+
+  /* Map Floating Tooltip */
+  .map-tooltip {
+    position: absolute;
+    background: var(--cba-black);
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 6px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 100;
+    white-space: nowrap;
+  }
+
+  /* ------------------- FOOTER ------------------- */
+  footer.dash-footer {
+    margin-top: 36px;
+    padding-top: 16px;
+    border-top: 1px solid var(--cba-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--cba-muted);
+  }
+
+  /* ------------------- RESPONSIVE BREAKPOINTS ------------------- */
+  @media (max-width: 1180px) {
+    .kpi-row { grid-template-columns: repeat(3, 1fr); }
+    .dashboard-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "req-type req-type"
+        "trend map"
+        "annual annual";
+    }
+    #panelReqType .chart-container { min-height: 220px; }
+  }
+
+  @media (max-width: 768px) {
+    .wrap { padding: 16px 14px 40px; }
+    header.topbar { flex-direction: column; align-items: flex-start; }
+    .meta-group { align-items: flex-start; }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "req-type"
+        "trend"
+        "map"
+        "annual";
+    }
+    .title-group h1 { font-size: 22px; }
+    .filter-controls { flex-direction: column; align-items: stretch; }
+    .select-pill select { width: 100%; min-width: 0; }
+    .btn-reset { margin-left: 0; justify-content: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="brand-group">
+      <div class="logo-box" title="Commonwealth Bank of Australia">
+        <img src="data:image/png;base64,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" alt="Commonwealth Bank Logo">
+      </div>
+      <div class="title-group">
+        <h1>Complaints Dashboard</h1>
+        <p>Commonwealth Bank Customer Complaints Register & SLA Performance (2011–2020)</p>
+      </div>
+    </div>
+    <div class="meta-group">
+      <div class="count-badge" id="countBadge">467 <span>of 467 complaints shown</span></div>
+      <div class="date-span" id="dateSpanLabel">26 Aug 2011 – 07 Dec 2020</div>
+    </div>
+  </header>
+
+  <!-- FILTER BAR -->
+  <section class="filter-bar" aria-label="Dashboard Filters">
+    <div class="filter-controls">
+      <div class="filter-label">Filters</div>
+      <div class="select-pill">
+        <select id="selYear" aria-label="Filter by year"></select>
+      </div>
+      <div class="select-pill">
+        <select id="selProduct" aria-label="Filter by product category"></select>
+      </div>
+      <div class="select-pill">
+        <select id="selChannel" aria-label="Filter by request channel"></select>
+      </div>
+      <div class="select-pill">
+        <select id="selState" aria-label="Filter by Australian state"></select>
+      </div>
+      <button class="btn-reset" id="btnReset" aria-label="Reset all filters">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset Filters
+      </button>
+    </div>
+    <div class="chips-container" id="chipsContainer"></div>
+  </section>
+
+  <!-- SIX KPI CARDS -->
+  <section class="kpi-row" aria-label="Executive Key Performance Indicators">
+    <!-- KPI 1 -->
+    <div class="card kpi-card" id="kpiTotal">
+      <div class="eyebrow">Total Complaints</div>
+      <div class="val" id="kpiValTotal" data-raw="467">467</div>
+      <div class="sub" id="kpiSubTotal">of 467 total records</div>
+    </div>
+    <!-- KPI 2 -->
+    <div class="card kpi-card success" id="kpiTimely">
+      <div class="eyebrow">Timely Response Rate</div>
+      <div class="val" id="kpiValTimely" data-raw="94.4">94.4%</div>
+      <div class="sub" id="kpiSubTimely">responded within SLA standard</div>
+    </div>
+    <!-- KPI 3 -->
+    <div class="card kpi-card alert" id="kpiDisputed">
+      <div class="eyebrow">Consumer Disputed</div>
+      <div class="val" id="kpiValDisputed" data-raw="20.6">20.6%</div>
+      <div class="sub" id="kpiSubDisputed">escalated to formal dispute</div>
+    </div>
+    <!-- KPI 4 -->
+    <div class="card kpi-card" id="kpiRelief">
+      <div class="eyebrow">Resolved with Relief</div>
+      <div class="val" id="kpiValRelief" data-raw="26.1">26.1%</div>
+      <div class="sub" id="kpiSubRelief">monetary / non-monetary restitution</div>
+    </div>
+    <!-- KPI 5 -->
+    <div class="card kpi-card" id="kpiProgress">
+      <div class="eyebrow">Active Backlog</div>
+      <div class="val" id="kpiValProgress" data-raw="34">34</div>
+      <div class="sub" id="kpiSubProgress">cases currently in progress (7.3%)</div>
+    </div>
+    <!-- KPI 6 -->
+    <div class="card kpi-card" id="kpiTopIssue">
+      <div class="eyebrow">Top Issue Driver</div>
+      <div class="val text-val" id="kpiValTopIssue">Dispute not resolved</div>
+      <div class="sub" id="kpiSubTopIssue">56 cases · 12.0% share</div>
+    </div>
+  </section>
+
+  <!-- MAIN DASHBOARD PANELS (Matches Wireframe Layout) -->
+  <main class="dashboard-grid">
+
+    <!-- LEFT: Request Type (Horizontal Bars) -->
+    <section class="card panel" id="panelReqType" aria-label="Complaints by Request Type">
+      <div class="panel-header">
+        <h2>Request type</h2>
+        <span class="hint" id="hintReqType">by channel · click to filter</span>
+        <button class="clear-link" id="clearReqType" onclick="clearDimension('requestType')">Clear</button>
+      </div>
+      <div class="chart-container">
+        <canvas id="chartReqType" aria-label="Request type horizontal bar chart" role="img"></canvas>
+      </div>
+    </section>
+
+    <!-- RIGHT TOP-LEFT: Complaint Trend (Monthly Line Chart) -->
+    <section class="card panel" id="panelTrend" aria-label="Monthly Complaint Trend">
+      <div class="panel-header">
+        <h2>Complaint trend</h2>
+        <span class="hint">monthly volume over time</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="chartTrend" aria-label="Complaint trend line chart" role="img"></canvas>
+      </div>
+    </section>
+
+    <!-- RIGHT TOP-RIGHT: State Wise Complaint (Australian Map) -->
+    <section class="card panel" id="panelMap" aria-label="Complaints by Australian State">
+      <div class="panel-header">
+        <h2>State wise complaint</h2>
+        <span class="hint" id="hintState">click state to filter</span>
+        <button class="clear-link" id="clearState" onclick="clearDimension('state')">Clear</button>
+      </div>
+      <div class="map-wrapper">
+        <div class="map-tooltip" id="mapTooltip"></div>
+        <div class="aus-svg-box">
+          <svg viewBox="0 0 460 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of Australia shaded by complaint volume">
+            <!-- WA -->
+            <path id="map-WA" class="state-path" d="M 160,35 C 150,45 130,55 105,65 C 80,75 50,85 30,105 C 15,125 10,145 12,175 C 16,205 32,235 45,260 C 58,285 75,290 100,280 C 130,268 160,250 190,240 L 190,65 C 185,55 175,45 160,35 Z" role="button" tabindex="0" aria-label="Western Australia"></path>
+            <!-- NT -->
+            <path id="map-NT" class="state-path" d="M 190,65 L 190,175 L 270,175 L 270,95 C 265,75 250,55 240,40 C 228,25 210,25 200,40 C 195,50 192,58 190,65 Z" role="button" tabindex="0" aria-label="Northern Territory"></path>
+            <!-- SA -->
+            <path id="map-SA" class="state-path" d="M 190,240 L 190,175 L 290,175 L 290,265 C 285,278 275,285 260,270 C 250,255 235,250 215,255 C 205,258 195,250 190,240 Z" role="button" tabindex="0" aria-label="South Australia"></path>
+            <!-- QLD -->
+            <path id="map-QLD" class="state-path" d="M 270,95 L 270,175 L 290,175 L 290,205 L 420,205 C 415,185 395,145 370,110 C 345,75 320,40 300,15 C 290,55 280,80 270,95 Z" role="button" tabindex="0" aria-label="Queensland"></path>
+            <!-- NSW -->
+            <path id="map-NSW" class="state-path" d="M 290,205 L 420,205 C 418,225 405,260 395,290 C 370,280 340,265 310,255 L 290,255 Z" role="button" tabindex="0" aria-label="New South Wales"></path>
+            <!-- ACT -->
+            <circle id="map-ACT" class="state-path" cx="368" cy="266" r="6" role="button" tabindex="0" aria-label="Australian Capital Territory"></circle>
+            <!-- VIC -->
+            <path id="map-VIC" class="state-path" d="M 290,255 L 310,255 C 340,265 370,280 395,290 C 385,310 360,315 340,305 C 320,295 305,295 290,270 Z" role="button" tabindex="0" aria-label="Victoria"></path>
+            <!-- TAS -->
+            <path id="map-TAS" class="state-path" d="M 345,340 C 360,335 380,345 375,370 C 370,390 355,395 345,380 C 338,365 340,350 345,340 Z" role="button" tabindex="0" aria-label="Tasmania"></path>
+
+            <!-- State Text Labels -->
+            <text x="105" y="160" class="state-label" id="lbl-WA">WA</text>
+            <text x="105" y="176" class="state-count-text" id="cnt-WA">0</text>
+
+            <text x="230" y="110" class="state-label" id="lbl-NT">NT</text>
+            <text x="230" y="126" class="state-count-text" id="cnt-NT">0</text>
+
+            <text x="240" y="215" class="state-label" id="lbl-SA">SA</text>
+            <text x="240" y="231" class="state-count-text" id="cnt-SA">0</text>
+
+            <text x="340" y="125" class="state-label" id="lbl-QLD">QLD</text>
+            <text x="340" y="141" class="state-count-text" id="cnt-QLD">0</text>
+
+            <text x="345" y="225" class="state-label" id="lbl-NSW">NSW</text>
+            <text x="345" y="241" class="state-count-text" id="cnt-NSW">0</text>
+
+            <text x="395" y="268" class="state-label" id="lbl-ACT" font-size="9px">ACT</text>
+
+            <text x="335" y="285" class="state-label" id="lbl-VIC">VIC</text>
+            <text x="335" y="298" class="state-count-text" id="cnt-VIC">0</text>
+
+            <text x="360" y="360" class="state-label" id="lbl-TAS">TAS</text>
+            <text x="360" y="373" class="state-count-text" id="cnt-TAS">0</text>
+          </svg>
+        </div>
+
+        <!-- Quick State Filter Buttons -->
+        <div class="state-pills-row" id="statePillsRow"></div>
+
+        <!-- Heatmap Legend -->
+        <div class="map-legend-row">
+          <span>Fewer</span>
+          <div class="legend-bar"></div>
+          <span>More</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT BOTTOM: Annual Breakdown (Bar Chart across Years) -->
+    <section class="card panel" id="panelAnnual" aria-label="Annual Complaints Breakdown">
+      <div class="panel-header">
+        <h2>Annual breakdown</h2>
+        <span class="hint" id="hintAnnual">yearly breakdown · click year bar to filter</span>
+        <button class="clear-link" id="clearAnnual" onclick="clearDimension('year')">Clear</button>
+      </div>
+      <div class="chart-container">
+        <canvas id="chartAnnual" aria-label="Annual breakdown bar chart" role="img"></canvas>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="dash-footer">
+    <div>Commonwealth Bank BI Analytics · Single-file interactive complaints prototype</div>
+    <div>Dataset: 467 lodged customer records (2011–2020) · Fully client-side & responsive</div>
+  </footer>
+
+</div>
+
+<script>
+/* ============================= DATASET ============================= */
+/* Columns: [0:date, 1:year, 2:product, 3:issue, 4:requestType, 5:state, 6:response, 7:timely, 8:disputed, 9:status] */
+const RAW = [["2011-08-26", 2011, "Mortgage", "Poor customer service", "Referral", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2011-12-07", 2011, "Checking / savings", "Problem with a transaction", "Phone", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2012-02-11", 2012, "Credit card", "Poor customer service", "Fax", "NSW", "Closed with explanation", "No", "No", "Closed"], ["2012-02-16", 2012, "Other", "Delayed processing", "Referral", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2012-02-17", 2012, "Other", "Poor customer service", "Phone", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2012-02-26", 2012, "Other", "Fraud or unauthorised transaction", "Web", "NSW", "Closed without relief", "No", "No", "Closed"], ["2012-02-29", 2012, "Other", "Interest rate not as advertised", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2012-03-04", 2012, "Bank services", "Account closed without notice", "Referral", "WA", "Closed without relief", "Yes", "Yes", "Closed"], ["2012-03-07", 2012, "Checking / savings", "Problem with a transaction", "Referral", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2012-03-08", 2012, "Other", "Difficulty contacting the bank", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2012-03-13", 2012, "Other", "Difficulty contacting the bank", "Referral", "QLD", "Closed with monetary relief", "Yes", "No", "Closed"], ["2012-03-23", 2012, "Other", "Account closed without notice", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2012-03-28", 2012, "Bank services", "Dispute not resolved", "Phone", "NT", "Closed with explanation", "Yes", "Yes", "Closed"], ["2012-05-05", 2012, "Mortgage", "Incorrect fees or charges", "Postal mail", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2012-05-10", 2012, "Credit card", "Incorrect fees or charges", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2012-05-12", 2012, "Other", "Problem with a transaction", "Web", "WA", "In progress", "Yes", "No", "In progress"], ["2012-05-14", 2012, "Credit card", "Problem with a transaction", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2012-05-16", 2012, "Other", "Incorrect fees or charges", "Referral", "TAS", "Closed with explanation", "Yes", "No", "Closed"], ["2012-05-19", 2012, "Other", "Interest rate not as advertised", "Web", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2012-05-21", 2012, "Checking / savings", "Fraud or unauthorised transaction", "Phone", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2012-05-22", 2012, "Credit card", "Interest rate not as advertised", "Web", "SA", "Closed without relief", "Yes", "No", "Closed"], ["2012-05-31", 2012, "Other", "Difficulty contacting the bank", "Web", "QLD", "Closed with explanation", "No", "No", "Closed"], ["2012-06-06", 2012, "Credit card", "Delayed processing", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2012-06-16", 2012, "Mortgage", "Problem with a transaction", "Referral", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2012-07-05", 2012, "Bank services", "Account closed without notice", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2012-07-09", 2012, "Checking / savings", "Dispute not resolved", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2012-07-31", 2012, "Credit card", "Problem with a transaction", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2012-08-30", 2012, "Credit card", "Difficulty contacting the bank", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2012-09-08", 2012, "Credit card", "Incorrect fees or charges", "Web", "QLD", "Closed with explanation", "No", "Yes", "Closed"], ["2012-09-18", 2012, "Credit card", "Statement error", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2012-09-25", 2012, "Mortgage", "Account closed without notice", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2012-10-01", 2012, "Credit card", "Dispute not resolved", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2012-10-11", 2012, "Checking / savings", "Problem with a transaction", "Referral", "VIC", "Closed without relief", "Yes", "Yes", "Closed"], ["2012-10-23", 2012, "Credit card", "Dispute not resolved", "Web", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2012-10-27", 2012, "Bank services", "Problem with a transaction", "Referral", "NSW", "In progress", "Yes", "No", "In progress"], ["2012-10-29", 2012, "Credit card", "Account closed without notice", "Referral", "QLD", "Closed with explanation", "No", "No", "Closed"], ["2012-10-31", 2012, "Bank services", "Poor customer service", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2012-11-08", 2012, "Other", "Problem with a transaction", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2012-11-10", 2012, "Credit card", "Account closed without notice", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2012-11-24", 2012, "Other", "Account closed without notice", "Web", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2012-12-05", 2012, "Other", "Difficulty contacting the bank", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2012-12-07", 2012, "Bank services", "Incorrect fees or charges", "Referral", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2012-12-12", 2012, "Checking / savings", "Dispute not resolved", "Postal mail", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2012-12-14", 2012, "Mortgage", "Delayed processing", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2012-12-27", 2012, "Other", "Account closed without notice", "Phone", "VIC", "In progress", "Yes", "No", "In progress"], ["2013-01-22", 2013, "Credit card", "Interest rate not as advertised", "Web", "ACT", "Closed with explanation", "Yes", "No", "Closed"], ["2013-01-22", 2013, "Checking / savings", "Dispute not resolved", "Web", "NSW", "Closed without relief", "Yes", "Yes", "Closed"], ["2013-02-03", 2013, "Other", "Dispute not resolved", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2013-02-13", 2013, "Checking / savings", "Statement error", "Referral", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2013-02-16", 2013, "Credit card", "Interest rate not as advertised", "Postal mail", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2013-02-24", 2013, "Checking / savings", "Interest rate not as advertised", "Phone", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2013-03-05", 2013, "Checking / savings", "Interest rate not as advertised", "Fax", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2013-03-12", 2013, "Checking / savings", "Interest rate not as advertised", "Web", "TAS", "Closed with monetary relief", "Yes", "No", "Closed"], ["2013-03-13", 2013, "Other", "Problem with a transaction", "Web", "NT", "Closed without relief", "Yes", "No", "Closed"], ["2013-03-15", 2013, "Mortgage", "Delayed processing", "Postal mail", "WA", "Closed with explanation", "Yes", "Yes", "Closed"], ["2013-04-09", 2013, "Mortgage", "Difficulty contacting the bank", "Referral", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2013-04-15", 2013, "Mortgage", "Poor customer service", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2013-05-07", 2013, "Credit card", "Incorrect fees or charges", "Postal mail", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2013-05-08", 2013, "Bank services", "Interest rate not as advertised", "Postal mail", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2013-05-12", 2013, "Other", "Delayed processing", "Referral", "NSW", "Closed without relief", "No", "No", "Closed"], ["2013-05-14", 2013, "Other", "Dispute not resolved", "Web", "NSW", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2013-05-17", 2013, "Other", "Incorrect fees or charges", "Referral", "NSW", "Closed with monetary relief", "No", "No", "Closed"], ["2013-05-19", 2013, "Checking / savings", "Account closed without notice", "Web", "QLD", "Closed without relief", "Yes", "Yes", "Closed"], ["2013-05-25", 2013, "Credit card", "Incorrect fees or charges", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2013-05-29", 2013, "Checking / savings", "Statement error", "Phone", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2013-06-09", 2013, "Other", "Problem with a transaction", "Referral", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2013-06-16", 2013, "Mortgage", "Dispute not resolved", "Referral", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2013-07-13", 2013, "Checking / savings", "Poor customer service", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2013-08-10", 2013, "Bank services", "Statement error", "Referral", "VIC", "In progress", "Yes", "Yes", "In progress"], ["2013-08-17", 2013, "Checking / savings", "Difficulty contacting the bank", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2013-08-20", 2013, "Other", "Delayed processing", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2013-08-21", 2013, "Checking / savings", "Incorrect fees or charges", "Web", "WA", "Closed with explanation", "No", "No", "Closed"], ["2013-09-16", 2013, "Credit card", "Delayed processing", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2013-09-23", 2013, "Credit card", "Dispute not resolved", "Web", "NT", "In progress", "Yes", "No", "In progress"], ["2013-09-25", 2013, "Other", "Problem with a transaction", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2013-10-13", 2013, "Other", "Delayed processing", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2013-10-13", 2013, "Other", "Delayed processing", "Web", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2013-10-16", 2013, "Mortgage", "Account closed without notice", "Web", "NSW", "Closed with explanation", "No", "No", "Closed"], ["2013-10-23", 2013, "Checking / savings", "Incorrect fees or charges", "Web", "QLD", "Closed with explanation", "No", "No", "Closed"], ["2013-11-16", 2013, "Other", "Dispute not resolved", "Phone", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2013-11-17", 2013, "Checking / savings", "Difficulty contacting the bank", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2013-11-24", 2013, "Credit card", "Poor customer service", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2013-11-26", 2013, "Mortgage", "Fraud or unauthorised transaction", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2013-12-12", 2013, "Other", "Incorrect fees or charges", "Phone", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2013-12-16", 2013, "Bank services", "Poor customer service", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2013-12-18", 2013, "Checking / savings", "Delayed processing", "Phone", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2013-12-25", 2013, "Bank services", "Poor customer service", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2013-12-28", 2013, "Other", "Poor customer service", "Web", "TAS", "Closed without relief", "Yes", "No", "Closed"], ["2014-01-13", 2014, "Credit card", "Incorrect fees or charges", "Postal mail", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2014-01-15", 2014, "Mortgage", "Account closed without notice", "Referral", "WA", "Closed with monetary relief", "Yes", "No", "Closed"], ["2014-01-29", 2014, "Checking / savings", "Account closed without notice", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2014-02-09", 2014, "Bank services", "Account closed without notice", "Web", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2014-02-16", 2014, "Bank services", "Poor customer service", "Postal mail", "QLD", "Closed with non-monetary relief", "No", "No", "Closed"], ["2014-02-17", 2014, "Credit card", "Incorrect fees or charges", "Postal mail", "NSW", "In progress", "Yes", "Yes", "In progress"], ["2014-03-03", 2014, "Other", "Dispute not resolved", "Web", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2014-03-11", 2014, "Credit card", "Interest rate not as advertised", "Web", "ACT", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2014-03-20", 2014, "Credit card", "Problem with a transaction", "Referral", "SA", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2014-04-06", 2014, "Mortgage", "Delayed processing", "Web", "WA", "Closed without relief", "Yes", "No", "Closed"], ["2014-04-10", 2014, "Credit card", "Difficulty contacting the bank", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2014-04-12", 2014, "Credit card", "Problem with a transaction", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2014-04-14", 2014, "Other", "Problem with a transaction", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2014-04-17", 2014, "Credit card", "Delayed processing", "Web", "QLD", "In progress", "Yes", "No", "In progress"], ["2014-04-20", 2014, "Other", "Delayed processing", "Phone", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2014-04-21", 2014, "Other", "Poor customer service", "Referral", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2014-04-24", 2014, "Credit card", "Account closed without notice", "Web", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2014-04-30", 2014, "Other", "Delayed processing", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2014-05-22", 2014, "Mortgage", "Interest rate not as advertised", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2014-06-04", 2014, "Checking / savings", "Account closed without notice", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2014-06-05", 2014, "Bank services", "Difficulty contacting the bank", "Web", "VIC", "Closed with explanation", "No", "No", "Closed"], ["2014-06-10", 2014, "Bank services", "Difficulty contacting the bank", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2014-06-12", 2014, "Credit card", "Difficulty contacting the bank", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2014-06-16", 2014, "Mortgage", "Poor customer service", "Web", "QLD", "Closed without relief", "No", "No", "Closed"], ["2014-06-24", 2014, "Credit card", "Difficulty contacting the bank", "Web", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2014-07-05", 2014, "Bank services", "Problem with a transaction", "Web", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2014-07-17", 2014, "Bank services", "Incorrect fees or charges", "Web", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2014-07-19", 2014, "Checking / savings", "Statement error", "Web", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2014-07-27", 2014, "Checking / savings", "Problem with a transaction", "Web", "SA", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2014-07-31", 2014, "Checking / savings", "Dispute not resolved", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2014-08-03", 2014, "Credit card", "Fraud or unauthorised transaction", "Referral", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2014-08-15", 2014, "Mortgage", "Statement error", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2014-08-18", 2014, "Checking / savings", "Poor customer service", "Referral", "WA", "Closed without relief", "Yes", "No", "Closed"], ["2014-08-21", 2014, "Credit card", "Account closed without notice", "Web", "WA", "Closed with explanation", "Yes", "Yes", "Closed"], ["2014-08-26", 2014, "Bank services", "Poor customer service", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2014-08-30", 2014, "Other", "Poor customer service", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2014-09-03", 2014, "Mortgage", "Poor customer service", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2014-09-15", 2014, "Bank services", "Problem with a transaction", "Web", "QLD", "Closed with monetary relief", "Yes", "No", "Closed"], ["2014-09-16", 2014, "Credit card", "Difficulty contacting the bank", "Web", "WA", "Closed with monetary relief", "Yes", "No", "Closed"], ["2014-09-20", 2014, "Checking / savings", "Interest rate not as advertised", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2014-09-24", 2014, "Other", "Fraud or unauthorised transaction", "Phone", "VIC", "Closed with non-monetary relief", "Yes", "Yes", "Closed"], ["2014-10-01", 2014, "Credit card", "Problem with a transaction", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2014-10-10", 2014, "Mortgage", "Difficulty contacting the bank", "Phone", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2014-10-27", 2014, "Credit card", "Problem with a transaction", "Web", "VIC", "In progress", "Yes", "No", "In progress"], ["2014-11-09", 2014, "Other", "Problem with a transaction", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2014-11-19", 2014, "Mortgage", "Problem with a transaction", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2014-12-06", 2014, "Credit card", "Difficulty contacting the bank", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2014-12-11", 2014, "Credit card", "Interest rate not as advertised", "Phone", "VIC", "Closed with monetary relief", "No", "No", "Closed"], ["2014-12-17", 2014, "Credit card", "Dispute not resolved", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2014-12-20", 2014, "Bank services", "Fraud or unauthorised transaction", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2014-12-22", 2014, "Credit card", "Interest rate not as advertised", "Referral", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2014-12-22", 2014, "Other", "Interest rate not as advertised", "Web", "NSW", "In progress", "Yes", "No", "In progress"], ["2015-01-15", 2015, "Mortgage", "Dispute not resolved", "Web", "QLD", "Closed without relief", "Yes", "No", "Closed"], ["2015-01-26", 2015, "Bank services", "Dispute not resolved", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2015-01-26", 2015, "Bank services", "Incorrect fees or charges", "Phone", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2015-01-30", 2015, "Mortgage", "Problem with a transaction", "Web", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2015-02-09", 2015, "Checking / savings", "Incorrect fees or charges", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2015-02-12", 2015, "Checking / savings", "Difficulty contacting the bank", "Phone", "QLD", "Closed with monetary relief", "Yes", "No", "Closed"], ["2015-02-19", 2015, "Credit card", "Interest rate not as advertised", "Referral", "WA", "Closed with non-monetary relief", "Yes", "Yes", "Closed"], ["2015-02-23", 2015, "Bank services", "Statement error", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2015-03-14", 2015, "Checking / savings", "Dispute not resolved", "Referral", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2015-03-22", 2015, "Bank services", "Interest rate not as advertised", "Web", "ACT", "Closed with explanation", "Yes", "No", "Closed"], ["2015-04-14", 2015, "Other", "Incorrect fees or charges", "Referral", "QLD", "In progress", "Yes", "Yes", "In progress"], ["2015-04-25", 2015, "Checking / savings", "Interest rate not as advertised", "Referral", "NSW", "Closed without relief", "No", "No", "Closed"], ["2015-05-20", 2015, "Bank services", "Incorrect fees or charges", "Web", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2015-05-23", 2015, "Credit card", "Problem with a transaction", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2015-05-24", 2015, "Bank services", "Problem with a transaction", "Referral", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2015-06-02", 2015, "Credit card", "Interest rate not as advertised", "Fax", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2015-06-16", 2015, "Checking / savings", "Delayed processing", "Web", "NSW", "In progress", "Yes", "Yes", "In progress"], ["2015-06-20", 2015, "Bank services", "Difficulty contacting the bank", "Postal mail", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2015-06-24", 2015, "Bank services", "Dispute not resolved", "Web", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2015-06-25", 2015, "Other", "Incorrect fees or charges", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2015-06-26", 2015, "Checking / savings", "Fraud or unauthorised transaction", "Phone", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2015-06-28", 2015, "Other", "Poor customer service", "Web", "VIC", "In progress", "Yes", "No", "In progress"], ["2015-07-07", 2015, "Credit card", "Difficulty contacting the bank", "Web", "VIC", "In progress", "Yes", "No", "In progress"], ["2015-07-13", 2015, "Checking / savings", "Interest rate not as advertised", "Web", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2015-07-27", 2015, "Credit card", "Poor customer service", "Web", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2015-08-07", 2015, "Checking / savings", "Statement error", "Phone", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2015-08-17", 2015, "Other", "Fraud or unauthorised transaction", "Postal mail", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2015-08-21", 2015, "Credit card", "Interest rate not as advertised", "Phone", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2015-08-27", 2015, "Other", "Delayed processing", "Phone", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2015-09-20", 2015, "Mortgage", "Incorrect fees or charges", "Web", "SA", "Closed with explanation", "Yes", "Yes", "Closed"], ["2015-09-30", 2015, "Mortgage", "Poor customer service", "Referral", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2015-09-30", 2015, "Other", "Fraud or unauthorised transaction", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2015-10-17", 2015, "Other", "Account closed without notice", "Fax", "NSW", "In progress", "Yes", "Yes", "In progress"], ["2015-10-18", 2015, "Credit card", "Fraud or unauthorised transaction", "Referral", "TAS", "In progress", "Yes", "Yes", "In progress"], ["2015-10-26", 2015, "Credit card", "Problem with a transaction", "Web", "NSW", "Closed with explanation", "No", "No", "Closed"], ["2015-11-29", 2015, "Mortgage", "Delayed processing", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2015-12-06", 2015, "Mortgage", "Interest rate not as advertised", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2015-12-08", 2015, "Other", "Difficulty contacting the bank", "Referral", "QLD", "Closed with monetary relief", "Yes", "No", "Closed"], ["2015-12-23", 2015, "Other", "Interest rate not as advertised", "Web", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2015-12-25", 2015, "Credit card", "Dispute not resolved", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2015-12-29", 2015, "Mortgage", "Difficulty contacting the bank", "Web", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2016-01-06", 2016, "Mortgage", "Delayed processing", "Fax", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2016-01-12", 2016, "Other", "Problem with a transaction", "Referral", "ACT", "Closed with explanation", "Yes", "No", "Closed"], ["2016-02-01", 2016, "Credit card", "Incorrect fees or charges", "Referral", "VIC", "Closed with explanation", "No", "No", "Closed"], ["2016-02-05", 2016, "Other", "Dispute not resolved", "Phone", "NT", "Closed with explanation", "Yes", "Yes", "Closed"], ["2016-02-10", 2016, "Checking / savings", "Difficulty contacting the bank", "Postal mail", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2016-02-11", 2016, "Credit card", "Problem with a transaction", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2016-03-02", 2016, "Checking / savings", "Delayed processing", "Web", "WA", "Closed with monetary relief", "Yes", "No", "Closed"], ["2016-03-13", 2016, "Other", "Poor customer service", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2016-03-19", 2016, "Mortgage", "Difficulty contacting the bank", "Referral", "NSW", "Closed with monetary relief", "No", "No", "Closed"], ["2016-03-22", 2016, "Credit card", "Delayed processing", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2016-03-27", 2016, "Other", "Problem with a transaction", "Referral", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2016-03-27", 2016, "Other", "Incorrect fees or charges", "Web", "QLD", "In progress", "Yes", "Yes", "In progress"], ["2016-03-28", 2016, "Mortgage", "Problem with a transaction", "Postal mail", "TAS", "Closed without relief", "Yes", "No", "Closed"], ["2016-04-09", 2016, "Checking / savings", "Difficulty contacting the bank", "Fax", "WA", "Closed with monetary relief", "Yes", "No", "Closed"], ["2016-04-20", 2016, "Credit card", "Statement error", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2016-05-05", 2016, "Credit card", "Dispute not resolved", "Referral", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2016-05-14", 2016, "Mortgage", "Problem with a transaction", "Web", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2016-06-20", 2016, "Credit card", "Poor customer service", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2016-06-24", 2016, "Bank services", "Poor customer service", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2016-06-29", 2016, "Other", "Difficulty contacting the bank", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2016-07-03", 2016, "Credit card", "Dispute not resolved", "Web", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2016-07-08", 2016, "Credit card", "Dispute not resolved", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2016-07-14", 2016, "Other", "Delayed processing", "Phone", "WA", "Closed without relief", "Yes", "Yes", "Closed"], ["2016-07-14", 2016, "Mortgage", "Interest rate not as advertised", "Web", "QLD", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2016-07-25", 2016, "Checking / savings", "Poor customer service", "Web", "VIC", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2016-07-31", 2016, "Mortgage", "Problem with a transaction", "Phone", "NSW", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2016-08-06", 2016, "Checking / savings", "Interest rate not as advertised", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2016-08-13", 2016, "Other", "Interest rate not as advertised", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2016-08-16", 2016, "Mortgage", "Interest rate not as advertised", "Phone", "QLD", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2016-09-24", 2016, "Mortgage", "Account closed without notice", "Web", "QLD", "Closed without relief", "Yes", "No", "Closed"], ["2016-09-28", 2016, "Credit card", "Dispute not resolved", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2016-10-01", 2016, "Bank services", "Account closed without notice", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2016-10-05", 2016, "Other", "Interest rate not as advertised", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2016-10-07", 2016, "Credit card", "Incorrect fees or charges", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2016-10-08", 2016, "Other", "Delayed processing", "Web", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2016-10-14", 2016, "Bank services", "Dispute not resolved", "Fax", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2016-10-24", 2016, "Credit card", "Fraud or unauthorised transaction", "Referral", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2016-10-31", 2016, "Credit card", "Delayed processing", "Phone", "QLD", "Closed without relief", "Yes", "No", "Closed"], ["2016-11-01", 2016, "Checking / savings", "Fraud or unauthorised transaction", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2016-11-14", 2016, "Other", "Problem with a transaction", "Web", "WA", "Closed with monetary relief", "Yes", "No", "Closed"], ["2016-11-25", 2016, "Mortgage", "Poor customer service", "Web", "NSW", "In progress", "Yes", "Yes", "In progress"], ["2016-11-30", 2016, "Other", "Delayed processing", "Web", "WA", "Closed without relief", "Yes", "No", "Closed"], ["2016-12-02", 2016, "Credit card", "Delayed processing", "Web", "QLD", "In progress", "Yes", "No", "In progress"], ["2016-12-17", 2016, "Other", "Poor customer service", "Referral", "QLD", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2016-12-20", 2016, "Other", "Problem with a transaction", "Web", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2017-01-02", 2017, "Checking / savings", "Statement error", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2017-01-17", 2017, "Other", "Difficulty contacting the bank", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2017-01-17", 2017, "Checking / savings", "Incorrect fees or charges", "Phone", "VIC", "In progress", "Yes", "No", "In progress"], ["2017-01-18", 2017, "Mortgage", "Fraud or unauthorised transaction", "Web", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2017-01-23", 2017, "Other", "Incorrect fees or charges", "Web", "QLD", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2017-01-25", 2017, "Credit card", "Poor customer service", "Phone", "QLD", "Closed without relief", "Yes", "No", "Closed"], ["2017-01-28", 2017, "Checking / savings", "Problem with a transaction", "Postal mail", "TAS", "Closed with explanation", "Yes", "No", "Closed"], ["2017-02-16", 2017, "Bank services", "Incorrect fees or charges", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2017-02-16", 2017, "Mortgage", "Fraud or unauthorised transaction", "Web", "SA", "Closed with explanation", "Yes", "Yes", "Closed"], ["2017-02-24", 2017, "Checking / savings", "Account closed without notice", "Web", "WA", "Closed with monetary relief", "Yes", "No", "Closed"], ["2017-02-26", 2017, "Credit card", "Poor customer service", "Web", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2017-03-05", 2017, "Bank services", "Delayed processing", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2017-03-14", 2017, "Other", "Statement error", "Referral", "SA", "Closed without relief", "Yes", "No", "Closed"], ["2017-03-17", 2017, "Other", "Incorrect fees or charges", "Postal mail", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2017-04-10", 2017, "Credit card", "Fraud or unauthorised transaction", "Referral", "QLD", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2017-04-12", 2017, "Bank services", "Difficulty contacting the bank", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2017-04-14", 2017, "Checking / savings", "Delayed processing", "Phone", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2017-04-21", 2017, "Bank services", "Account closed without notice", "Web", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2017-04-26", 2017, "Credit card", "Poor customer service", "Web", "TAS", "Closed with explanation", "Yes", "Yes", "Closed"], ["2017-04-29", 2017, "Other", "Dispute not resolved", "Referral", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2017-05-07", 2017, "Mortgage", "Account closed without notice", "Web", "WA", "Closed with explanation", "Yes", "Yes", "Closed"], ["2017-05-10", 2017, "Credit card", "Delayed processing", "Referral", "WA", "In progress", "Yes", "No", "In progress"], ["2017-05-12", 2017, "Bank services", "Problem with a transaction", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2017-05-15", 2017, "Mortgage", "Delayed processing", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2017-05-16", 2017, "Mortgage", "Fraud or unauthorised transaction", "Web", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2017-05-16", 2017, "Credit card", "Interest rate not as advertised", "Web", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2017-05-25", 2017, "Checking / savings", "Poor customer service", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2017-06-05", 2017, "Bank services", "Account closed without notice", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2017-06-06", 2017, "Credit card", "Dispute not resolved", "Phone", "VIC", "In progress", "Yes", "No", "In progress"], ["2017-06-08", 2017, "Other", "Problem with a transaction", "Web", "QLD", "In progress", "Yes", "Yes", "In progress"], ["2017-06-13", 2017, "Checking / savings", "Dispute not resolved", "Web", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2017-07-01", 2017, "Other", "Interest rate not as advertised", "Postal mail", "QLD", "Closed with non-monetary relief", "Yes", "Yes", "Closed"], ["2017-07-05", 2017, "Mortgage", "Dispute not resolved", "Web", "SA", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2017-07-20", 2017, "Mortgage", "Interest rate not as advertised", "Web", "VIC", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2017-07-29", 2017, "Other", "Problem with a transaction", "Phone", "ACT", "Closed with explanation", "Yes", "Yes", "Closed"], ["2017-08-12", 2017, "Mortgage", "Incorrect fees or charges", "Referral", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2017-08-14", 2017, "Mortgage", "Interest rate not as advertised", "Email", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2017-08-17", 2017, "Mortgage", "Delayed processing", "Postal mail", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2017-09-01", 2017, "Credit card", "Dispute not resolved", "Postal mail", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2017-09-03", 2017, "Bank services", "Fraud or unauthorised transaction", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2017-09-15", 2017, "Other", "Statement error", "Web", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2017-09-19", 2017, "Mortgage", "Delayed processing", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2017-09-21", 2017, "Other", "Problem with a transaction", "Referral", "SA", "Closed without relief", "Yes", "No", "Closed"], ["2017-09-24", 2017, "Credit card", "Poor customer service", "Web", "WA", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2017-10-09", 2017, "Credit card", "Statement error", "Web", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2017-10-20", 2017, "Other", "Incorrect fees or charges", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2017-11-07", 2017, "Other", "Delayed processing", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2017-11-11", 2017, "Checking / savings", "Incorrect fees or charges", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2017-11-12", 2017, "Mortgage", "Poor customer service", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2017-11-13", 2017, "Credit card", "Statement error", "Web", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2017-11-14", 2017, "Bank services", "Delayed processing", "Web", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2017-11-29", 2017, "Bank services", "Statement error", "Phone", "QLD", "Closed with non-monetary relief", "Yes", "Yes", "Closed"], ["2017-12-10", 2017, "Bank services", "Delayed processing", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2017-12-17", 2017, "Checking / savings", "Interest rate not as advertised", "Postal mail", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2017-12-18", 2017, "Checking / savings", "Interest rate not as advertised", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2017-12-19", 2017, "Credit card", "Dispute not resolved", "Phone", "WA", "Closed with monetary relief", "Yes", "No", "Closed"], ["2017-12-19", 2017, "Checking / savings", "Delayed processing", "Referral", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2017-12-27", 2017, "Other", "Dispute not resolved", "Referral", "QLD", "In progress", "Yes", "No", "In progress"], ["2017-12-30", 2017, "Credit card", "Fraud or unauthorised transaction", "Postal mail", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2018-01-07", 2018, "Bank services", "Problem with a transaction", "Referral", "ACT", "Closed with explanation", "Yes", "Yes", "Closed"], ["2018-01-22", 2018, "Credit card", "Problem with a transaction", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2018-01-25", 2018, "Credit card", "Incorrect fees or charges", "Phone", "QLD", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2018-01-26", 2018, "Bank services", "Account closed without notice", "Referral", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2018-02-06", 2018, "Other", "Interest rate not as advertised", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2018-02-15", 2018, "Other", "Account closed without notice", "Web", "VIC", "Closed with monetary relief", "No", "No", "Closed"], ["2018-02-16", 2018, "Checking / savings", "Delayed processing", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-02-20", 2018, "Checking / savings", "Difficulty contacting the bank", "Web", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2018-02-24", 2018, "Checking / savings", "Incorrect fees or charges", "Web", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2018-02-27", 2018, "Other", "Interest rate not as advertised", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2018-02-28", 2018, "Credit card", "Interest rate not as advertised", "Referral", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2018-03-01", 2018, "Mortgage", "Interest rate not as advertised", "Referral", "SA", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2018-03-08", 2018, "Mortgage", "Dispute not resolved", "Web", "NSW", "In progress", "Yes", "No", "In progress"], ["2018-03-09", 2018, "Credit card", "Delayed processing", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2018-03-10", 2018, "Other", "Incorrect fees or charges", "Web", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2018-03-14", 2018, "Mortgage", "Interest rate not as advertised", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2018-03-16", 2018, "Bank services", "Problem with a transaction", "Referral", "SA", "Closed with explanation", "Yes", "Yes", "Closed"], ["2018-03-20", 2018, "Checking / savings", "Difficulty contacting the bank", "Web", "WA", "Closed without relief", "Yes", "Yes", "Closed"], ["2018-03-21", 2018, "Mortgage", "Problem with a transaction", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2018-03-25", 2018, "Mortgage", "Statement error", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-03-26", 2018, "Bank services", "Interest rate not as advertised", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-03-29", 2018, "Credit card", "Interest rate not as advertised", "Web", "SA", "Closed with monetary relief", "Yes", "No", "Closed"], ["2018-03-31", 2018, "Mortgage", "Poor customer service", "Web", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2018-04-14", 2018, "Credit card", "Delayed processing", "Postal mail", "NSW", "In progress", "Yes", "No", "In progress"], ["2018-04-24", 2018, "Credit card", "Statement error", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2018-05-14", 2018, "Checking / savings", "Account closed without notice", "Web", "SA", "Closed with explanation", "Yes", "Yes", "Closed"], ["2018-05-23", 2018, "Credit card", "Incorrect fees or charges", "Web", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2018-06-03", 2018, "Credit card", "Poor customer service", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2018-06-06", 2018, "Other", "Account closed without notice", "Phone", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2018-06-08", 2018, "Other", "Statement error", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2018-06-10", 2018, "Checking / savings", "Delayed processing", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-06-12", 2018, "Bank services", "Delayed processing", "Web", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2018-06-18", 2018, "Other", "Poor customer service", "Referral", "QLD", "Closed with monetary relief", "Yes", "No", "Closed"], ["2018-06-24", 2018, "Other", "Difficulty contacting the bank", "Referral", "WA", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2018-06-27", 2018, "Credit card", "Poor customer service", "Phone", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-07-01", 2018, "Credit card", "Difficulty contacting the bank", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-07-07", 2018, "Other", "Dispute not resolved", "Web", "VIC", "Closed with explanation", "No", "No", "Closed"], ["2018-07-14", 2018, "Credit card", "Account closed without notice", "Web", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2018-07-18", 2018, "Mortgage", "Account closed without notice", "Referral", "ACT", "Closed with explanation", "Yes", "No", "Closed"], ["2018-07-25", 2018, "Other", "Statement error", "Postal mail", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2018-08-01", 2018, "Credit card", "Poor customer service", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2018-08-05", 2018, "Checking / savings", "Delayed processing", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-08-12", 2018, "Mortgage", "Fraud or unauthorised transaction", "Web", "VIC", "In progress", "Yes", "No", "In progress"], ["2018-08-14", 2018, "Mortgage", "Dispute not resolved", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-08-14", 2018, "Mortgage", "Incorrect fees or charges", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2018-08-19", 2018, "Mortgage", "Statement error", "Phone", "TAS", "Closed with explanation", "No", "Yes", "Closed"], ["2018-09-03", 2018, "Credit card", "Statement error", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2018-09-15", 2018, "Other", "Fraud or unauthorised transaction", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-09-16", 2018, "Other", "Dispute not resolved", "Phone", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-09-20", 2018, "Checking / savings", "Difficulty contacting the bank", "Referral", "ACT", "Closed with explanation", "Yes", "Yes", "Closed"], ["2018-09-21", 2018, "Other", "Problem with a transaction", "Web", "WA", "In progress", "Yes", "No", "In progress"], ["2018-09-22", 2018, "Other", "Difficulty contacting the bank", "Referral", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2018-10-06", 2018, "Checking / savings", "Incorrect fees or charges", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2018-10-06", 2018, "Checking / savings", "Account closed without notice", "Phone", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2018-10-17", 2018, "Credit card", "Poor customer service", "Referral", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2018-10-18", 2018, "Credit card", "Dispute not resolved", "Web", "TAS", "In progress", "Yes", "No", "In progress"], ["2018-10-20", 2018, "Other", "Dispute not resolved", "Referral", "VIC", "Closed without relief", "Yes", "Yes", "Closed"], ["2018-10-28", 2018, "Credit card", "Fraud or unauthorised transaction", "Phone", "QLD", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2018-11-02", 2018, "Bank services", "Difficulty contacting the bank", "Web", "ACT", "Closed with explanation", "Yes", "No", "Closed"], ["2018-11-07", 2018, "Checking / savings", "Account closed without notice", "Phone", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2018-11-12", 2018, "Checking / savings", "Problem with a transaction", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2018-11-15", 2018, "Other", "Statement error", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2018-11-17", 2018, "Other", "Delayed processing", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2018-11-18", 2018, "Other", "Poor customer service", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2018-11-25", 2018, "Other", "Statement error", "Referral", "SA", "In progress", "Yes", "No", "In progress"], ["2018-12-03", 2018, "Other", "Dispute not resolved", "Web", "WA", "Closed with non-monetary relief", "No", "Yes", "Closed"], ["2018-12-06", 2018, "Mortgage", "Interest rate not as advertised", "Phone", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2018-12-06", 2018, "Other", "Delayed processing", "Web", "QLD", "Closed with non-monetary relief", "Yes", "Yes", "Closed"], ["2018-12-08", 2018, "Other", "Incorrect fees or charges", "Postal mail", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2018-12-08", 2018, "Checking / savings", "Delayed processing", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2018-12-08", 2018, "Credit card", "Dispute not resolved", "Referral", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2019-01-15", 2019, "Other", "Interest rate not as advertised", "Web", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2019-01-19", 2019, "Checking / savings", "Statement error", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2019-01-24", 2019, "Mortgage", "Interest rate not as advertised", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-02-04", 2019, "Credit card", "Poor customer service", "Web", "NSW", "Closed without relief", "No", "No", "Closed"], ["2019-02-10", 2019, "Bank services", "Poor customer service", "Phone", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2019-02-11", 2019, "Mortgage", "Interest rate not as advertised", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2019-02-16", 2019, "Other", "Dispute not resolved", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2019-02-18", 2019, "Mortgage", "Account closed without notice", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2019-03-04", 2019, "Mortgage", "Delayed processing", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2019-03-06", 2019, "Credit card", "Incorrect fees or charges", "Referral", "NSW", "Closed without relief", "Yes", "Yes", "Closed"], ["2019-03-08", 2019, "Other", "Difficulty contacting the bank", "Referral", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2019-03-10", 2019, "Other", "Delayed processing", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-03-13", 2019, "Other", "Poor customer service", "Web", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2019-03-23", 2019, "Other", "Statement error", "Web", "VIC", "Closed without relief", "Yes", "No", "Closed"], ["2019-03-25", 2019, "Checking / savings", "Poor customer service", "Web", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2019-03-29", 2019, "Credit card", "Difficulty contacting the bank", "Referral", "WA", "Closed without relief", "Yes", "No", "Closed"], ["2019-04-01", 2019, "Other", "Interest rate not as advertised", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2019-04-13", 2019, "Other", "Problem with a transaction", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-04-16", 2019, "Bank services", "Difficulty contacting the bank", "Postal mail", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-05-12", 2019, "Credit card", "Statement error", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2019-05-13", 2019, "Bank services", "Account closed without notice", "Phone", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2019-05-17", 2019, "Credit card", "Delayed processing", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2019-05-18", 2019, "Other", "Poor customer service", "Referral", "NSW", "Closed without relief", "Yes", "Yes", "Closed"], ["2019-05-22", 2019, "Checking / savings", "Fraud or unauthorised transaction", "Web", "ACT", "Closed with explanation", "Yes", "No", "Closed"], ["2019-05-22", 2019, "Bank services", "Difficulty contacting the bank", "Web", "NSW", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2019-05-28", 2019, "Credit card", "Statement error", "Postal mail", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2019-06-08", 2019, "Other", "Fraud or unauthorised transaction", "Web", "SA", "Closed with explanation", "Yes", "No", "Closed"], ["2019-06-09", 2019, "Bank services", "Difficulty contacting the bank", "Postal mail", "QLD", "Closed without relief", "Yes", "Yes", "Closed"], ["2019-06-13", 2019, "Credit card", "Dispute not resolved", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-07-01", 2019, "Other", "Dispute not resolved", "Postal mail", "WA", "Closed with explanation", "Yes", "No", "Closed"], ["2019-07-04", 2019, "Other", "Poor customer service", "Web", "TAS", "Closed with explanation", "Yes", "No", "Closed"], ["2019-07-15", 2019, "Mortgage", "Statement error", "Phone", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2019-07-16", 2019, "Credit card", "Dispute not resolved", "Referral", "WA", "Closed with monetary relief", "Yes", "No", "Closed"], ["2019-07-16", 2019, "Checking / savings", "Problem with a transaction", "Web", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2019-07-18", 2019, "Checking / savings", "Dispute not resolved", "Postal mail", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2019-07-25", 2019, "Bank services", "Dispute not resolved", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-07-31", 2019, "Other", "Delayed processing", "Phone", "NSW", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2019-08-05", 2019, "Bank services", "Poor customer service", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-08-17", 2019, "Checking / savings", "Difficulty contacting the bank", "Referral", "VIC", "In progress", "Yes", "No", "In progress"], ["2019-08-25", 2019, "Other", "Delayed processing", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2019-08-29", 2019, "Checking / savings", "Fraud or unauthorised transaction", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2019-09-03", 2019, "Other", "Interest rate not as advertised", "Referral", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2019-09-13", 2019, "Bank services", "Account closed without notice", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2019-09-15", 2019, "Bank services", "Statement error", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2019-09-15", 2019, "Mortgage", "Statement error", "Phone", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-09-16", 2019, "Other", "Statement error", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-10-06", 2019, "Mortgage", "Delayed processing", "Phone", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2019-10-11", 2019, "Other", "Problem with a transaction", "Referral", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-10-16", 2019, "Credit card", "Poor customer service", "Web", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2019-10-18", 2019, "Other", "Dispute not resolved", "Phone", "VIC", "In progress", "Yes", "Yes", "In progress"], ["2019-10-20", 2019, "Mortgage", "Statement error", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2019-10-20", 2019, "Mortgage", "Statement error", "Web", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2019-10-22", 2019, "Mortgage", "Difficulty contacting the bank", "Phone", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2019-10-24", 2019, "Bank services", "Poor customer service", "Referral", "QLD", "Closed without relief", "Yes", "No", "Closed"], ["2019-10-30", 2019, "Other", "Account closed without notice", "Web", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2019-11-02", 2019, "Mortgage", "Dispute not resolved", "Web", "ACT", "Closed with explanation", "Yes", "No", "Closed"], ["2019-11-11", 2019, "Checking / savings", "Fraud or unauthorised transaction", "Postal mail", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2019-11-26", 2019, "Bank services", "Dispute not resolved", "Web", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2019-11-30", 2019, "Checking / savings", "Interest rate not as advertised", "Phone", "NSW", "In progress", "Yes", "No", "In progress"], ["2019-12-12", 2019, "Bank services", "Statement error", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2019-12-23", 2019, "Other", "Dispute not resolved", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2019-12-23", 2019, "Credit card", "Fraud or unauthorised transaction", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2020-01-09", 2020, "Bank services", "Interest rate not as advertised", "Web", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2020-01-14", 2020, "Checking / savings", "Dispute not resolved", "Postal mail", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2020-01-24", 2020, "Other", "Incorrect fees or charges", "Referral", "QLD", "Closed with monetary relief", "Yes", "No", "Closed"], ["2020-02-02", 2020, "Mortgage", "Incorrect fees or charges", "Postal mail", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2020-02-06", 2020, "Mortgage", "Dispute not resolved", "Web", "NSW", "In progress", "Yes", "Yes", "In progress"], ["2020-02-06", 2020, "Checking / savings", "Interest rate not as advertised", "Web", "ACT", "Closed without relief", "Yes", "No", "Closed"], ["2020-02-12", 2020, "Checking / savings", "Statement error", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2020-02-24", 2020, "Credit card", "Interest rate not as advertised", "Referral", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2020-02-26", 2020, "Other", "Poor customer service", "Referral", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2020-03-09", 2020, "Mortgage", "Difficulty contacting the bank", "Web", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2020-03-10", 2020, "Other", "Dispute not resolved", "Web", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2020-03-11", 2020, "Checking / savings", "Fraud or unauthorised transaction", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2020-03-15", 2020, "Checking / savings", "Difficulty contacting the bank", "Referral", "WA", "Closed with explanation", "Yes", "Yes", "Closed"], ["2020-03-16", 2020, "Checking / savings", "Delayed processing", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2020-03-19", 2020, "Credit card", "Interest rate not as advertised", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2020-03-28", 2020, "Credit card", "Dispute not resolved", "Web", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2020-03-30", 2020, "Other", "Poor customer service", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2020-04-13", 2020, "Credit card", "Problem with a transaction", "Referral", "QLD", "Closed without relief", "Yes", "No", "Closed"], ["2020-04-20", 2020, "Other", "Fraud or unauthorised transaction", "Web", "QLD", "Closed with explanation", "Yes", "Yes", "Closed"], ["2020-04-22", 2020, "Credit card", "Account closed without notice", "Web", "QLD", "Closed with monetary relief", "Yes", "No", "Closed"], ["2020-04-27", 2020, "Bank services", "Delayed processing", "Referral", "SA", "Closed without relief", "Yes", "No", "Closed"], ["2020-05-03", 2020, "Credit card", "Problem with a transaction", "Referral", "SA", "In progress", "No", "No", "In progress"], ["2020-05-13", 2020, "Credit card", "Account closed without notice", "Postal mail", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2020-06-03", 2020, "Credit card", "Fraud or unauthorised transaction", "Web", "QLD", "Closed with explanation", "Yes", "No", "Closed"], ["2020-06-07", 2020, "Other", "Difficulty contacting the bank", "Web", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2020-06-08", 2020, "Other", "Dispute not resolved", "Phone", "QLD", "Closed with monetary relief", "Yes", "No", "Closed"], ["2020-06-18", 2020, "Bank services", "Statement error", "Web", "NSW", "Closed with explanation", "Yes", "No", "Closed"], ["2020-06-21", 2020, "Credit card", "Statement error", "Web", "QLD", "Closed with monetary relief", "Yes", "No", "Closed"], ["2020-06-22", 2020, "Mortgage", "Interest rate not as advertised", "Phone", "VIC", "Closed with explanation", "Yes", "Yes", "Closed"], ["2020-06-28", 2020, "Mortgage", "Interest rate not as advertised", "Web", "QLD", "Closed without relief", "Yes", "Yes", "Closed"], ["2020-07-03", 2020, "Credit card", "Statement error", "Referral", "WA", "Closed without relief", "Yes", "No", "Closed"], ["2020-07-07", 2020, "Mortgage", "Delayed processing", "Web", "TAS", "Closed without relief", "Yes", "Yes", "Closed"], ["2020-07-08", 2020, "Checking / savings", "Delayed processing", "Phone", "NSW", "Closed with explanation", "Yes", "Yes", "Closed"], ["2020-07-09", 2020, "Credit card", "Account closed without notice", "Web", "QLD", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2020-07-16", 2020, "Other", "Incorrect fees or charges", "Postal mail", "SA", "Closed with non-monetary relief", "No", "No", "Closed"], ["2020-07-25", 2020, "Checking / savings", "Difficulty contacting the bank", "Web", "VIC", "Closed with non-monetary relief", "Yes", "No", "Closed"], ["2020-07-26", 2020, "Other", "Fraud or unauthorised transaction", "Referral", "NSW", "Closed with monetary relief", "Yes", "No", "Closed"], ["2020-08-06", 2020, "Credit card", "Statement error", "Referral", "QLD", "Closed without relief", "Yes", "No", "Closed"], ["2020-08-17", 2020, "Other", "Account closed without notice", "Web", "SA", "Closed with non-monetary relief", "Yes", "Yes", "Closed"], ["2020-08-22", 2020, "Checking / savings", "Account closed without notice", "Web", "SA", "Closed without relief", "Yes", "No", "Closed"], ["2020-08-29", 2020, "Other", "Statement error", "Phone", "VIC", "Closed with monetary relief", "Yes", "No", "Closed"], ["2020-09-21", 2020, "Credit card", "Poor customer service", "Web", "TAS", "Closed with monetary relief", "Yes", "Yes", "Closed"], ["2020-10-04", 2020, "Credit card", "Incorrect fees or charges", "Referral", "VIC", "Closed with explanation", "Yes", "No", "Closed"], ["2020-11-03", 2020, "Checking / savings", "Interest rate not as advertised", "Web", "VIC", "Closed with non-monetary relief", "Yes", "Yes", "Closed"], ["2020-11-06", 2020, "Other", "Problem with a transaction", "Web", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2020-11-18", 2020, "Mortgage", "Dispute not resolved", "Web", "QLD", "Closed with non-monetary relief", "Yes", "Yes", "Closed"], ["2020-11-22", 2020, "Credit card", "Account closed without notice", "Web", "NSW", "Closed without relief", "Yes", "No", "Closed"], ["2020-11-28", 2020, "Credit card", "Delayed processing", "Referral", "SA", "Closed without relief", "No", "No", "Closed"], ["2020-12-07", 2020, "Credit card", "Fraud or unauthorised transaction", "Referral", "WA", "Closed with explanation", "Yes", "No", "Closed"]];
+
+const DATA = RAW.map(d => ({
+  date: d[0],
+  year: d[1],
+  product: d[2],
+  issue: d[3],
+  requestType: d[4],
+  state: d[5],
+  response: d[6],
+  timely: d[7],
+  disputed: d[8],
+  status: d[9]
+}));
+
+/* Dimensions */
+const YEARS = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020];
+const PRODUCTS = ["Credit card", "Mortgage", "Checking / savings", "Bank services", "Other"];
+const CHANNELS = ["Web", "Referral", "Phone", "Postal mail", "Fax", "Email"];
+const STATES = ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"];
+
+const STATE_NAMES = {
+  NSW: 'New South Wales',
+  VIC: 'Victoria',
+  QLD: 'Queensland',
+  WA: 'Western Australia',
+  SA: 'South Australia',
+  TAS: 'Tasmania',
+  ACT: 'Australian Capital Territory',
+  NT: 'Northern Territory'
+};
+
+/* State Filter Store */
+const filters = {
+  year: 'all',
+  product: 'all',
+  requestType: 'all',
+  state: 'all'
+};
+
+/* Accessibility / Preferences */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Formatting Helpers */
+const fmt = n => new Intl.NumberFormat('en-AU').format(n);
+const pct = n => (Number.isFinite(n) ? n.toFixed(1) : '0.0') + '%';
+
+/* Filter Application Engine */
+function applyFilters(dataset, mask = {}) {
+  const checkYear = mask.year !== false;
+  const checkProduct = mask.product !== false;
+  const checkChannel = mask.requestType !== false;
+  const checkState = mask.state !== false;
+
+  return dataset.filter(row => {
+    if (checkYear && filters.year !== 'all' && row.year !== filters.year) return false;
+    if (checkProduct && filters.product !== 'all' && row.product !== filters.product) return false;
+    if (checkChannel && filters.requestType !== 'all' && row.requestType !== filters.requestType) return false;
+    if (checkState && filters.state !== 'all' && row.state !== filters.state) return false;
+    return true;
+  });
+}
+
+function setFilter(dim, val) {
+  if (filters[dim] === val) {
+    filters[dim] = 'all'; // toggle off if already active
+  } else {
+    filters[dim] = val;
+  }
+  syncControls();
+  renderAll();
+}
+
+function clearDimension(dim) {
+  filters[dim] = 'all';
+  syncControls();
+  renderAll();
+}
+
+function resetAllFilters() {
+  filters.year = 'all';
+  filters.product = 'all';
+  filters.requestType = 'all';
+  filters.state = 'all';
+  syncControls();
+  renderAll();
+}
+
+/* ============================= CONTROLS SYNC ============================= */
+function initSelects() {
+  const selY = document.getElementById('selYear');
+  selY.innerHTML = '<option value="all">All Years (2011–2020)</option>' +
+    YEARS.map(y => `<option value="${y}">${y}</option>`).join('');
+  selY.addEventListener('change', e => {
+    filters.year = e.target.value === 'all' ? 'all' : parseInt(e.target.value, 10);
+    renderAll();
+  });
+
+  const selP = document.getElementById('selProduct');
+  selP.innerHTML = '<option value="all">All Products</option>' +
+    PRODUCTS.map(p => `<option value="${p}">${p}</option>`).join('');
+  selP.addEventListener('change', e => {
+    filters.product = e.target.value;
+    renderAll();
+  });
+
+  const selC = document.getElementById('selChannel');
+  selC.innerHTML = '<option value="all">All Channels</option>' +
+    CHANNELS.map(c => `<option value="${c}">${c}</option>`).join('');
+  selC.addEventListener('change', e => {
+    filters.requestType = e.target.value;
+    renderAll();
+  });
+
+  const selS = document.getElementById('selState');
+  selS.innerHTML = '<option value="all">All States / Territories</option>' +
+    STATES.map(s => `<option value="${s}">${s} — ${STATE_NAMES[s]}</option>`).join('');
+  selS.addEventListener('change', e => {
+    filters.state = e.target.value;
+    renderAll();
+  });
+
+  document.getElementById('btnReset').addEventListener('click', resetAllFilters);
+}
+
+function syncControls() {
+  document.getElementById('selYear').value = String(filters.year);
+  document.getElementById('selProduct').value = filters.product;
+  document.getElementById('selChannel').value = filters.requestType;
+  document.getElementById('selState').value = filters.state;
+
+  // Clear links
+  document.getElementById('clearReqType').classList.toggle('visible', filters.requestType !== 'all');
+  document.getElementById('clearAnnual').classList.toggle('visible', filters.year !== 'all');
+  document.getElementById('clearState').classList.toggle('visible', filters.state !== 'all');
+
+  renderChips();
+}
+
+function renderChips() {
+  const container = document.getElementById('chipsContainer');
+  container.innerHTML = '';
+
+  const active = [];
+  if (filters.year !== 'all') active.push({ dim: 'year', label: `Year: ${filters.year}` });
+  if (filters.product !== 'all') active.push({ dim: 'product', label: `Product: ${filters.product}` });
+  if (filters.requestType !== 'all') active.push({ dim: 'requestType', label: `Channel: ${filters.requestType}` });
+  if (filters.state !== 'all') active.push({ dim: 'state', label: `State: ${filters.state}` });
+
+  active.forEach(item => {
+    const chip = document.createElement('div');
+    chip.className = 'active-chip';
+    chip.innerHTML = `<span>${item.label}</span><button aria-label="Remove ${item.label} filter">&times;</button>`;
+    chip.querySelector('button').addEventListener('click', () => clearDimension(item.dim));
+    container.appendChild(chip);
+  });
+}
+
+/* ============================= VALUE ANIMATION ============================= */
+function animateValue(el, targetVal, isPercent, duration = 400) {
+  if (prefersReducedMotion) {
+    el.textContent = isPercent ? pct(targetVal) : fmt(Math.round(targetVal));
+    el.dataset.raw = targetVal;
+    return;
+  }
+  const startVal = parseFloat(el.dataset.raw) || 0;
+  const startTime = performance.now();
+
+  function update(now) {
+    const progress = Math.min(1, (now - startTime) / duration);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const current = startVal + (targetVal - startVal) * ease;
+    el.textContent = isPercent ? pct(current) : fmt(Math.round(current));
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      el.textContent = isPercent ? pct(targetVal) : fmt(Math.round(targetVal));
+      el.dataset.raw = targetVal;
+    }
+  }
+  requestAnimationFrame(update);
+}
+
+/* ============================= KPI CARDS RENDER ============================= */
+function renderKPIs(rows) {
+  const total = rows.length;
+  const timelyCount = rows.filter(d => d.timely === 'Yes').length;
+  const timelyRate = total ? (timelyCount / total) * 100 : 0;
+
+  const disputedCount = rows.filter(d => d.disputed === 'Yes').length;
+  const disputedRate = total ? (disputedCount / total) * 100 : 0;
+
+  const closed = rows.filter(d => d.status === 'Closed');
+  const reliefCount = closed.filter(d => d.response && d.response.toLowerCase().includes('relief')).length;
+  const reliefRate = closed.length ? (reliefCount / closed.length) * 100 : 0;
+
+  const inProgressCount = rows.filter(d => d.status === 'In progress').length;
+  const inProgressRate = total ? (inProgressCount / total) * 100 : 0;
+
+  // Top Issue Driver
+  const issueMap = {};
+  rows.forEach(d => { issueMap[d.issue] = (issueMap[d.issue] || 0) + 1; });
+  let topIssue = 'None in scope';
+  let topIssueCnt = 0;
+  Object.entries(issueMap).forEach(([k, v]) => {
+    if (v > topIssueCnt) { topIssue = k; topIssueCnt = v; }
+  });
+
+  animateValue(document.getElementById('kpiValTotal'), total, false);
+  document.getElementById('kpiSubTotal').textContent = `of ${fmt(DATA.length)} total records (${pct((total/DATA.length)*100)})`;
+
+  animateValue(document.getElementById('kpiValTimely'), timelyRate, true);
+  document.getElementById('kpiSubTimely').textContent = `${fmt(timelyCount)} of ${fmt(total)} met SLA target`;
+
+  animateValue(document.getElementById('kpiValDisputed'), disputedRate, true);
+  document.getElementById('kpiSubDisputed').textContent = `${fmt(disputedCount)} of ${fmt(total)} escalated to dispute`;
+
+  animateValue(document.getElementById('kpiValRelief'), reliefRate, true);
+  document.getElementById('kpiSubRelief').textContent = `${fmt(reliefCount)} of ${fmt(closed.length)} closed cases remediated`;
+
+  animateValue(document.getElementById('kpiValProgress'), inProgressCount, false);
+  document.getElementById('kpiSubProgress').textContent = `open cases awaiting resolution (${pct(inProgressRate)})`;
+
+  const topIssueEl = document.getElementById('kpiValTopIssue');
+  topIssueEl.textContent = topIssue;
+  document.getElementById('kpiSubTopIssue').textContent = total ?
+    `${fmt(topIssueCnt)} cases · ${pct((topIssueCnt / total) * 100)} share` : 'no matching records';
+}
+
+/* ============================= CHART.JS GLOBAL CONFIG ============================= */
+Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+Chart.defaults.font.size = 11.5;
+Chart.defaults.color = '#4A473C';
+Chart.defaults.plugins.tooltip.backgroundColor = '#16150F';
+Chart.defaults.plugins.tooltip.titleColor = '#FFCC00';
+Chart.defaults.plugins.tooltip.bodyColor = '#FFFFFF';
+Chart.defaults.plugins.tooltip.padding = 10;
+Chart.defaults.plugins.tooltip.cornerRadius = 8;
+Chart.defaults.plugins.tooltip.displayColors = false;
+
+let chartReqType = null;
+let chartTrend = null;
+let chartAnnual = null;
+
+/* ------------------- 1. REQUEST TYPE CHART (Horizontal Bar) ------------------- */
+function renderChartReqType(rows) {
+  // Counts by channel
+  const counts = {};
+  CHANNELS.forEach(c => { counts[c] = 0; });
+  rows.forEach(d => { if (counts[d.requestType] !== undefined) counts[d.requestType]++; });
+
+  // Sorted descending
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const labels = sorted.map(item => item[0]);
+  const values = sorted.map(item => item[1]);
+
+  const bgColors = labels.map(ch => {
+    if (filters.requestType !== 'all') {
+      return ch === filters.requestType ? '#16150F' : 'rgba(255, 204, 0, 0.35)';
+    }
+    return '#FFCC00';
+  });
+
+  const hoverColors = labels.map(ch => {
+    if (filters.requestType !== 'all' && ch === filters.requestType) return '#26241D';
+    return '#F2A900';
+  });
+
+  const ctx = document.getElementById('chartReqType');
+  if (chartReqType) chartReqType.destroy();
+
+  chartReqType = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: bgColors,
+        hoverBackgroundColor: hoverColors,
+        borderRadius: 6,
+        barThickness: 20
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: prefersReducedMotion ? 0 : 400 },
+      onClick: (evt, elements) => {
+        if (elements && elements.length) {
+          const idx = elements[0].index;
+          setFilter('requestType', labels[idx]);
+        }
+      },
+      onHover: (evt, elements) => {
+        evt.native.target.style.cursor = elements && elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: items => items[0].label,
+            label: item => `${fmt(item.raw)} complaints (${pct((item.raw / (rows.length || 1)) * 100)})`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: '#EFEADB' },
+          ticks: { precision: 0 },
+          border: { display: false }
+        },
+        y: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: { font: { weight: '600' }, color: '#16150F' }
+        }
+      }
+    }
+  });
+}
+
+/* ------------------- 2. COMPLAINT TREND CHART (Line Chart) ------------------- */
+function monthLabel(y, m) {
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[m] + " '" + String(y).slice(2);
+}
+
+function renderChartTrend(rows) {
+  const byMonth = {};
+  rows.forEach(d => {
+    const parts = d.date.split('-');
+    const key = parts[0] + '-' + parts[1];
+    byMonth[key] = (byMonth[key] || 0) + 1;
+  });
+
+  const keys = Object.keys(byMonth).sort();
+  const labels = keys.map(k => {
+    const p = k.split('-');
+    return monthLabel(parseInt(p[0], 10), parseInt(p[1], 10) - 1);
+  });
+  const values = keys.map(k => byMonth[k]);
+
+  const ctx = document.getElementById('chartTrend');
+  if (chartTrend) chartTrend.destroy();
+
+  const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 220);
+  gradient.addColorStop(0, 'rgba(255, 204, 0, 0.40)');
+  gradient.addColorStop(1, 'rgba(255, 204, 0, 0.02)');
+
+  chartTrend = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        borderColor: '#16150F',
+        backgroundColor: gradient,
+        fill: true,
+        tension: 0.35,
+        pointRadius: labels.length > 35 ? 2 : 3.5,
+        pointBackgroundColor: '#16150F',
+        pointHoverRadius: 6,
+        pointHoverBackgroundColor: '#FFCC00',
+        pointHoverBorderColor: '#16150F',
+        pointHoverBorderWidth: 2,
+        borderWidth: 2.2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: prefersReducedMotion ? 0 : 400 },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: item => `${fmt(item.raw)} complaints`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: { maxTicksLimit: 10, font: { size: 10.5 } }
+        },
+        y: {
+          grid: { color: '#EFEADB' },
+          border: { display: false },
+          ticks: { precision: 0 },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+/* ------------------- 3. ANNUAL BREAKDOWN CHART (Bar Chart) ------------------- */
+function renderChartAnnual(rows) {
+  // Annual scope: filtered by product, channel, state (not year, so all years can be clicked)
+  const counts = {};
+  YEARS.forEach(y => { counts[y] = 0; });
+  rows.forEach(d => { if (counts[d.year] !== undefined) counts[d.year]++; });
+
+  const labels = YEARS.map(String);
+  const values = YEARS.map(y => counts[y]);
+
+  const bgColors = YEARS.map(y => {
+    if (filters.year !== 'all') {
+      return y === filters.year ? '#16150F' : 'rgba(255, 204, 0, 0.35)';
+    }
+    return '#FFCC00';
+  });
+
+  const hoverColors = YEARS.map(y => {
+    if (filters.year !== 'all' && y === filters.year) return '#26241D';
+    return '#F2A900';
+  });
+
+  const ctx = document.getElementById('chartAnnual');
+  if (chartAnnual) chartAnnual.destroy();
+
+  chartAnnual = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: bgColors,
+        hoverBackgroundColor: hoverColors,
+        borderRadius: 6,
+        maxBarThickness: 54
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: prefersReducedMotion ? 0 : 400 },
+      onClick: (evt, elements) => {
+        if (elements && elements.length) {
+          const idx = elements[0].index;
+          setFilter('year', YEARS[idx]);
+        }
+      },
+      onHover: (evt, elements) => {
+        evt.native.target.style.cursor = elements && elements.length ? 'pointer' : 'default';
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: items => `Year ${items[0].label}`,
+            label: item => `${fmt(item.raw)} complaints (${pct((item.raw / (rows.length || 1)) * 100)})`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: { font: { weight: '700' } }
+        },
+        y: {
+          grid: { color: '#EFEADB' },
+          border: { display: false },
+          ticks: { precision: 0 },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+/* ============================= 4. AUSTRALIAN MAP RENDER ============================= */
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+function getChoroplethColor(val, min, max) {
+  if (val === 0) return { fill: '#F5F2E9', text: '#706C5E' };
+  const t = max > min ? (val - min) / (max - min) : 0.5;
+
+  // 3-stop gradient: Pale Yellow (#FFF7D6) -> CBA Yellow (#FFCC00) -> Brick Red (#B5482C)
+  let r, g, b;
+  if (t < 0.5) {
+    const s = t * 2;
+    r = Math.round(lerp(255, 255, s));
+    g = Math.round(lerp(247, 204, s));
+    b = Math.round(lerp(214, 0, s));
+  } else {
+    const s = (t - 0.5) * 2;
+    r = Math.round(lerp(255, 181, s));
+    g = Math.round(lerp(204, 72, s));
+    b = Math.round(lerp(0, 44, s));
+  }
+
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return {
+    fill: `rgb(${r},${g},${b})`,
+    text: lum < 0.55 ? '#FFFFFF' : '#16150F'
+  };
+}
+
+function initMapInteractions() {
+  const tooltip = document.getElementById('mapTooltip');
+
+  STATES.forEach(code => {
+    const el = document.getElementById(`map-${code}`);
+    if (!el) return;
+
+    el.addEventListener('click', () => setFilter('state', code));
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setFilter('state', code);
+      }
+    });
+
+    el.addEventListener('mouseenter', e => {
+      const cnt = el.dataset.count || '0';
+      const pctVal = el.dataset.pct || '0.0%';
+      tooltip.innerHTML = `<strong>${code} (${STATE_NAMES[code]})</strong>: ${fmt(cnt)} complaints (${pctVal})`;
+      tooltip.style.opacity = '1';
+    });
+
+    el.addEventListener('mousemove', e => {
+      const mapBox = document.querySelector('.map-wrapper').getBoundingClientRect();
+      tooltip.style.left = (e.clientX - mapBox.left + 12) + 'px';
+      tooltip.style.top = (e.clientY - mapBox.top - 28) + 'px';
+    });
+
+    el.addEventListener('mouseleave', () => {
+      tooltip.style.opacity = '0';
+    });
+  });
+}
+
+function renderMap(rows) {
+  // Map scope: filtered by year, product, channel (not state)
+  const counts = {};
+  STATES.forEach(s => { counts[s] = 0; });
+  rows.forEach(d => { if (counts[d.state] !== undefined) counts[d.state]++; });
+
+  const vals = Object.values(counts);
+  const min = Math.min(...vals);
+  const max = Math.max(...vals);
+  const total = rows.length || 1;
+
+  STATES.forEach(code => {
+    const cnt = counts[code];
+    const pathEl = document.getElementById(`map-${code}`);
+    const color = getChoroplethColor(cnt, min, max);
+
+    if (pathEl) {
+      pathEl.style.fill = color.fill;
+      pathEl.classList.toggle('active', filters.state === code);
+      pathEl.dataset.count = cnt;
+      pathEl.dataset.pct = pct((cnt / total) * 100);
+      pathEl.setAttribute('aria-pressed', filters.state === code ? 'true' : 'false');
+    }
+
+    const lblEl = document.getElementById(`lbl-${code}`);
+    if (lblEl) lblEl.style.fill = color.text;
+
+    const cntEl = document.getElementById(`cnt-${code}`);
+    if (cntEl) {
+      cntEl.textContent = fmt(cnt);
+      cntEl.style.fill = color.text;
+    }
+  });
+
+  // Render State Quick Filter Pills
+  const pillsRow = document.getElementById('statePillsRow');
+  pillsRow.innerHTML = '';
+  // Sort states by count descending
+  const sorted = [...STATES].sort((a, b) => counts[b] - counts[a]);
+  sorted.forEach(code => {
+    const btn = document.createElement('button');
+    btn.className = 'state-pill-btn' + (filters.state === code ? ' active' : '');
+    btn.innerHTML = `<span>${code}</span><span class="c-cnt">(${fmt(counts[code])})</span>`;
+    btn.setAttribute('aria-label', `${STATE_NAMES[code]}: ${fmt(counts[code])} complaints`);
+    btn.addEventListener('click', () => setFilter('state', code));
+    pillsRow.appendChild(btn);
+  });
+}
+
+/* ============================= HEADER & META RENDER ============================= */
+function renderHeaderMeta(rows) {
+  const badge = document.getElementById('countBadge');
+  badge.innerHTML = `${fmt(rows.length)} <span>of ${fmt(DATA.length)} complaints shown</span>`;
+
+  const dateSpan = document.getElementById('dateSpanLabel');
+  if (rows.length > 0) {
+    const dates = rows.map(d => d.date).sort();
+    const firstDate = new Date(dates[0]);
+    const lastDate = new Date(dates[dates.length - 1]);
+    const opts = { day: '2-digit', month: 'short', year: 'numeric' };
+    dateSpan.textContent = `${firstDate.toLocaleDateString('en-AU', opts)} – ${lastDate.toLocaleDateString('en-AU', opts)}`;
+  } else {
+    dateSpan.textContent = 'No matching records in active filter';
+  }
+}
+
+/* ============================= MASTER RENDER CONTROLLER ============================= */
+function renderAll() {
+  // 1. Fully filtered dataset for KPIs, Header, and Trend
+  const fullFiltered = applyFilters(DATA, {
+    year: true,
+    product: true,
+    requestType: true,
+    state: true
+  });
+
+  // 2. Cross-filter scope for Request Type (ignoring channel filter itself)
+  const forReqType = applyFilters(DATA, {
+    year: true,
+    product: true,
+    requestType: false,
+    state: true
+  });
+
+  // 3. Cross-filter scope for Annual Breakdown (ignoring year filter itself)
+  const forAnnual = applyFilters(DATA, {
+    year: false,
+    product: true,
+    requestType: true,
+    state: true
+  });
+
+  // 4. Cross-filter scope for Map (ignoring state filter itself)
+  const forMap = applyFilters(DATA, {
+    year: true,
+    product: true,
+    requestType: true,
+    state: false
+  });
+
+  renderHeaderMeta(fullFiltered);
+  renderKPIs(fullFiltered);
+  renderChartReqType(forReqType);
+  renderChartTrend(fullFiltered);
+  renderChartAnnual(forAnnual);
+  renderMap(forMap);
+  syncControls();
+}
+
+/* Initialization */
+initSelects();
+initMapInteractions();
+renderAll();
+</script>
+</body>
+</html>

@@ -3,10 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gifty CP | Data Analyst Portfolio</title>
-  <meta name="description" content="Portfolio of an aspiring Data Analyst transitioning from hospitality. Showcasing SQL, Power BI, Tableau, Python, and business impact case studies.">
-  <meta name="author" content="Gifty CP">
-  
+  <title>Chanakarn (Gifty) Punyachai | Aspiring Data Analyst</title>
+  <meta name="description" content="Aspiring Data Analyst in Adelaide with hospitality experience and a Master of IT (Business Analysis). Excel, SQL, Python and Power BI projects.">
+  <meta name="author" content="Chanakarn Punyachai">
+  <meta property="og:title" content="Chanakarn (Gifty) Punyachai | Aspiring Data Analyst">
+  <meta property="og:description" content="Hospitality experience, Business Analysis qualification, and hands-on data projects.">
+  <meta property="og:image" content="https://gifty-cp.github.io/assets/commbank-dashboard.png">
+
+  <!-- Theme: apply saved choice (or the device setting) before the page paints -->
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if (t === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -41,10 +54,7 @@
   </script>
 
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Chart.js for Live Interactive Visualizations -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,770 +62,589 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* Custom pastel scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #F8FAFC;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94A3B8;
-    }
-    .chart-container {
-      position: relative;
-      height: 320px;
-      width: 100%;
-    }
-    .pastel-glow {
-      box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
-    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #F8FAFC; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    section[id] { scroll-margin-top: 4.5rem; }
+
+    /* ==================== DARK THEME ==================== */
+    html.dark { color-scheme: dark; }
+    html.dark body { background-color: #0E1120; color: #E2E8F0; }
+    html.dark ::-webkit-scrollbar-track { background: #0E1120; }
+    html.dark ::-webkit-scrollbar-thumb { background: #2B3252; }
+    html.dark .bg-pastel-cream { background-color: #0E1120; }
+    html.dark .bg-white { background-color: #161A2E; }
+    html.dark .bg-white\/95 { background-color: rgba(22,26,46,.95); }
+    html.dark .bg-white\/90 { background-color: rgba(22,26,46,.9); }
+    html.dark .bg-white\/85 { background-color: rgba(14,17,32,.85); }
+    html.dark .bg-white\/70 { background-color: #12162A; }
+    html.dark .bg-slate-100 { background-color: #232943; }
+    html.dark .hover\:bg-slate-50:hover { background-color: #1C2139; }
+    html.dark .from-white.bg-gradient-to-b { background-image: linear-gradient(to bottom, #12162A, #0E1120); }
+    html.dark .ring-white { --tw-ring-color: #161A2E; }
+    html.dark :is(.text-slate-900,.text-slate-800,.text-pastel-charcoal) { color: #F1F5F9; }
+    html.dark .text-slate-700 { color: #CBD5E1; }
+    html.dark .text-slate-600 { color: #A9B3C6; }
+    html.dark .text-slate-500 { color: #8C96AB; }
+    html.dark .text-slate-400 { color: #6B7590; }
+    html.dark :is(.hover\:text-slate-900,.hover\:text-slate-800):hover { color: #FFFFFF; }
+    html.dark :is(.border-slate-200,.border-slate-200\/60,.border-slate-200\/80,.border-slate-200\/90,.border-slate-100) { border-color: #272D4A; }
+    html.dark .shadow-indigo-200 { --tw-shadow-color: rgba(0,0,0,.45); --tw-shadow: var(--tw-shadow-colored); }
+    html.dark input::placeholder, html.dark textarea::placeholder { color: #5F6880; }
+    html.dark .text-white { color: #FFFFFF; }
+
+    html.dark :is(.bg-indigo-50,.bg-indigo-50\/60,.bg-indigo-50\/70) { background-color: rgba(99,102,241,0.1); }
+    html.dark :is(.bg-indigo-100,.bg-indigo-100\/40,.bg-indigo-100\/50,.bg-indigo-100\/60) { background-color: rgba(99,102,241,0.18); }
+    html.dark :is(.border-indigo-50,.border-indigo-100,.border-indigo-100\/60,.border-indigo-100\/80,.border-indigo-100\/90) { border-color: rgba(99,102,241,0.22); }
+    html.dark :is(.border-indigo-200,.border-indigo-200\/70,.border-indigo-200\/90,.hover\:border-indigo-200:hover,.hover\:border-indigo-300:hover) { border-color: rgba(99,102,241,0.4); }
+    html.dark :is(.text-indigo-700,.text-indigo-800,.text-indigo-900,.group:hover .group-hover\:text-indigo-700) { color: #A5B4FC; }
+    html.dark :is(.text-indigo-600,.text-indigo-500,.hover\:text-indigo-600:hover,.hover\:text-indigo-700:hover,.group:hover .group-hover\:text-indigo-600) { color: #818CF8; }
+    html.dark :is(.bg-emerald-50,.bg-emerald-50\/60,.bg-emerald-50\/70) { background-color: rgba(16,185,129,0.1); }
+    html.dark :is(.bg-emerald-100,.bg-emerald-100\/40,.bg-emerald-100\/50,.bg-emerald-100\/60) { background-color: rgba(16,185,129,0.18); }
+    html.dark :is(.border-emerald-50,.border-emerald-100,.border-emerald-100\/60,.border-emerald-100\/80,.border-emerald-100\/90) { border-color: rgba(16,185,129,0.22); }
+    html.dark :is(.border-emerald-200,.border-emerald-200\/70,.border-emerald-200\/90,.hover\:border-emerald-200:hover,.hover\:border-emerald-300:hover) { border-color: rgba(16,185,129,0.4); }
+    html.dark :is(.text-emerald-700,.text-emerald-800,.text-emerald-900,.group:hover .group-hover\:text-emerald-700) { color: #6EE7B7; }
+    html.dark :is(.text-emerald-600,.text-emerald-500,.hover\:text-emerald-600:hover,.hover\:text-emerald-700:hover,.group:hover .group-hover\:text-emerald-600) { color: #34D399; }
+    html.dark :is(.bg-amber-50,.bg-amber-50\/60,.bg-amber-50\/70) { background-color: rgba(245,158,11,0.1); }
+    html.dark :is(.bg-amber-100,.bg-amber-100\/40,.bg-amber-100\/50,.bg-amber-100\/60) { background-color: rgba(245,158,11,0.18); }
+    html.dark :is(.border-amber-50,.border-amber-100,.border-amber-100\/60,.border-amber-100\/80,.border-amber-100\/90) { border-color: rgba(245,158,11,0.22); }
+    html.dark :is(.border-amber-200,.border-amber-200\/70,.border-amber-200\/90,.hover\:border-amber-200:hover,.hover\:border-amber-300:hover) { border-color: rgba(245,158,11,0.4); }
+    html.dark :is(.text-amber-700,.text-amber-800,.text-amber-900,.group:hover .group-hover\:text-amber-700) { color: #FCD34D; }
+    html.dark :is(.text-amber-600,.text-amber-500,.hover\:text-amber-600:hover,.hover\:text-amber-700:hover,.group:hover .group-hover\:text-amber-600) { color: #FBBF24; }
+    html.dark :is(.bg-purple-50,.bg-purple-50\/60,.bg-purple-50\/70) { background-color: rgba(168,85,247,0.1); }
+    html.dark :is(.bg-purple-100,.bg-purple-100\/40,.bg-purple-100\/50,.bg-purple-100\/60) { background-color: rgba(168,85,247,0.18); }
+    html.dark :is(.border-purple-50,.border-purple-100,.border-purple-100\/60,.border-purple-100\/80,.border-purple-100\/90) { border-color: rgba(168,85,247,0.22); }
+    html.dark :is(.border-purple-200,.border-purple-200\/70,.border-purple-200\/90,.hover\:border-purple-200:hover,.hover\:border-purple-300:hover) { border-color: rgba(168,85,247,0.4); }
+    html.dark :is(.text-purple-700,.text-purple-800,.text-purple-900,.group:hover .group-hover\:text-purple-700) { color: #D8B4FE; }
+    html.dark :is(.text-purple-600,.text-purple-500,.hover\:text-purple-600:hover,.hover\:text-purple-700:hover,.group:hover .group-hover\:text-purple-600) { color: #C084FC; }
+    html.dark :is(.bg-pink-50,.bg-pink-50\/60,.bg-pink-50\/70) { background-color: rgba(236,72,153,0.1); }
+    html.dark :is(.bg-pink-100,.bg-pink-100\/40,.bg-pink-100\/50,.bg-pink-100\/60) { background-color: rgba(236,72,153,0.18); }
+    html.dark :is(.border-pink-50,.border-pink-100,.border-pink-100\/60,.border-pink-100\/80,.border-pink-100\/90) { border-color: rgba(236,72,153,0.22); }
+    html.dark :is(.border-pink-200,.border-pink-200\/70,.border-pink-200\/90,.hover\:border-pink-200:hover,.hover\:border-pink-300:hover) { border-color: rgba(236,72,153,0.4); }
+    html.dark :is(.text-pink-700,.text-pink-800,.text-pink-900,.group:hover .group-hover\:text-pink-700) { color: #F9A8D4; }
+    html.dark :is(.text-pink-600,.text-pink-500,.hover\:text-pink-600:hover,.hover\:text-pink-700:hover,.group:hover .group-hover\:text-pink-600) { color: #F472B6; }
+    html.dark :is(.bg-blue-50,.bg-blue-50\/60,.bg-blue-50\/70) { background-color: rgba(59,130,246,0.1); }
+    html.dark :is(.bg-blue-100,.bg-blue-100\/40,.bg-blue-100\/50,.bg-blue-100\/60) { background-color: rgba(59,130,246,0.18); }
+    html.dark :is(.border-blue-50,.border-blue-100,.border-blue-100\/60,.border-blue-100\/80,.border-blue-100\/90) { border-color: rgba(59,130,246,0.22); }
+    html.dark :is(.border-blue-200,.border-blue-200\/70,.border-blue-200\/90,.hover\:border-blue-200:hover,.hover\:border-blue-300:hover) { border-color: rgba(59,130,246,0.4); }
+    html.dark :is(.text-blue-700,.text-blue-800,.text-blue-900,.group:hover .group-hover\:text-blue-700) { color: #93C5FD; }
+    html.dark :is(.text-blue-600,.text-blue-500,.hover\:text-blue-600:hover,.hover\:text-blue-700:hover,.group:hover .group-hover\:text-blue-600) { color: #60A5FA; }
+    html.dark .from-indigo-50.bg-gradient-to-br { background-image: linear-gradient(135deg, rgba(99,102,241,.16), rgba(168,85,247,.10), rgba(236,72,153,.10)); }
+    #themeToggle .icon-sun { display: none; }
+    html.dark #themeToggle .icon-sun { display: block; }
+    html.dark #themeToggle .icon-moon { display: none; }
   </style>
 </head>
 
-<body class="bg-pastel-cream text-pastel-charcoal font-sans transition-colors duration-300 selection:bg-indigo-100 selection:text-indigo-900">
+<body class="bg-pastel-cream text-pastel-charcoal font-sans selection:bg-indigo-100 selection:text-indigo-900">
 
   <!-- ==================== NAVIGATION ==================== -->
-  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/85 border-b border-slate-200/80 transition-colors duration-300">
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/85 border-b border-slate-200/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      
+
       <!-- Logo / Name -->
       <a href="#" class="flex items-center gap-2 group">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-400 to-pink-400 flex items-center justify-center font-bold text-white shadow-md shadow-indigo-200 group-hover:scale-105 transition-transform">
           <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
         </div>
         <div>
-          <span class="font-bold text-base tracking-tight text-slate-800 group-hover:text-indigo-600 transition-colors">Gifty CP</span>
-          <span class="text-xs block text-slate-500 font-mono">Data Analyst</span>
+          <span class="font-bold text-base tracking-tight text-slate-800 group-hover:text-indigo-600 transition-colors">Gifty Punyachai</span>
+          <span class="text-xs block text-slate-500 font-mono">Aspiring Data Analyst</span>
         </div>
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
-        <a href="#transition" class="hover:text-indigo-600 transition-colors">The Transition</a>
-        <a href="#skills" class="hover:text-indigo-600 transition-colors">Technical Skills</a>
-        <a href="#demo" class="hover:text-indigo-600 transition-colors">Live Dashboard</a>
-        <a href="#projects" class="hover:text-indigo-600 transition-colors">Case Studies</a>
-        <a href="#certifications" class="hover:text-indigo-600 transition-colors">Milestones</a>
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-600">
+        <a href="#about" class="hover:text-indigo-600 transition-colors">About Me</a>
+        <a href="#skills" class="hover:text-indigo-600 transition-colors">Skills</a>
+        <a href="#projects" class="hover:text-indigo-600 transition-colors">Projects</a>
+        <a href="#experience" class="hover:text-indigo-600 transition-colors">Experience</a>
+        <a href="#education" class="hover:text-indigo-600 transition-colors">Education</a>
         <a href="#contact" class="hover:text-indigo-600 transition-colors">Contact</a>
       </nav>
 
       <!-- Action Buttons -->
       <div class="flex items-center gap-3">
-        <!-- Resume CTA -->
-        <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white shadow-md shadow-indigo-200 transition">
-          <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-          <span>Resume & Bio</span>
+        <!-- Dark / light theme toggle -->
+        <button id="themeToggle" type="button" aria-label="Switch to dark theme" title="Switch theme" class="p-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-200 shadow-sm transition">
+          <span class="icon-moon"><i data-lucide="moon" class="w-4 h-4"></i></span>
+          <span class="icon-sun"><i data-lucide="sun" class="w-4 h-4"></i></span>
+        </button>
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white shadow-md shadow-indigo-200 transition">
+          <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+          <span>Get in Touch</span>
         </a>
-
-        <!-- Mobile Menu Toggle -->
-        <button id="mobileMenuBtn" aria-label="Open mobile menu" class="md:hidden p-2 text-slate-600 hover:text-slate-900">
+        <button id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false" class="lg:hidden p-2 text-slate-600 hover:text-slate-900">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
     </div>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 bg-white/95 px-4 pt-2 pb-6 space-y-3 text-sm">
-      <a href="#transition" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">The Transition</a>
-      <a href="#skills" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Technical Skills</a>
-      <a href="#demo" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Live Dashboard</a>
-      <a href="#projects" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Case Studies</a>
-      <a href="#certifications" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Milestones</a>
+    <div id="mobileMenu" class="hidden lg:hidden border-b border-slate-200 bg-white/95 px-4 pt-2 pb-6 space-y-1 text-sm">
+      <a href="#about" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">About Me</a>
+      <a href="#skills" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Skills</a>
+      <a href="#projects" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Projects</a>
+      <a href="#experience" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Experience</a>
+      <a href="#education" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Education</a>
       <a href="#contact" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Contact</a>
     </div>
   </header>
 
-  <main class="pt-24">
-    <!-- ==================== HERO SECTION ==================== -->
+  <main class="pt-16">
+    <!-- ==================== HERO + PROFILE ==================== -->
     <section class="relative overflow-hidden py-16 sm:py-24 border-b border-slate-200/60 bg-gradient-to-b from-white via-pastel-cream to-pastel-cream">
-      <!-- Soft Pastel Background Blurs -->
       <div class="absolute top-10 left-1/4 w-96 h-96 bg-indigo-100/60 rounded-full blur-3xl pointer-events-none"></div>
       <div class="absolute top-20 right-1/4 w-80 h-80 bg-pink-100/50 rounded-full blur-3xl pointer-events-none"></div>
       <div class="absolute bottom-10 left-1/3 w-80 h-80 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div class="max-w-3xl">
-          
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-12 items-center">
+        <div>
           <!-- Transition Badge -->
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-indigo-100 text-xs font-medium text-slate-600 mb-6 shadow-sm">
+          <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-indigo-100 text-xs font-medium text-slate-600 mb-6 shadow-sm">
             <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span class="text-slate-500">Career Pivot:</span>
-            <span class="text-indigo-600 font-semibold">Hospitality Operations → Data Analytics</span>
+            <span class="text-indigo-600 font-semibold">Hospitality → Data Analytics</span>
           </div>
 
-          <!-- Main Headline -->
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
-            Transforming guest operations into <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">data-driven business impact.</span>
+            Understanding customers, <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">now through data.</span>
           </h1>
 
-          <!-- Subhead -->
-          <p class="mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed">
-            I combine customer-facing operational leadership with modern data analysis. Leveraging <strong class="text-slate-800 font-semibold">SQL, Power BI, Tableau, Python, and Excel</strong> to uncover revenue leaks, improve customer retention, and translate complex numbers into clear decisions.
+          <p class="mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl">
+            Aspiring Data Analyst with hospitality experience, a Master of Information Technology (Business Analysis), and an accounting background, building hands-on projects in <strong class="text-slate-800 font-semibold">Excel, SQL, Python and Power BI</strong>.
           </p>
 
-          <!-- Action buttons & social links -->
           <div class="mt-8 flex flex-wrap items-center gap-4">
             <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-medium shadow-md shadow-indigo-200 transition transform hover:-translate-y-0.5">
-              <span>Explore Case Studies</span>
+              <span>See My Projects</span>
               <i data-lucide="arrow-down" class="w-4 h-4"></i>
             </a>
-
-            <a href="#transition" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 font-medium shadow-sm transition">
+            <a href="#about" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 font-medium shadow-sm transition">
               <i data-lucide="sparkles" class="w-4 h-4 text-purple-500"></i>
-              <span>Why Hospitality Translates</span>
+              <span>About Me</span>
             </a>
-
-            <div class="flex items-center gap-2 ml-auto sm:ml-2 pt-2 sm:pt-0">
-              <a href="https://github.com/gifty-cp" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" class="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-200 shadow-sm transition">
-                <i data-lucide="github" class="w-5 h-5"></i>
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" class="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-blue-600 hover:border-blue-200 shadow-sm transition">
-                <i data-lucide="linkedin" class="w-5 h-5"></i>
-              </a>
-              <a href="https://public.tableau.com" target="_blank" rel="noopener noreferrer" aria-label="Tableau Public" class="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-amber-600 hover:border-amber-200 shadow-sm transition">
-                <i data-lucide="pie-chart" class="w-5 h-5"></i>
-              </a>
-            </div>
           </div>
 
-          <!-- Quick Metrics Banner -->
+          <!-- Quick facts -->
           <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-slate-200/80">
             <div class="p-4 rounded-2xl bg-white border border-indigo-50 shadow-sm">
-              <div class="text-2xl font-bold text-slate-900 font-mono">4+</div>
-              <div class="text-xs text-slate-500 mt-1">End-to-End Projects</div>
+              <div class="text-lg font-bold text-indigo-600 font-mono">Master of IT</div>
+              <div class="text-xs text-slate-500 mt-1">Business Analysis</div>
             </div>
             <div class="p-4 rounded-2xl bg-white border border-emerald-50 shadow-sm">
-              <div class="text-2xl font-bold text-emerald-600 font-mono">SQL & BI</div>
-              <div class="text-xs text-slate-500 mt-1">Core Technical Stack</div>
+              <div class="text-lg font-bold text-emerald-600 font-mono">2 BA</div>
+              <div class="text-xs text-slate-500 mt-1">Internships</div>
             </div>
             <div class="p-4 rounded-2xl bg-white border border-purple-50 shadow-sm">
-              <div class="text-2xl font-bold text-indigo-600 font-mono">Frontline</div>
-              <div class="text-xs text-slate-500 mt-1">Operations & CX Exp.</div>
+              <div class="text-lg font-bold text-purple-600 font-mono">Hospitality</div>
+              <div class="text-xs text-slate-500 mt-1">Sofitel · ICC Sydney</div>
             </div>
             <div class="p-4 rounded-2xl bg-white border border-pink-50 shadow-sm">
-              <div class="text-2xl font-bold text-pink-600 font-mono">100%</div>
-              <div class="text-xs text-slate-500 mt-1">Business-Impact Centric</div>
+              <div class="text-lg font-bold text-pink-600 font-mono">Accounting</div>
+              <div class="text-xs text-slate-500 mt-1">Degree &amp; diploma</div>
             </div>
           </div>
-
         </div>
+
+        <!-- Profile card -->
+        <aside class="p-7 rounded-3xl bg-white/90 border border-slate-200 shadow-sm text-center" aria-label="Profile">
+          <div id="avatar" class="w-36 h-36 mx-auto rounded-full bg-gradient-to-tr from-indigo-300 via-purple-300 to-pink-300 flex items-center justify-center text-4xl font-bold text-white ring-4 ring-white shadow-md overflow-hidden">
+            <!-- Add your headshot at assets/headshot.jpg; the initials show until then -->
+            <img src="assets/headshot.jpg" alt="Headshot of Chanakarn Punyachai" class="w-full h-full object-cover" onerror="this.remove(); document.getElementById('avatar').textContent='CP';">
+          </div>
+          <h2 class="mt-5 text-xl font-bold text-slate-900">Chanakarn Punyachai</h2>
+          <div class="text-sm text-slate-500">“Gifty”</div>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">Aspiring Data Analyst | Hospitality experience | Excel · SQL · Python</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-sm text-slate-600">
+            <i data-lucide="map-pin" class="w-4 h-4 text-emerald-600"></i>
+            Adelaide, Australia
+          </div>
+          <div class="mt-5 pt-5 border-t border-slate-100 flex items-center justify-center gap-2">
+            <a href="https://www.linkedin.com/in/cpunyachai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" class="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-blue-600 hover:border-blue-200 shadow-sm transition">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            <a href="https://github.com/gifty-cp" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" class="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-200 shadow-sm transition">
+              <i data-lucide="github" class="w-5 h-5"></i>
+            </a>
+            <a href="mailto:c.punyachai8@gmail.com" aria-label="Email" class="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-pink-600 hover:border-pink-200 shadow-sm transition">
+              <i data-lucide="mail" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <!-- ==================== THE TRANSITION BRIDGE ==================== -->
-    <section id="transition" class="py-20 bg-white/70 border-b border-slate-200/60">
+    <!-- ==================== 1. ABOUT ME ==================== -->
+    <section id="about" class="py-20 bg-white/70 border-b border-slate-200/60">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="max-w-3xl mb-12">
-          <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">The Unfair Advantage</div>
-          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Why Hospitality Makes Me a Better Data Analyst</h2>
-          <p class="mt-3 text-slate-600 leading-relaxed">
-            A common trap in data analytics is delivering technically complex dashboards that business stakeholders never use. My frontline background in hospitality taught me what actually matters: asking the right questions, understanding human behavior, and communicating with clarity.
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-mono uppercase tracking-wider text-indigo-700 font-semibold mb-3">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i>
+            About Me
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">From Hospitality to Data Analytics</h2>
+          <p class="mt-5 text-slate-600 leading-relaxed text-lg">
+            Hi, I’m an aspiring Data Analyst based in Adelaide, South Australia, with a Master of Information Technology specialising in Business Analysis, an accounting background, and experience in hospitality and Business Analyst internships. I’m developing my data analytics skills through hands-on projects, using Excel, SQL, Python, Tableau, Power BI, and Databricks to analyse data, identify trends, and generate meaningful business insights. I’m passionate about using data to understand customer behaviour, improve business performance, and support data-driven decision-making.
           </p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          <!-- Card 1 -->
-          <div class="p-6 rounded-2xl bg-white border border-indigo-100 hover:border-indigo-300 shadow-sm hover:shadow-md transition-all duration-300 group">
-            <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <i data-lucide="users" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-800 mb-1">Stakeholder Empathy</h3>
-            <div class="text-xs font-mono text-indigo-600 mb-2 font-medium">Hospitality → Analytics</div>
-            <p class="text-sm text-slate-600 leading-relaxed">
-              Years of de-escalating customer friction taught me to listen first. I design dashboards tailored specifically to decision-makers' daily pressures, not just technical curiosity.
-            </p>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="p-6 rounded-2xl bg-white border border-emerald-100 hover:border-emerald-300 shadow-sm hover:shadow-md transition-all duration-300 group">
-            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <i data-lucide="zap" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-800 mb-1">Root-Cause Instincts</h3>
-            <div class="text-xs font-mono text-emerald-600 mb-2 font-medium">Floor Ops → Query Diagnosis</div>
-            <p class="text-sm text-slate-600 leading-relaxed">
-              When guest tickets back up or operations stall, you diagnose bottlenecks in seconds. I bring this same rapid hypothesis testing when investigating anomalies in SQL datasets.
-            </p>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="p-6 rounded-2xl bg-white border border-purple-100 hover:border-purple-300 shadow-sm hover:shadow-md transition-all duration-300 group">
-            <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <i data-lucide="dollar-sign" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-800 mb-1">Revenue & Margin Sense</h3>
-            <div class="text-xs font-mono text-purple-600 mb-2 font-medium">P&L Reports → Business KPIs</div>
-            <p class="text-sm text-slate-600 leading-relaxed">
-              Managing table turnover, RevPAR, and labor cost ratios provided first-hand commercial intuition. I don't just calculate averages; I identify where profit margins are leaking.
-            </p>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="p-6 rounded-2xl bg-white border border-pink-100 hover:border-pink-300 shadow-sm hover:shadow-md transition-all duration-300 group">
-            <div class="w-12 h-12 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <i data-lucide="presentation" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-800 mb-1">Jargon-Free Storytelling</h3>
-            <div class="text-xs font-mono text-pink-600 mb-2 font-medium">Guest Service → Executive Brief</div>
-            <p class="text-sm text-slate-600 leading-relaxed">
-              I know how to deliver a clear message to busy people. I translate complex data distributions and regression models into three bullet points that a general manager can act upon.
-            </p>
-          </div>
-
-        </div>
-
       </div>
     </section>
 
-    <!-- ==================== TECHNICAL SKILLS ==================== -->
+    <!-- ==================== 2. TECHNICAL SKILLS ==================== -->
     <section id="skills" class="py-20 border-b border-slate-200/60 bg-pastel-cream">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Technical Competency</div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Skills & Analytical Toolkit</h2>
+            <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Technical Skills</div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">What I Can Do With My Tools</h2>
           </div>
           <p class="mt-2 md:mt-0 text-sm text-slate-600 max-w-md">
-            Continuously advancing practical proficiency through hands-on data cleaning, exploratory analysis, and real-world modeling.
+            The tools I use in my projects, and how I use them.
           </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="p-6 rounded-2xl bg-white border border-emerald-100/80 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-slate-800 text-base">Excel</h3>
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center"><i data-lucide="table" class="w-4 h-4"></i></div>
+            </div>
+            <ul class="space-y-3 text-sm text-slate-600">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Cleaning data</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>PivotTables</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Lookup formulas</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Charts</span></li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white border border-indigo-100/80 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-slate-800 text-base">SQL</h3>
+              <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center"><i data-lucide="database" class="w-4 h-4"></i></div>
+            </div>
+            <ul class="space-y-3 text-sm text-slate-600">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Filtering</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Grouping</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Joins</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Calculating metrics</span></li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white border border-purple-100/80 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-slate-800 text-base">Python</h3>
+              <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center"><i data-lucide="code-2" class="w-4 h-4"></i></div>
+            </div>
+            <ul class="space-y-3 text-sm text-slate-600">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Using pandas to inspect data</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Cleaning data</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Analysing data</span></li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white border border-amber-200/70 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-slate-800 text-base">Power BI</h3>
+              <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-4 h-4"></i></div>
+            </div>
+            <ul class="space-y-3 text-sm text-slate-600">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Building reports</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Visualisations</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Dashboards</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 3. FEATURED PROJECTS ==================== -->
+    <section id="projects" class="py-20 border-b border-slate-200/60 bg-white/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Featured Projects</div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Evidence of My Work</h2>
+          <p class="mt-3 text-slate-600 leading-relaxed">Each project starts with a business question and ends with what the data shows.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+          <!-- Project: Complaints Dashboard -->
+          <article class="group rounded-3xl bg-white border border-amber-200/90 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+            <a href="commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="block h-56 overflow-hidden border-b border-amber-200/70 bg-amber-50" aria-label="Open the live Complaints Dashboard">
+              <img src="assets/commbank-dashboard.png" alt="Complaints dashboard with KPI cards (467 complaints, 94.4% timely response, 20.6% disputed), complaints by channel, monthly trend, a map by Australian state, and an annual breakdown" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
+            </a>
+
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-emerald-100 text-emerald-700 border border-emerald-200">Live</span>
+                  <span class="text-xs text-slate-500 font-mono">467 complaints · 2011–2020</span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 group-hover:text-amber-700 transition-colors">Complaints Dashboard</h3>
+                <p class="text-sm text-slate-500 mb-4">Commonwealth Bank Customer Complaints Register &amp; SLA Performance (2011–2020)</p>
+
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
+                <p class="text-sm text-slate-700 leading-relaxed mb-4">A complaint can receive a response on time, but does that mean the customer’s concern has been resolved?</p>
+
+                <div class="p-3.5 rounded-xl bg-amber-50/70 border border-amber-100 mb-4 text-sm text-slate-700 leading-relaxed">
+                  <span class="text-amber-700 font-semibold">Finding:</span> 94.4% of complaints (441 of 467) received a timely response, yet 20.6% (96) were still escalated to a formal dispute, so on-time handling didn’t always mean the customer felt resolved.
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between pt-4 border-t border-slate-100 flex-wrap gap-3">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">HTML / JavaScript</span>
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Chart.js</span>
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Built with Claude AI</span>
+                </div>
+                <div class="flex items-center gap-4">
+                  <a href="commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-amber-700 transition">
+                    <span>Live App</span>
+                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  </a>
+                  <button type="button" onclick="openModal('commbankModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600 hover:text-amber-700 transition">
+                    <span>Read Case Study</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project: Hotel Booking Analysis (in progress) -->
+          <article class="group rounded-3xl bg-white border border-indigo-100/90 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+            <div class="h-56 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-6 flex flex-col justify-between border-b border-indigo-100/60">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-amber-100 text-amber-800 border border-amber-200 flex items-center gap-1.5">
+                  <i data-lucide="hammer" class="w-3.5 h-3.5"></i>
+                  <span>In progress</span>
+                </span>
+                <span class="text-xs text-slate-500 font-mono">Hospitality</span>
+              </div>
+              <div>
+                <i data-lucide="hotel" class="w-10 h-10 text-indigo-500 mb-2"></i>
+                <p class="text-sm text-slate-600">Connecting my hospitality experience with booking data.</p>
+              </div>
+            </div>
+
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-4">Hotel Booking Analysis</h3>
+
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
+                <p class="text-sm text-slate-700 leading-relaxed mb-4">Which booking factors are linked to higher cancellation rates, and what does that mean for revenue?</p>
+
+                <div class="p-3.5 rounded-xl bg-indigo-50/60 border border-indigo-100 mb-4 text-sm text-slate-700">
+                  <span class="text-indigo-600 font-semibold">Finding:</span> Coming once the analysis is complete.
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between pt-4 border-t border-slate-100 flex-wrap gap-3">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Excel</span>
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">SQL</span>
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Python</span>
+                </div>
+                <span class="text-xs font-semibold text-slate-400">Write-up coming soon</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 4. RELEVANT EXPERIENCE ==================== -->
+    <section id="experience" class="py-20 border-b border-slate-200/60 bg-pastel-cream">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Relevant Experience</div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Where I’ve Worked</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="p-6 rounded-2xl bg-white border border-purple-100 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center"><i data-lucide="utensils" class="w-4 h-4"></i></div>
+              <span class="text-xs text-slate-500 font-mono">Nov 2024 – Present</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">Food and Beverage Attendant</h3>
+            <p class="text-sm text-slate-600">Sofitel Adelaide</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white border border-indigo-100 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center"><i data-lucide="clipboard-list" class="w-4 h-4"></i></div>
+              <span class="text-xs text-slate-500 font-mono">Mar 2022 – Jun 2022</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">Business Analyst Intern</h3>
+            <p class="text-sm text-slate-600">Paxform</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white border border-indigo-100 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center"><i data-lucide="clipboard-list" class="w-4 h-4"></i></div>
+              <span class="text-xs text-slate-500 font-mono">Mar 2021 – Jun 2021</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">Business Analyst Intern</h3>
+            <p class="text-sm text-slate-600">ReadyTech</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white border border-purple-100 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center"><i data-lucide="utensils" class="w-4 h-4"></i></div>
+              <span class="text-xs text-slate-500 font-mono">Dec 2016 – Dec 2022</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">Food and Beverage Attendant</h3>
+            <p class="text-sm text-slate-600">International Convention Centre Sydney (ICC Sydney)</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white border border-emerald-100 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center"><i data-lucide="calculator" class="w-4 h-4"></i></div>
+              <span class="text-xs text-slate-500 font-mono">Mar 2011 – Jun 2011</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">External Auditor Intern</h3>
+            <p class="text-sm text-slate-600">Bunchikij Management, Bangkok, Thailand</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5 & 6. DEVELOPMENT + EDUCATION ==================== -->
+    <section id="education" class="py-20 bg-white border-b border-slate-200/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="max-w-3xl mb-8">
+          <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Professional Development &amp; Certifications</div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Currently Learning</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div class="p-6 rounded-3xl bg-pastel-cream border border-indigo-100 shadow-sm">
+            <div class="flex items-center justify-between mb-4 gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-indigo-100 text-indigo-700 border border-indigo-200 whitespace-nowrap">In Progress</span>
+              <span class="text-xs text-slate-500 font-mono whitespace-nowrap">Oct 2026 – Present</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">The Data &amp; AI Institute</h3>
+          </div>
+        </div>
+
+        <div class="max-w-3xl mb-8">
+          <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Education</div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Qualifications</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-          <!-- Category 1: SQL & Databases -->
-          <div class="p-6 rounded-2xl bg-white border border-indigo-100/80 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="font-bold text-slate-800 text-base">SQL & Data Warehousing</h3>
-              <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                <i data-lucide="database" class="w-4 h-4"></i>
-              </div>
-            </div>
-            <ul class="space-y-3 text-sm text-slate-600">
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>PostgreSQL & MySQL</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>CTEs, Window Functions & Joins</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Data Aggregations & Cohort Grouping</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Schema Design & Data Cleaning</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Category 2: BI & Visualization -->
-          <div class="p-6 rounded-2xl bg-white border border-emerald-100/80 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="font-bold text-slate-800 text-base">BI & Data Visualization</h3>
-              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-              </div>
-            </div>
-            <ul class="space-y-3 text-sm text-slate-600">
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Power BI & DAX Measures</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Tableau Public & Calculated Fields</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Executive KPI Scorecards</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Interactive Filters & Drill-downs</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Category 3: Python & Exploration -->
-          <div class="p-6 rounded-2xl bg-white border border-purple-100/80 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="font-bold text-slate-800 text-base">Python & Analytics</h3>
-              <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
-                <i data-lucide="code-2" class="w-4 h-4"></i>
-              </div>
-            </div>
-            <ul class="space-y-3 text-sm text-slate-600">
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Pandas for Data Wrangling</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>NumPy, Matplotlib & Seaborn</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Jupyter Notebooks Documentation</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Exploratory Data Analysis (EDA)</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Category 4: Excel & Spreadsheets -->
-          <div class="p-6 rounded-2xl bg-white border border-pink-100/80 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="font-bold text-slate-800 text-base">Spreadsheet Modeling</h3>
-              <div class="w-8 h-8 rounded-lg bg-pink-50 text-pink-600 flex items-center justify-center">
-                <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
-              </div>
-            </div>
-            <ul class="space-y-3 text-sm text-slate-600">
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Power Query ETL & Data Modeling</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Dynamic Pivot Tables & Slicers</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>XLOOKUP, INDEX/MATCH, Nested Logic</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i>
-                <span>Scenario & Sensitivity Analysis</span>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ==================== LIVE INTERACTIVE DASHBOARD DEMO ==================== -->
-    <section id="demo" class="py-20 bg-white border-b border-slate-200/60">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
-          <div>
-            <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-600 font-semibold mb-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Live Interactive Analysis
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Hotel Booking Cancellation & Revenue Leakage</h2>
-          </div>
-          <p class="mt-2 md:mt-0 text-sm text-slate-600 max-w-md">
-            Try switching views below to explore how lead time cohorts correlate with booking cancellations and lost revenue.
-          </p>
-        </div>
-
-        <!-- Live Dashboard Card -->
-        <div class="p-6 sm:p-8 rounded-3xl bg-pastel-cream border border-slate-200/80 shadow-md">
-          
-          <!-- Control Bar & Metric Cards -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
-            <!-- View toggles -->
-            <div class="inline-flex p-1 rounded-xl bg-white border border-slate-200 text-xs font-medium shadow-sm">
-              <button id="viewCancellationsBtn" class="px-3.5 py-1.5 rounded-lg bg-indigo-500 text-white font-semibold shadow-sm transition">
-                Cancellations by Lead Time
-              </button>
-              <button id="viewRevenueBtn" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
-                Revenue Loss by Room Type
-              </button>
-            </div>
-
-            <!-- Summary KPI Badges -->
-            <div class="flex flex-wrap items-center gap-3 text-xs font-mono">
-              <div class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 shadow-sm">
-                <span class="text-slate-500">Total Bookings: </span>
-                <span class="text-slate-900 font-bold">119,390</span>
-              </div>
-              <div class="px-3 py-1.5 rounded-xl bg-white border border-rose-200 shadow-sm">
-                <span class="text-slate-500">Overall Churn: </span>
-                <span class="text-rose-600 font-bold">37.0%</span>
-              </div>
-              <div class="px-3 py-1.5 rounded-xl bg-white border border-emerald-200 shadow-sm">
-                <span class="text-slate-500">Est. Annual Loss: </span>
-                <span class="text-emerald-700 font-bold">$142,500</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Chart Canvas Container -->
-          <div class="mt-6 bg-white p-4 rounded-2xl border border-slate-200/70">
-            <div class="chart-container">
-              <canvas id="liveChart"></canvas>
-            </div>
-          </div>
-
-          <!-- Insight callout below chart -->
-          <div class="mt-6 p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 flex items-start gap-3">
-            <i data-lucide="lightbulb" class="w-5 h-5 text-indigo-600 shrink-0 mt-0.5"></i>
-            <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
-              <strong class="text-slate-900">Actionable Finding:</strong> Bookings made more than 90 days in advance account for <span class="text-rose-600 font-semibold">62% of all cancellations</span> with zero financial deposit commitment. Implementing a stepped 15% deposit policy on &gt;90d bookings is projected to reduce cancellations by 28% and safeguard \$40K+ in quarterly cash flow.
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ==================== PROJECT SHOWCASE ==================== -->
-    <section id="projects" class="py-20 border-b border-slate-200/60 bg-pastel-cream">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
-          <div>
-            <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Featured Work</div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Data Analytics Case Studies</h2>
-          </div>
-          <p class="mt-2 md:mt-0 text-sm text-slate-600 max-w-md">
-            Click any project to inspect the full business problem, data cleaning pipeline, visualizations, and business impact.
-          </p>
-        </div>
-
-        <!-- Filter Buttons -->
-        <div class="flex flex-wrap items-center gap-2 mb-10" id="filterContainer">
-          <button data-filter="all" class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white shadow-sm transition">
-            All Projects (4)
-          </button>
-          <button data-filter="sql" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-sm transition">
-            SQL
-          </button>
-          <button data-filter="powerbi" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-sm transition">
-            Power BI
-          </button>
-          <button data-filter="tableau" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-sm transition">
-            Tableau
-          </button>
-          <button data-filter="python" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-sm transition">
-            Python
-          </button>
-          <button data-filter="excel" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-sm transition">
-            Excel
-          </button>
-        </div>
-
-        <!-- Project Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projectsGrid">
-
-          <!-- Project 1: Hotel Booking Cancellations -->
-          <div class="project-card group rounded-3xl bg-white border border-indigo-100/90 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col" data-tags="sql powerbi">
-            <div class="h-44 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-6 flex flex-col justify-between border-b border-indigo-100/60 relative">
-              <div class="flex items-center justify-between">
-                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-indigo-100/80 text-indigo-700 border border-indigo-200">SQL + Power BI</span>
-                <span class="text-xs text-slate-500 font-mono">Hospitality Revenue</span>
-              </div>
-              <div>
-                <i data-lucide="hotel" class="w-8 h-8 text-indigo-500 mb-2"></i>
-                <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Hotel Booking Cancellations & Revenue Protection</h3>
-              </div>
-            </div>
-            
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                  Investigated 119k reservation records to pinpoint drivers behind a 37% cancellation rate. Built SQL queries using window functions and designed an executive Power BI dashboard.
-                </p>
-                <div class="p-3.5 rounded-xl bg-indigo-50/60 border border-indigo-100 mb-4 text-xs font-mono text-slate-700">
-                  <span class="text-indigo-600 font-semibold">Key Result:</span> Identified \$142K revenue loss cluster in &gt;90d lead times; proposed deposit rule to save \$40K/yr.
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-                <div class="flex gap-2">
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">SQL CTEs</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">DAX</span>
-                </div>
-                <button onclick="openModal('hotelModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-700 transition">
-                  <span>Read Case Study</span>
-                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 2: Restaurant Customer Churn & Cohorts -->
-          <div class="project-card group rounded-3xl bg-white border border-emerald-100/90 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col" data-tags="python excel">
-            <div class="h-44 bg-gradient-to-br from-emerald-50 via-teal-50 to-sky-50 p-6 flex flex-col justify-between border-b border-emerald-100/60 relative">
-              <div class="flex items-center justify-between">
-                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-emerald-100/80 text-emerald-700 border border-emerald-200">Python + Pandas</span>
-                <span class="text-xs text-slate-500 font-mono">Customer Analytics</span>
-              </div>
-              <div>
-                <i data-lucide="utensils" class="w-8 h-8 text-emerald-600 mb-2"></i>
-                <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Restaurant Diner Retention & RFM Segmentation</h3>
-              </div>
-            </div>
-            
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                  Analyzed 45,000 POS transaction records to compute Customer Lifetime Value (CLV) and retention drop-offs. Modeled diner visit cadence to predict churn risk.
-                </p>
-                <div class="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-100 mb-4 text-xs font-mono text-slate-700">
-                  <span class="text-emerald-600 font-semibold">Key Result:</span> Uncovered critical 45-day re-visit threshold; proposed automated reward sequence increasing 2nd-visit return by 22%.
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-                <div class="flex gap-2">
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Pandas</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Seaborn</span>
-                </div>
-                <button onclick="openModal('restaurantModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition">
-                  <span>Read Case Study</span>
-                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 3: Guest Sentiment NLP & Topic Modeling -->
-          <div class="project-card group rounded-3xl bg-white border border-purple-100/90 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col" data-tags="python tableau">
-            <div class="h-44 bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 p-6 flex flex-col justify-between border-b border-purple-100/60 relative">
-              <div class="flex items-center justify-between">
-                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-purple-100/80 text-purple-700 border border-purple-200">Python + Tableau</span>
-                <span class="text-xs text-slate-500 font-mono">Sentiment & Text Analytics</span>
-              </div>
-              <div>
-                <i data-lucide="message-square" class="w-8 h-8 text-purple-500 mb-2"></i>
-                <h3 class="text-xl font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Hospitality Guest Reviews Sentiment & Root Cause</h3>
-              </div>
-            </div>
-            
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                  Extracted and cleaned 8,500 TripAdvisor and Google reviews. Used VADER sentiment scoring and N-gram clustering to categorize negative guest experiences automatically.
-                </p>
-                <div class="p-3.5 rounded-xl bg-purple-50/60 border border-purple-100 mb-4 text-xs font-mono text-slate-700">
-                  <span class="text-purple-600 font-semibold">Key Result:</span> Revealed that 68% of 1-star reviews cited front-desk check-in bottlenecks rather than room cleanliness.
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-                <div class="flex gap-2">
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">NLP</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Tableau Public</span>
-                </div>
-                <button onclick="openModal('sentimentModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-600 hover:text-purple-700 transition">
-                  <span>Read Case Study</span>
-                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 4: Dynamic Labor & Cost Variance Model -->
-          <div class="project-card group rounded-3xl bg-white border border-pink-100/90 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col" data-tags="excel sql">
-            <div class="h-44 bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50 p-6 flex flex-col justify-between border-b border-pink-100/60 relative">
-              <div class="flex items-center justify-between">
-                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-pink-100/80 text-pink-700 border border-pink-200">Advanced Excel + SQL</span>
-                <span class="text-xs text-slate-500 font-mono">Operations & P&L</span>
-              </div>
-              <div>
-                <i data-lucide="trending-up" class="w-8 h-8 text-pink-500 mb-2"></i>
-                <h3 class="text-xl font-bold text-slate-900 group-hover:text-pink-600 transition-colors">Labor & Food Cost Dynamic Variance Model</h3>
-              </div>
-            </div>
-            
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                  Constructed an automated Power Query spreadsheet integrating hourly scheduling data with POS sales to monitor prime cost variances against weekly weather forecasts.
-                </p>
-                <div class="p-3.5 rounded-xl bg-pink-50/60 border border-pink-100 mb-4 text-xs font-mono text-slate-700">
-                  <span class="text-pink-600 font-semibold">Key Result:</span> Trimmed weekly over-staffing labor variance by 12% across 3 properties, saving ~\$1,800/month.
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-                <div class="flex gap-2">
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Power Query</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">What-If Models</span>
-                </div>
-                <button onclick="openModal('laborModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-pink-600 hover:text-pink-700 transition">
-                  <span>Read Case Study</span>
-                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ==================== LEARNING MILESTONES & CERTIFICATIONS ==================== -->
-    <section id="certifications" class="py-20 bg-white border-b border-slate-200/60">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="max-w-3xl mb-12">
-          <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Continuous Growth</div>
-          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Certifications & Learning Roadmap</h2>
-          <p class="mt-3 text-slate-600 leading-relaxed">
-            I approach upskilling with discipline and structure, pairing rigorous certification curriculum with original portfolio projects.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-          <!-- Cert 1 -->
-          <div class="p-6 rounded-3xl bg-pastel-cream border border-emerald-100 shadow-sm">
-            <div class="flex items-center justify-between mb-4">
-              <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-emerald-100 text-emerald-700 border border-emerald-200">Completed</span>
-              <span class="text-xs text-slate-500 font-mono">Google / Coursera</span>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2">Google Data Analytics Professional Certificate</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Comprehensive 8-course track covering spreadsheets, SQL data cleaning, Tableau visualization, and R programming foundations.
-            </p>
-          </div>
-
-          <!-- Cert 2 -->
           <div class="p-6 rounded-3xl bg-pastel-cream border border-indigo-100 shadow-sm">
-            <div class="flex items-center justify-between mb-4">
-              <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-indigo-100 text-indigo-700 border border-indigo-200">In Progress (85%)</span>
-              <span class="text-xs text-slate-500 font-mono">Advanced SQL</span>
+            <div class="flex items-center justify-between mb-4 gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-emerald-100 text-emerald-700 border border-emerald-200">Completed 2020</span>
+              <i data-lucide="graduation-cap" class="w-5 h-5 text-indigo-500"></i>
             </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2">Advanced SQL for Data Analysis & BI</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Deep dive into complex joins, Window Functions (RANK, DENSE_RANK, LAG, LEAD), common table expressions (CTEs), and query optimization.
-            </p>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Master of Information Technology (Business Analysis)</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Charles Sturt University, Sydney, Australia</p>
           </div>
 
-          <!-- Cert 3 -->
+          <div class="p-6 rounded-3xl bg-pastel-cream border border-emerald-100 shadow-sm">
+            <div class="flex items-center justify-between mb-4 gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-emerald-100 text-emerald-700 border border-emerald-200">Completed 2020</span>
+              <i data-lucide="calculator" class="w-5 h-5 text-emerald-500"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Advanced Diploma in Accounting</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Australian College of Technology, Sydney, Australia</p>
+          </div>
+
           <div class="p-6 rounded-3xl bg-pastel-cream border border-purple-100 shadow-sm">
-            <div class="flex items-center justify-between mb-4">
-              <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-purple-100 text-purple-700 border border-purple-200">Next Target</span>
-              <span class="text-xs text-slate-500 font-mono">Microsoft PL-300</span>
+            <div class="flex items-center justify-between mb-4 gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-emerald-100 text-emerald-700 border border-emerald-200">Completed 2018</span>
+              <i data-lucide="users" class="w-5 h-5 text-purple-500"></i>
             </div>
-            <h3 class="text-lg font-bold text-slate-900 mb-2">Microsoft Power BI Data Analyst (PL-300)</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              Targeting formal certification in data modeling with DAX, Power Query transformation, and scalable enterprise dashboard deployment.
-            </p>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Diploma of Leadership and Management</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Australian Academy of Commerce, Sydney, Australia</p>
           </div>
 
+          <div class="p-6 rounded-3xl bg-pastel-cream border border-pink-100 shadow-sm">
+            <div class="flex items-center justify-between mb-4 gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-emerald-100 text-emerald-700 border border-emerald-200">Completed 2013</span>
+              <i data-lucide="book-open" class="w-5 h-5 text-pink-500"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Bachelor’s Degree in Accounting</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">Mae Fah Luang University, Thailand</p>
+          </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ==================== CONTACT & BIO ==================== -->
+    <!-- ==================== 7. CONNECT WITH ME ==================== -->
     <section id="contact" class="py-20 bg-pastel-cream">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
+
           <div>
-            <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Let's Connect</div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Ready to Bring Frontline Empathy to Your Data Team</h2>
+            <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Connect With Me</div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Let’s Talk</h2>
             <p class="mt-4 text-slate-600 leading-relaxed">
-              Whether you have an opening for an Associate/Junior Data Analyst, a freelance dashboard project, or simply want to chat about career transitions in tech, my inbox is always open.
+              I’d love to hear about data analyst opportunities, or from anyone who has moved from a customer-facing role into analytics.
             </p>
 
             <div class="mt-8 space-y-4 text-sm text-slate-700">
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-indigo-600">
-                  <i data-lucide="mail" class="w-4 h-4"></i>
-                </div>
-                <div>
-                  <div class="text-xs text-slate-500">Direct Email</div>
-                  <a href="mailto:gifty.cp.analyst@example.com" class="font-medium text-slate-900 hover:text-indigo-600 transition">gifty.cp.analyst@example.com</a>
+                <div class="w-10 h-10 shrink-0 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-indigo-600"><i data-lucide="mail" class="w-4 h-4"></i></div>
+                <div class="min-w-0">
+                  <div class="text-xs text-slate-500">Email</div>
+                  <a href="mailto:c.punyachai8@gmail.com" class="font-medium text-slate-900 hover:text-indigo-600 transition break-all">c.punyachai8@gmail.com</a>
                 </div>
               </div>
-
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-emerald-600">
-                  <i data-lucide="map-pin" class="w-4 h-4"></i>
+                <div class="w-10 h-10 shrink-0 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-blue-600"><i data-lucide="linkedin" class="w-4 h-4"></i></div>
+                <div class="min-w-0">
+                  <div class="text-xs text-slate-500">LinkedIn</div>
+                  <a href="https://www.linkedin.com/in/cpunyachai/" target="_blank" rel="noopener noreferrer" class="font-medium text-slate-900 hover:text-indigo-600 transition">linkedin.com/in/cpunyachai</a>
                 </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 shrink-0 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-emerald-600"><i data-lucide="map-pin" class="w-4 h-4"></i></div>
                 <div>
                   <div class="text-xs text-slate-500">Location</div>
-                  <div class="font-medium text-slate-900">Open to Remote / Hybrid / Relocation</div>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-purple-600">
-                  <i data-lucide="file-check" class="w-4 h-4"></i>
-                </div>
-                <div>
-                  <div class="text-xs text-slate-500">Resume</div>
-                  <a href="#" class="font-medium text-indigo-600 hover:underline">Download Latest Resume (PDF)</a>
+                  <div class="font-medium text-slate-900">Adelaide, SA · Open to on-site, hybrid or remote</div>
                 </div>
               </div>
             </div>
 
-            <!-- Social Links -->
-            <div class="mt-8 flex items-center gap-3">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-indigo-300 text-xs font-semibold text-slate-700 hover:text-indigo-600 flex items-center gap-2 transition">
-                <i data-lucide="linkedin" class="w-4 h-4 text-blue-500"></i>
-                <span>LinkedIn</span>
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+              <a href="https://www.linkedin.com/in/cpunyachai/" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-indigo-300 text-xs font-semibold text-slate-700 hover:text-indigo-600 flex items-center gap-2 transition">
+                <i data-lucide="linkedin" class="w-4 h-4 text-blue-500"></i><span>LinkedIn</span>
               </a>
               <a href="https://github.com/gifty-cp" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-indigo-300 text-xs font-semibold text-slate-700 hover:text-indigo-600 flex items-center gap-2 transition">
-                <i data-lucide="github" class="w-4 h-4 text-slate-800"></i>
-                <span>GitHub</span>
-              </a>
-              <a href="https://public.tableau.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:border-indigo-300 text-xs font-semibold text-slate-700 hover:text-indigo-600 flex items-center gap-2 transition">
-                <i data-lucide="pie-chart" class="w-4 h-4 text-amber-500"></i>
-                <span>Tableau Public</span>
+                <i data-lucide="github" class="w-4 h-4 text-slate-800"></i><span>GitHub</span>
               </a>
             </div>
-
           </div>
 
-          <!-- Contact Form Box -->
+          <!-- Contact form: opens the visitor's email app with the message filled in -->
           <div class="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm">
             <h3 class="text-lg font-bold text-slate-900 mb-1">Send a Message</h3>
-            <p class="text-xs text-slate-500 mb-6">Fill out the quick form below to connect directly.</p>
+            <p class="text-xs text-slate-500 mb-6">This opens your email app with your message ready to send.</p>
 
-            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+            <form id="contactForm" class="space-y-4">
               <div>
                 <label for="name" class="block text-xs font-medium text-slate-700 mb-1">Your Name</label>
                 <input type="text" id="name" required placeholder="Jane Doe" class="w-full px-4 py-2.5 rounded-xl bg-pastel-cream border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 transition">
               </div>
-
               <div>
-                <label for="email" class="block text-xs font-medium text-slate-700 mb-1">Email Address</label>
-                <input type="email" id="email" required placeholder="jane@example.com" class="w-full px-4 py-2.5 rounded-xl bg-pastel-cream border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 transition">
+                <label for="message" class="block text-xs font-medium text-slate-700 mb-1">Message</label>
+                <textarea id="message" rows="4" required placeholder="Hi Gifty, I came across your portfolio and would love to chat about..." class="w-full px-4 py-2.5 rounded-xl bg-pastel-cream border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 transition resize-none"></textarea>
               </div>
-
-              <div>
-                <label for="message" class="block text-xs font-medium text-slate-700 mb-1">Message / Inquiry</label>
-                <textarea id="message" rows="4" required placeholder="Hi Gifty, I came across your portfolio and would love to discuss..." class="w-full px-4 py-2.5 rounded-xl bg-pastel-cream border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-indigo-500 transition resize-none"></textarea>
-              </div>
-
-              <button type="submit" id="submitBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-medium text-sm shadow-md shadow-indigo-200 transition flex items-center justify-center gap-2">
+              <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-medium text-sm shadow-md shadow-indigo-200 transition flex items-center justify-center gap-2">
                 <i data-lucide="send" class="w-4 h-4"></i>
-                <span>Send Message</span>
+                <span>Write Email</span>
               </button>
-
-              <div id="formSuccess" class="hidden text-center text-xs font-medium text-emerald-600 pt-2">
-                Thank you! Your message has been sent successfully.
-              </div>
             </form>
           </div>
 
         </div>
-
       </div>
     </section>
   </main>
@@ -823,393 +652,136 @@
   <!-- ==================== FOOTER ==================== -->
   <footer class="border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>© 2026 Gifty CP. Built with HTML5, Tailwind CSS, & Chart.js.</div>
-      <div class="flex items-center gap-4">
+      <div>© <span id="year">2026</span> Chanakarn (Gifty) Punyachai</div>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#about" class="hover:text-slate-800 transition">About Me</a>
         <a href="#projects" class="hover:text-slate-800 transition">Projects</a>
-        <a href="#transition" class="hover:text-slate-800 transition">Transition Story</a>
         <a href="#contact" class="hover:text-slate-800 transition">Contact</a>
         <a href="#" class="hover:text-slate-800 transition">Back to Top ↑</a>
       </div>
     </div>
   </footer>
 
-  <!-- ==================== DEEP DIVE MODALS ==================== -->
-  <!-- Modal 1: Hotel Booking Case Study -->
-  <div id="hotelModal" class="modal fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+  <!-- ==================== CASE STUDY MODAL ==================== -->
+  <div id="commbankModal" class="modal fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="commbankTitle">
     <div class="relative w-full max-w-3xl rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl">
-      <button onclick="closeModal('hotelModal')" aria-label="Close modal" class="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-900">
+      <button type="button" onclick="closeModal('commbankModal')" aria-label="Close" class="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-900 transition">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <div class="flex items-center gap-2 text-xs font-mono text-indigo-600 mb-2">
-        <i data-lucide="hotel" class="w-4 h-4"></i>
-        <span>Hospitality Revenue Analytics</span>
+      <div class="flex items-center gap-2 text-xs font-mono text-amber-700 mb-2 pr-12">
+        <i data-lucide="landmark" class="w-4 h-4"></i>
+        <span>Case Study · Customer Complaints Analytics</span>
       </div>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Hotel Booking Cancellations & Revenue Protection</h2>
+      <h2 id="commbankTitle" class="text-2xl font-bold text-slate-900 mb-1 pr-12">Complaints Dashboard</h2>
+      <p class="text-sm text-slate-500 mb-4">Commonwealth Bank Customer Complaints Register &amp; SLA Performance (2011–2020)</p>
+      <div class="flex flex-wrap items-center gap-3 pb-4 mb-5 border-b border-slate-100">
+        <span class="text-xs text-slate-500 font-mono">Dataset: 467 complaints (2011–2020)</span>
+        <a href="commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="sm:ml-auto inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white shadow-sm transition">
+          <span>Open Live Dashboard</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+        <a href="https://github.com/gifty-cp/gifty-cp.github.io/blob/main/commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-indigo-600 transition">
+          <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
+          <span>View the Files</span>
+        </a>
+      </div>
 
-      <div class="space-y-6 text-sm text-slate-600">
-        <div>
-          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-1">1. Business Problem</h4>
-          <p class="leading-relaxed">
-            The hotel partner was experiencing an alarming 37% overall cancellation rate, leading to empty rooms that could not be re-sold on short notice and an estimated annual revenue loss exceeding \$140,000.
-          </p>
+      <img src="assets/commbank-dashboard.png" alt="Screenshot of the Complaints Dashboard" class="w-full rounded-2xl border border-slate-200 mb-6">
+
+      <div class="space-y-5">
+        <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100">
+          <h4 class="text-xs uppercase font-mono tracking-wider text-indigo-700 font-bold mb-1">1. Business Question</h4>
+          <p class="text-sm text-slate-800 leading-relaxed">A complaint can receive a response on time, but does that mean the customer’s concern has been resolved?</p>
         </div>
 
         <div>
-          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-1">2. Data Cleaning & Methodology (SQL)</h4>
-          <p class="leading-relaxed mb-2">
-            Loaded 119,390 records across City Hotel and Resort Hotel properties. Handled missing agent and company IDs, filtered out erroneous 0-guest bookings, and engineered cohorts for lead-time brackets (0-30d, 31-90d, 91-180d, 180d+).
-          </p>
-          <pre class="p-3.5 rounded-xl bg-slate-900 text-xs font-mono text-slate-200 overflow-x-auto">
-<span class="text-teal-400">WITH</span> lead_cohorts <span class="text-teal-400">AS</span> (
-  <span class="text-teal-400">SELECT</span> 
-    <span class="text-indigo-400">CASE</span> 
-      <span class="text-indigo-400">WHEN</span> lead_time &lt;= 30 <span class="text-indigo-400">THEN</span> '0-30 days'
-      <span class="text-indigo-400">WHEN</span> lead_time &lt;= 90 <span class="text-indigo-400">THEN</span> '31-90 days'
-      <span class="text-indigo-400">ELSE</span> '90+ days'
-    <span class="text-indigo-400">END</span> <span class="text-teal-400">AS</span> lead_bracket,
-    is_canceled,
-    adr * (stays_in_week_nights + stays_in_weekend_nights) <span class="text-teal-400">AS</span> est_revenue
-  <span class="text-teal-400">FROM</span> hotel_bookings
-)
-<span class="text-teal-400">SELECT</span> 
-  lead_bracket,
-  <span class="text-indigo-400">COUNT</span>(*) <span class="text-teal-400">AS</span> total_bookings,
-  <span class="text-indigo-400">ROUND</span>(<span class="text-indigo-400">AVG</span>(is_canceled) * 100, 2) <span class="text-teal-400">AS</span> cancellation_pct
-<span class="text-teal-400">FROM</span> lead_cohorts
-<span class="text-teal-400">GROUP BY</span> lead_bracket;</pre>
-        </div>
-
-        <div>
-          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-1">3. Key Analytical Insights</h4>
-          <ul class="list-disc pl-5 space-y-1 text-slate-600">
-            <li>Bookings made &gt;90 days in advance had a 58.4% cancellation rate compared to just 14.1% for reservations made within 14 days.</li>
-            <li>Non-refundable bookings accounted for only 12% of total volume but suffered from high dispute friction.</li>
-            <li>Online Travel Agencies (OTAs) had double the cancellation rate of direct telephone or brand website bookings.</li>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-2">2. What the Dashboard Explores</h4>
+          <ul class="space-y-2 text-sm text-slate-700">
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Total complaints, timely responses, disputes, relief rates and cases still in progress</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>How complaints were submitted, including web, referral and phone</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Quarterly complaint trends and annual breakdowns by product</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Complaint volumes across Australian states</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Interactive filters by product, issue and year</span></li>
           </ul>
         </div>
 
-        <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100">
-          <h4 class="text-xs uppercase font-mono tracking-wider text-indigo-700 font-bold mb-1">4. Executive Recommendation & Impact</h4>
-          <p class="text-sm text-slate-800 leading-relaxed">
-            Advised management to replace the rigid binary (free cancellation vs. 100% non-refundable) with a tiered 15% deposit policy for any booking &gt;60 days out. Initial pilot modeling showed this retained 82% of booking volume while eliminating speculative reservations, protecting an estimated \$42,000 annually.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal 2: Restaurant Churn Case Study -->
-  <div id="restaurantModal" class="modal fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-    <div class="relative w-full max-w-3xl rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl">
-      <button onclick="closeModal('restaurantModal')" aria-label="Close modal" class="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-900">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-
-      <div class="flex items-center gap-2 text-xs font-mono text-emerald-600 mb-2">
-        <i data-lucide="utensils" class="w-4 h-4"></i>
-        <span>Customer Retention & RFM</span>
-      </div>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Restaurant Diner Retention & RFM Segmentation</h2>
-
-      <div class="space-y-6 text-sm text-slate-600">
-        <div>
-          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-1">1. Business Problem</h4>
-          <p class="leading-relaxed">
-            Acquiring first-time diners through local marketing promotions was costly, yet 74% of first-time diners never returned for a second meal within a 6-month window.
-          </p>
+        <div class="p-4 rounded-2xl bg-amber-50 border border-amber-100">
+          <h4 class="text-xs uppercase font-mono tracking-wider text-amber-700 font-bold mb-1">3. Finding</h4>
+          <p class="text-sm text-slate-800 leading-relaxed">94.4% of complaints (441 of 467) received a timely response, yet 20.6% (96) were still escalated to a formal dispute, so on-time handling didn’t always mean the customer felt resolved.</p>
         </div>
 
         <div>
-          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-1">2. Methodology (Python & Pandas)</h4>
-          <p class="leading-relaxed">
-            Engineered an RFM (Recency, Frequency, Monetary) segmentation pipeline in Python. Grouped 45,000 guest visits into behavioral clusters: Champions, At-Risk Loyalists, and One-Time Visitors.
-          </p>
-        </div>
-
-        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
-          <h4 class="text-xs uppercase font-mono tracking-wider text-emerald-700 font-bold mb-1">3. Action & ROI</h4>
-          <p class="text-sm text-slate-800 leading-relaxed">
-            Recommended an automated email/SMS sequence triggered precisely on Day 14 post-first-visit offering a chef's complimentary dessert on their next visit. The automated campaign boosted 2nd-visit conversion by 22%.
-          </p>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-2">4. Why This Question Matters to Me</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">I relate to it from hospitality, where responding quickly and making sure a guest feels heard both matter. Claude AI helped me build the dashboard, while I practised reading charts, understanding the measures, and thinking about what the numbers can, and cannot, tell us.</p>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Modal 3: Sentiment NLP Case Study -->
-  <div id="sentimentModal" class="modal fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-    <div class="relative w-full max-w-3xl rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl">
-      <button onclick="closeModal('sentimentModal')" aria-label="Close modal" class="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-900">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-
-      <div class="flex items-center gap-2 text-xs font-mono text-purple-600 mb-2">
-        <i data-lucide="message-square" class="w-4 h-4"></i>
-        <span>Unstructured Text Analytics</span>
-      </div>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Hospitality Guest Reviews Sentiment & Root Cause</h2>
-
-      <div class="space-y-6 text-sm text-slate-600">
-        <div>
-          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-1">1. Business Context</h4>
-          <p class="leading-relaxed">
-            Management was overwhelmed by inconsistent ratings across Google, TripAdvisor, and Booking.com without a unified view of root causes for low scores.
-          </p>
-        </div>
-
-        <div class="p-4 rounded-2xl bg-purple-50 border border-purple-100">
-          <h4 class="text-xs uppercase font-mono tracking-wider text-purple-700 font-bold mb-1">2. Critical Discovery</h4>
-          <p class="text-sm text-slate-800 leading-relaxed">
-            While general management assumed housekeeping issues drove low scores, text clustering proved that phrases like "check-in line", "front desk wait", and "luggage delay" appeared in 68% of 1-star reviews during Friday 3 PM - 7 PM windows. Staffing reallocations solved the primary complaint driver within 30 days.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal 4: Labor & Cost Variance Model -->
-  <div id="laborModal" class="modal fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-    <div class="relative w-full max-w-3xl rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl">
-      <button onclick="closeModal('laborModal')" aria-label="Close modal" class="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-900">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-
-      <div class="flex items-center gap-2 text-xs font-mono text-pink-600 mb-2">
-        <i data-lucide="trending-up" class="w-4 h-4"></i>
-        <span>Operations & Cost Control</span>
-      </div>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Labor & Food Cost Dynamic Variance Model</h2>
-
-      <div class="space-y-6 text-sm text-slate-600">
-        <div>
-          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-1">1. Business Problem</h4>
-          <p class="leading-relaxed">
-            Restaurant prime costs (labor + food) regularly swung between 58% and 72% of gross revenue, causing unpredictability in end-of-month cash flow due to weather-induced customer fluctuations.
-          </p>
-        </div>
-
-        <div class="p-4 rounded-2xl bg-pink-50 border border-pink-100">
-          <h4 class="text-xs uppercase font-mono tracking-wider text-pink-700 font-bold mb-1">2. Quantifiable Impact</h4>
-          <p class="text-sm text-slate-800 leading-relaxed">
-            Reduced prime cost variance to within ±2.5% of target, preventing an average of 18 over-scheduled labor hours per week per location.
-          </p>
-        </div>
+      <div class="mt-6 pt-4 border-t border-slate-100 text-right">
+        <button type="button" onclick="closeModal('commbankModal')" class="text-xs text-slate-500 hover:text-slate-800 underline">Close case study</button>
       </div>
     </div>
   </div>
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
+    if (window.lucide) lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile Menu Toggle
+    // Dark / light theme
+    const themeToggle = document.getElementById('themeToggle');
+    function syncThemeLabel() {
+      const dark = document.documentElement.classList.contains('dark');
+      themeToggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+      themeToggle.setAttribute('aria-pressed', String(dark));
+    }
+    themeToggle.addEventListener('click', () => {
+      const dark = document.documentElement.classList.toggle('dark');
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+      syncThemeLabel();
+    });
+    syncThemeLabel();
+
+    // Mobile menu
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      mobileMenuBtn.setAttribute('aria-expanded', String(open));
     });
-
     document.querySelectorAll('#mobileMenu a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
     });
 
-    // ==================== LIVE CHART.JS INITIALIZATION (PASTEL THEME) ====================
-    let liveChartInstance = null;
-
-    const dataLeadTime = {
-      labels: ['0-7 Days', '8-30 Days', '31-60 Days', '61-90 Days', '91-180 Days', '180+ Days'],
-      datasets: [
-        {
-          label: 'Cancellation Rate (%)',
-          data: [11.2, 18.5, 29.4, 38.1, 54.6, 64.2],
-          backgroundColor: 'rgba(99, 102, 241, 0.75)', // Pastel Indigo
-          borderColor: '#6366F1',
-          borderWidth: 2,
-          borderRadius: 8,
-          yAxisID: 'y'
-        },
-        {
-          label: 'Total Bookings',
-          data: [14200, 22100, 26400, 21800, 20300, 14590],
-          type: 'line',
-          borderColor: '#10B981', // Pastel Emerald
-          backgroundColor: 'rgba(16, 185, 129, 0.12)',
-          borderWidth: 3,
-          tension: 0.35,
-          fill: true,
-          yAxisID: 'y1'
-        }
-      ]
-    };
-
-    const dataRevenueByRoom = {
-      labels: ['Standard Single', 'Deluxe Double', 'Executive Suite', 'Family Suite', 'Presidential'],
-      datasets: [
-        {
-          label: 'Lost Revenue ($)',
-          data: [18400, 52600, 41200, 23800, 6500],
-          backgroundColor: 'rgba(244, 114, 182, 0.8)', // Pastel Rose/Pink
-          borderColor: '#F472B6',
-          borderWidth: 2,
-          borderRadius: 8,
-          yAxisID: 'y'
-        }
-      ]
-    };
-
-    function initChart(chartData) {
-      const ctx = document.getElementById('liveChart').getContext('2d');
-      const textColor = '#64748B';
-      const gridColor = '#F1F5F9';
-
-      if (liveChartInstance) {
-        liveChartInstance.destroy();
-      }
-
-      liveChartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: chartData,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              labels: {
-                color: '#334155',
-                font: { family: 'Inter', size: 12, weight: '500' }
-              }
-            },
-            tooltip: {
-              padding: 12,
-              backgroundColor: '#FFFFFF',
-              titleColor: '#0F172A',
-              bodyColor: '#334155',
-              borderColor: '#E2E8F0',
-              borderWidth: 1,
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-            }
-          },
-          scales: {
-            x: {
-              ticks: { color: textColor, font: { family: 'Inter' } },
-              grid: { color: gridColor }
-            },
-            y: {
-              ticks: { color: textColor, font: { family: 'Inter' } },
-              grid: { color: gridColor }
-            },
-            y1: chartData.datasets.length > 1 ? {
-              position: 'right',
-              ticks: { color: '#059669', font: { family: 'Inter' } },
-              grid: { drawOnChartArea: false }
-            } : undefined
-          }
-        }
-      });
+    // Modal
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
     }
-
-    // Chart toggle buttons
-    const viewCancellationsBtn = document.getElementById('viewCancellationsBtn');
-    const viewRevenueBtn = document.getElementById('viewRevenueBtn');
-
-    viewCancellationsBtn.addEventListener('click', () => {
-      viewCancellationsBtn.className = "px-3.5 py-1.5 rounded-lg bg-indigo-500 text-white font-semibold shadow-sm transition";
-      viewRevenueBtn.className = "px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
-      initChart(dataLeadTime);
-    });
-
-    viewRevenueBtn.addEventListener('click', () => {
-      viewRevenueBtn.className = "px-3.5 py-1.5 rounded-lg bg-pink-500 text-white font-semibold shadow-sm transition";
-      viewCancellationsBtn.className = "px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
-      initChart(dataRevenueByRoom);
-    });
-
-    // Start with default chart
-    initChart(dataLeadTime);
-
-    // ==================== PROJECT FILTERING ====================
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterButtons.forEach(b => {
-          b.className = "filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-sm transition";
-        });
-        btn.className = "filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white shadow-sm transition";
-
-        const filter = btn.getAttribute('data-filter');
-
-        projectCards.forEach(card => {
-          const tags = card.getAttribute('data-tags') || "";
-          if (filter === 'all' || tags.includes(filter)) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-
-    // ==================== MODALS ====================
-    function openModal(modalId) {
-      const modal = document.getElementById(modalId);
-      if (modal) {
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      }
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
     }
-
-    function closeModal(modalId) {
-      const modal = document.getElementById(modalId);
-      if (modal) {
-        modal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-      }
-    }
-
     document.querySelectorAll('.modal').forEach(modal => {
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.classList.add('hidden');
-          document.body.style.overflow = 'auto';
-        }
-      });
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(modal.id); });
+    });
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.querySelectorAll('.modal').forEach(m => closeModal(m.id));
     });
 
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal').forEach(modal => {
-          modal.classList.add('hidden');
-          document.body.style.overflow = 'auto';
-        });
-      }
+    // Contact form → opens an email draft addressed to Gifty
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const subject = encodeURIComponent('Portfolio enquiry from ' + name);
+      const body = encodeURIComponent(message + '\n\n' + name);
+      window.location.href = 'mailto:c.punyachai8@gmail.com?subject=' + subject + '&body=' + body;
     });
-
-    // Contact Form Mock
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      const submitBtn = document.getElementById('submitBtn');
-      const formSuccess = document.getElementById('formSuccess');
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>Sending...</span>`;
-
-      setTimeout(() => {
-        submitBtn.innerHTML = `<span>Sent!</span>`;
-        formSuccess.classList.remove('hidden');
-        event.target.reset();
-        setTimeout(() => {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = `<i data-lucide="send" class="w-4 h-4"></i><span>Send Message</span>`;
-          lucide.createIcons();
-        }, 3000);
-      }, 700);
-    }
   </script>
 </body>
 </html>

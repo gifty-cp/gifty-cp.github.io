@@ -1,40 +1,63 @@
-# 📊 Gifty CP — Data Analyst Portfolio
+# Chanakarn (Gifty) Punyachai: Data Analyst Portfolio
 
-Live Site: **[https://gifty-cp.github.io](https://gifty-cp.github.io)**
+Live site: **[https://gifty-cp.github.io](https://gifty-cp.github.io)**
 
-> Designed specifically for professionals transitioning from **Hospitality Management into Data Analytics**. 
-> Emphasizes transferable strengths: stakeholder empathy, rapid root-cause diagnosis, commercial margin intuition, and jargon-free data storytelling.
+Aspiring Data Analyst based in Adelaide, South Australia, combining hospitality experience, a Master of Information Technology (Business Analysis) and an accounting background with hands-on data projects.
 
 ---
 
-## 🚀 Quick Start (Local Preview)
+## What's on the site
 
-Because this portfolio is built with lightweight **HTML5, Tailwind CSS (via CDN), Lucide Icons, and Chart.js**, there is **no build step, no npm install, and zero setup** required.
+| Section | What it shows |
+|---|---|
+| **Profile sidebar** | Headshot, name, bio, location, and links to LinkedIn, GitHub and email |
+| **About me** | My background and why I'm moving into analytics |
+| **Technical skills** | Excel, SQL, Python and Power BI, and what I use each one for |
+| **Featured projects** | Business question, tools, preview, finding and links for each project |
+| **Relevant experience** | Hospitality and Business Analyst internship roles |
+| **Professional development** | Current learning, including The Data & AI Institute |
+| **Education** | Master of IT (Business Analysis), accounting and leadership qualifications |
+| **Connect with me** | LinkedIn, email and work preferences |
 
-### Option 1: Direct File Open
-Simply double-click [`index.html`](file:///Users/chanakarnpunyachai/Projects/gifty-cp.github.io/index.html) in Finder or your browser.
+## Featured projects
 
-### Option 2: Local HTTP Server
-Run the following in your terminal:
+- **[Complaints Dashboard](https://gifty-cp.github.io/commbank-dashboard.html)**: Commonwealth Bank Customer Complaints Register & SLA Performance (2011–2020). An interactive dashboard covering 467 complaints. 94.4% received a timely response, yet 20.6% were still escalated to a formal dispute.
+- **Hotel Booking Analysis** *(in progress)*: exploring which booking factors are linked to higher cancellation rates.
+
+---
+
+## Files
+
+```
+index.html               Portfolio page (single file, no build step)
+commbank-dashboard.html  Interactive Complaints Dashboard
+assets/
+  commbank-dashboard.png Dashboard preview image
+  headshot.jpg           Profile photo (add your own; initials show until then)
+```
+
+## Preview locally
+
+Double-click `index.html`, or run a local server:
 
 ```bash
 cd ~/Projects/gifty-cp.github.io
 python3 -m http.server 8080
 ```
-Then open [http://localhost:8080](http://localhost:8080) in your browser.
 
----
+Then open [http://localhost:8080](http://localhost:8080).
 
-## 🌐 Deploy to Your GitHub Pages (`gifty-cp.github.io`)
+## Publish
 
-Because this repository is named `gifty-cp.github.io`, GitHub Pages serves the `main` branch directly at **https://gifty-cp.github.io**!
-
-Inside `~/Projects/gifty-cp.github.io`:
+GitHub Pages serves the `main` branch of this repository at https://gifty-cp.github.io:
 
 ```bash
-git add .
-git commit -m "Deploy portfolio website"
+git add index.html commbank-dashboard.html assets README.md
+git commit -m "Update portfolio"
 git push origin main
 ```
 
-Your site will automatically be live at **https://gifty-cp.github.io**!
+## Contact
+
+- LinkedIn: [linkedin.com/in/cpunyachai](https://www.linkedin.com/in/cpunyachai/)
+- Email: [c.punyachai8@gmail.com](mailto:c.punyachai8@gmail.com)
