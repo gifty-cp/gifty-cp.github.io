@@ -159,7 +159,7 @@
         <a href="#about" class="hover:text-indigo-600 transition-colors">About Me</a>
         <a href="#skills" class="hover:text-indigo-600 transition-colors">Skills</a>
         <a href="#projects" class="hover:text-indigo-600 transition-colors">Projects</a>
-        <a href="#learning" class="hover:text-indigo-600 transition-colors">Learning</a>
+        <a href="learning.html" class="hover:text-indigo-600 transition-colors">Learning</a>
         <a href="#experience" class="hover:text-indigo-600 transition-colors">Experience</a>
         <a href="#education" class="hover:text-indigo-600 transition-colors">Education</a>
         <a href="#contact" class="hover:text-indigo-600 transition-colors">Contact</a>
@@ -187,7 +187,7 @@
       <a href="#about" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">About Me</a>
       <a href="#skills" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Skills</a>
       <a href="#projects" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Projects</a>
-      <a href="#learning" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Learning</a>
+      <a href="learning.html" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Learning</a>
       <a href="#experience" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Experience</a>
       <a href="#education" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Education</a>
       <a href="#contact" class="block py-2 text-slate-600 hover:text-indigo-600 font-medium">Contact</a>
@@ -458,129 +458,8 @@
       </div>
     </section>
 
-    <!-- ==================== LEARNING LOG ==================== -->
-    <section id="learning" class="py-20 border-b border-slate-200/60 bg-pastel-cream">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
-          <div>
-            <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Learning Log</div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">What I’m Learning</h2>
-          </div>
-          <p class="mt-2 md:mt-0 text-sm text-slate-600 max-w-md">
-            Techniques I’ve practised recently, written up so I can explain how they work.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-          <!-- Learning: Excel DATE formula -->
-          <article class="p-6 sm:p-7 rounded-3xl bg-white border border-emerald-100 shadow-sm flex flex-col">
-            <div class="flex items-center justify-between gap-2 mb-4">
-              <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-emerald-100 text-emerald-700 border border-emerald-200">Excel · Formula</span>
-              <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center"><i data-lucide="calendar-check" class="w-4 h-4"></i></div>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900">Turning text into real dates</h3>
-            <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-              Imported dates sometimes arrive as text in month/day/year order, such as <span class="font-mono text-slate-800">03/15/2024</span>. Excel can’t sort, filter or group text dates properly, so I rebuild each one as a real date:
-            </p>
-
-            <pre class="mt-4 p-4 rounded-xl bg-slate-900 ring-1 ring-white/10 text-[13px] leading-relaxed font-mono text-slate-200 overflow-x-auto"><code>=<span class="text-teal-400">DATE</span>(<span class="text-indigo-400">VALUE</span>(<span class="text-pink-400">RIGHT</span>(Source!A3,<span class="text-amber-300">4</span>)),
-      <span class="text-indigo-400">VALUE</span>(<span class="text-pink-400">LEFT</span>(Source!A3,<span class="text-amber-300">2</span>)),
-      <span class="text-indigo-400">VALUE</span>(<span class="text-pink-400">MID</span>(Source!A3,<span class="text-amber-300">4</span>,<span class="text-amber-300">2</span>)))</code></pre>
-
-            <div class="mt-5 overflow-x-auto">
-              <table class="w-full text-sm">
-                <thead>
-                  <tr class="text-left text-xs font-mono uppercase tracking-wider text-slate-500 border-b border-slate-200">
-                    <th class="py-2 pr-3 font-semibold">Part</th>
-                    <th class="py-2 pr-3 font-semibold">What it does</th>
-                    <th class="py-2 font-semibold whitespace-nowrap">03/15/2024 →</th>
-                  </tr>
-                </thead>
-                <tbody class="text-slate-700">
-                  <tr class="border-b border-slate-100">
-                    <td class="py-2 pr-3 font-mono text-xs whitespace-nowrap">RIGHT(A3,4)</td>
-                    <td class="py-2 pr-3">Takes the last 4 characters: the year</td>
-                    <td class="py-2 font-mono text-xs">"2024"</td>
-                  </tr>
-                  <tr class="border-b border-slate-100">
-                    <td class="py-2 pr-3 font-mono text-xs whitespace-nowrap">LEFT(A3,2)</td>
-                    <td class="py-2 pr-3">Takes the first 2 characters: the month</td>
-                    <td class="py-2 font-mono text-xs">"03"</td>
-                  </tr>
-                  <tr class="border-b border-slate-100">
-                    <td class="py-2 pr-3 font-mono text-xs whitespace-nowrap">MID(A3,4,2)</td>
-                    <td class="py-2 pr-3">Takes 2 characters starting at the 4th: the day</td>
-                    <td class="py-2 font-mono text-xs">"15"</td>
-                  </tr>
-                  <tr class="border-b border-slate-100">
-                    <td class="py-2 pr-3 font-mono text-xs whitespace-nowrap">VALUE(…)</td>
-                    <td class="py-2 pr-3">Turns each piece of text into a number</td>
-                    <td class="py-2 font-mono text-xs">2024, 3, 15</td>
-                  </tr>
-                  <tr>
-                    <td class="py-2 pr-3 font-mono text-xs whitespace-nowrap">DATE(y, m, d)</td>
-                    <td class="py-2 pr-3">Combines year, month and day into a real date</td>
-                    <td class="py-2 font-mono text-xs">15 Mar 2024</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="mt-5 p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-100 text-sm text-slate-700 leading-relaxed">
-              <span class="text-emerald-700 font-semibold">Watch out:</span> it only works when every value has the same layout, two-digit month and day plus a four-digit year. A value like <span class="font-mono">3/5/2024</span> would return an error.
-            </div>
-          </article>
-
-          <!-- Learning: PivotTables -->
-          <article class="p-6 sm:p-7 rounded-3xl bg-white border border-indigo-100 shadow-sm flex flex-col">
-            <div class="flex items-center justify-between gap-2 mb-4">
-              <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-indigo-100 text-indigo-700 border border-indigo-200">Excel · PivotTable</span>
-              <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center"><i data-lucide="table-2" class="w-4 h-4"></i></div>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900">Summarising data with PivotTables</h3>
-            <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-              A PivotTable turns thousands of rows into a short summary, like complaints per year or totals per product, without writing a single formula.
-            </p>
-
-            <div class="mt-5 grid grid-cols-2 gap-3">
-              <div class="p-3.5 rounded-xl bg-indigo-50/60 border border-indigo-100">
-                <div class="text-xs font-mono uppercase tracking-wider text-indigo-700 font-bold">Rows</div>
-                <p class="mt-1 text-sm text-slate-700">Categories listed down the side</p>
-              </div>
-              <div class="p-3.5 rounded-xl bg-purple-50 border border-purple-100">
-                <div class="text-xs font-mono uppercase tracking-wider text-purple-700 font-bold">Columns</div>
-                <p class="mt-1 text-sm text-slate-700">Categories across the top</p>
-              </div>
-              <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-100">
-                <div class="text-xs font-mono uppercase tracking-wider text-emerald-700 font-bold">Values</div>
-                <p class="mt-1 text-sm text-slate-700">The numbers to sum, count or average</p>
-              </div>
-              <div class="p-3.5 rounded-xl bg-pink-50 border border-pink-100">
-                <div class="text-xs font-mono uppercase tracking-wider text-pink-700 font-bold">Filters</div>
-                <p class="mt-1 text-sm text-slate-700">Narrow the whole table, e.g. to one year</p>
-              </div>
-            </div>
-
-            <ul class="mt-5 space-y-3 text-sm text-slate-700">
-              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Change <strong class="font-semibold text-slate-800">Sum</strong> to <strong class="font-semibold text-slate-800">Count</strong> or <strong class="font-semibold text-slate-800">Average</strong> in Value Field Settings</span></li>
-              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Group dates by month, quarter or year</span></li>
-              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Refresh the PivotTable when the source data changes</span></li>
-            </ul>
-
-            <div class="mt-auto pt-5">
-              <div class="p-3.5 rounded-xl bg-amber-50/70 border border-amber-100 text-sm text-slate-700 leading-relaxed">
-                <span class="text-amber-700 font-semibold">How they connect:</span> grouping by month only works with real dates, which is why I convert text dates with the DATE formula first.
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
     <!-- ==================== 4. RELEVANT EXPERIENCE ==================== -->
-    <section id="experience" class="py-20 border-b border-slate-200/60 bg-white/70">
+    <section id="experience" class="py-20 border-b border-slate-200/60 bg-pastel-cream">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mb-12">
           <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Relevant Experience</div>
@@ -779,6 +658,7 @@
       <div class="flex flex-wrap items-center justify-center gap-4">
         <a href="#about" class="hover:text-slate-800 transition">About Me</a>
         <a href="#projects" class="hover:text-slate-800 transition">Projects</a>
+        <a href="learning.html" class="hover:text-slate-800 transition">Learning</a>
         <a href="#contact" class="hover:text-slate-800 transition">Contact</a>
         <a href="#" class="hover:text-slate-800 transition">Back to Top ↑</a>
       </div>
