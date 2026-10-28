@@ -415,6 +415,80 @@
             </div>
           </article>
 
+          <!-- Project: Woolworths Dark Store Category Analysis -->
+          <article class="group rounded-3xl bg-white border border-emerald-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+            <button type="button" onclick="openModal('woolworthsModal')" class="block w-full h-56 overflow-hidden border-b border-emerald-100 bg-emerald-50 text-left" aria-label="Read the Woolworths Dark Store Category Analysis case study">
+              <img src="assets/woolworths-correlation-thumb.png" alt="Correlation matrix of customer spend across 10 grocery categories, with the strongest pairs highlighted in green" loading="lazy" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
+            </button>
+
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-emerald-100 text-emerald-700 border border-emerald-200">Retail · Customer analytics</span>
+                  <span class="text-xs text-slate-500 font-mono">100 customers · 8,902 order lines</span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Woolworths Dark Store Category Analysis</h3>
+                <p class="text-sm text-slate-500 mb-4">Category correlation matrix &amp; dark store floor planner</p>
+
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
+                <p class="text-sm text-slate-700 leading-relaxed mb-4">Which product categories do the same customers spend on, and how should a dark store group them into aisles?</p>
+
+                <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-100 mb-4 text-sm text-slate-700 leading-relaxed">
+                  <span class="text-emerald-700 font-semibold">Finding:</span> Pasta and Pasta Sauce spend move almost in lockstep (r = 0.96). The 10 categories fall into four clear groups, which became four aisles: Milk, Bread &amp; Eggs · Pasta &amp; Pasta Sauce · Nachos &amp; Salsa · Diapers, Wet wipes &amp; Chocolates.
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between pt-4 border-t border-slate-100 flex-wrap gap-3">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Pearson correlation</span>
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">HTML / JavaScript</span>
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Drag-and-drop planner</span>
+                </div>
+                <button type="button" onclick="openModal('woolworthsModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition">
+                  <span>Read Case Study</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project: Netflix Viewing-Pattern Recommender -->
+          <article class="group rounded-3xl bg-white border border-pink-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+            <button type="button" onclick="openModal('netflixModal')" class="block w-full h-56 overflow-hidden border-b border-pink-100 bg-pink-50 text-left" aria-label="Read the Netflix Viewing-Pattern Recommender case study">
+              <img src="assets/netflix-recommender.png" alt="Show recommender ranking shows by how closely their viewing hours move with the selected show" loading="lazy" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
+            </button>
+
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-pink-100 text-pink-700 border border-pink-200">Streaming · Recommendation</span>
+                  <span class="text-xs text-slate-500 font-mono">2,000 subscribers · 9 shows</span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 group-hover:text-pink-700 transition-colors">Netflix Viewing-Pattern Recommender</h3>
+                <p class="text-sm text-slate-500 mb-4">“What should you watch next?” based on shared viewing hours</p>
+
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
+                <p class="text-sm text-slate-700 leading-relaxed mb-4">If a subscriber enjoyed one show, which show should we recommend next?</p>
+
+                <div class="p-3.5 rounded-xl bg-pink-50/70 border border-pink-100 mb-4 text-sm text-slate-700 leading-relaxed">
+                  <span class="text-pink-700 font-semibold">Finding:</span> Viewing hours form four taste groups. Stranger Things fans also put hours into Umbrella Academy (r = 0.85) and Dark (0.84), while Big Bang Theory has no meaningful link to any other show.
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between pt-4 border-t border-slate-100 flex-wrap gap-3">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Pearson correlation</span>
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">HTML / JavaScript</span>
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Scatter plot</span>
+                </div>
+                <button type="button" onclick="openModal('netflixModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-pink-600 hover:text-pink-700 transition">
+                  <span>Read Case Study</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+
           <!-- Project: Hotel Booking Analysis (in progress) -->
           <article class="group rounded-3xl bg-white border border-indigo-100/90 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
             <div class="h-56 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-6 flex flex-col justify-between border-b border-indigo-100/60">
@@ -722,6 +796,155 @@
 
       <div class="mt-6 pt-4 border-t border-slate-100 text-right">
         <button type="button" onclick="closeModal('commbankModal')" class="text-xs text-slate-500 hover:text-slate-800 underline">Close case study</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Woolworths Dark Store Category Analysis -->
+  <div id="woolworthsModal" class="modal fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="woolworthsTitle">
+    <div class="relative w-full max-w-3xl rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <button type="button" onclick="closeModal('woolworthsModal')" aria-label="Close" class="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-900 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-2 text-xs font-mono text-emerald-700 mb-2 pr-12">
+        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+        <span>Case Study · Retail · Customer analytics</span>
+      </div>
+      <h2 id="woolworthsTitle" class="text-2xl font-bold text-slate-900 mb-1 pr-12">Woolworths Dark Store Category Analysis</h2>
+      <p class="text-sm text-slate-500 mb-5 pb-4 border-b border-slate-100">Category correlation matrix &amp; dark store floor planner</p>
+
+      <img src="assets/woolworths-correlation.png" alt="Correlation matrix of customer spend across 10 grocery categories, with the strongest pairs highlighted in green" loading="lazy" class="w-full rounded-2xl border border-slate-200 mb-6">
+
+      <div class="space-y-5">
+        <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100">
+          <h4 class="text-xs uppercase font-mono tracking-wider text-indigo-700 font-bold mb-1">1. Business Question</h4>
+          <p class="text-sm text-slate-800 leading-relaxed">Which product categories do the same customers spend on, and how should a dark store group them into aisles?</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-2">2. The Data</h4>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-3 rounded-xl bg-pastel-cream border border-slate-200">
+            <div class="text-xs text-slate-500">Customers</div>
+            <div class="text-base font-bold text-slate-900 font-mono">100</div>
+          </div>
+          <div class="p-3 rounded-xl bg-pastel-cream border border-slate-200">
+            <div class="text-xs text-slate-500">Orders</div>
+            <div class="text-base font-bold text-slate-900 font-mono">1,995</div>
+          </div>
+          <div class="p-3 rounded-xl bg-pastel-cream border border-slate-200">
+            <div class="text-xs text-slate-500">Order lines</div>
+            <div class="text-base font-bold text-slate-900 font-mono">8,902</div>
+          </div>
+          <div class="p-3 rounded-xl bg-pastel-cream border border-slate-200">
+            <div class="text-xs text-slate-500">Categories · products</div>
+            <div class="text-base font-bold text-slate-900 font-mono">10 · 25</div>
+          </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-2">3. What the Analysis Explores</h4>
+          <ul class="space-y-2 text-sm text-slate-700">
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Each customer’s total spend (quantity × unit price) in every category</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>A Pearson correlation matrix showing which categories the same customers spend on</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>The strongest positive pairs (e.g. Milk + Eggs 0.79, Wet wipes + Chocolates 0.78) and the most negative (Eggs + Nachos −0.21)</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>An interactive floor planner that groups categories into aisles and scores the layout</span></li>
+          </ul>
+        </div>
+
+        <figure>
+          <img src="assets/woolworths-floor-planner.png" alt="Dark store floor planner with four aisles of grouped categories and a togetherness score of 79 out of 100" loading="lazy" class="w-full rounded-2xl border border-slate-200">
+          <figcaption class="mt-2 text-xs text-slate-500 leading-relaxed">The floor planner: categories bought by the same customers share an aisle. The clustered layout scores 79/100 for “togetherness” (average correlation within each aisle).</figcaption>
+        </figure>
+
+        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+          <h4 class="text-xs uppercase font-mono tracking-wider text-emerald-700 font-bold mb-1">4. Finding</h4>
+          <p class="text-sm text-slate-800 leading-relaxed">Pasta and Pasta Sauce spend move almost in lockstep (r = 0.96). The 10 categories fall into four clear groups, which became four aisles: Milk, Bread &amp; Eggs · Pasta &amp; Pasta Sauce · Nachos &amp; Salsa · Diapers, Wet wipes &amp; Chocolates.</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-2">5. Why It Matters</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">Putting categories that the same customers buy into one aisle shortens picking routes in a dark store. It mirrors what I see in hospitality: grouping things guests ask for together makes service faster.</p>
+          <p class="mt-2 text-xs text-slate-500 leading-relaxed">Correlation shows which categories are bought by the same customers; it doesn’t prove that one purchase causes the other.</p>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-slate-100 text-right">
+        <button type="button" onclick="closeModal('woolworthsModal')" class="text-xs text-slate-500 hover:text-slate-800 underline">Close case study</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Netflix Viewing-Pattern Recommender -->
+  <div id="netflixModal" class="modal fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="netflixTitle">
+    <div class="relative w-full max-w-3xl rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <button type="button" onclick="closeModal('netflixModal')" aria-label="Close" class="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 text-slate-500 hover:text-slate-900 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-2 text-xs font-mono text-pink-700 mb-2 pr-12">
+        <i data-lucide="clapperboard" class="w-4 h-4"></i>
+        <span>Case Study · Streaming · Recommendation</span>
+      </div>
+      <h2 id="netflixTitle" class="text-2xl font-bold text-slate-900 mb-1 pr-12">Netflix Viewing-Pattern Recommender</h2>
+      <p class="text-sm text-slate-500 mb-5 pb-4 border-b border-slate-100">“What should you watch next?” based on shared viewing hours</p>
+
+      <img src="assets/netflix-recommender.png" alt="Show recommender ranking shows by how closely their viewing hours move with the selected show" loading="lazy" class="w-full rounded-2xl border border-slate-200 mb-6">
+
+      <div class="space-y-5">
+        <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100">
+          <h4 class="text-xs uppercase font-mono tracking-wider text-indigo-700 font-bold mb-1">1. Business Question</h4>
+          <p class="text-sm text-slate-800 leading-relaxed">If a subscriber enjoyed one show, which show should we recommend next?</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-2">2. The Data</h4>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-3 rounded-xl bg-pastel-cream border border-slate-200">
+            <div class="text-xs text-slate-500">Subscribers</div>
+            <div class="text-base font-bold text-slate-900 font-mono">2,000</div>
+          </div>
+          <div class="p-3 rounded-xl bg-pastel-cream border border-slate-200">
+            <div class="text-xs text-slate-500">Shows</div>
+            <div class="text-base font-bold text-slate-900 font-mono">9</div>
+          </div>
+          <div class="p-3 rounded-xl bg-pastel-cream border border-slate-200">
+            <div class="text-xs text-slate-500">Show pairs tested</div>
+            <div class="text-base font-bold text-slate-900 font-mono">36</div>
+          </div>
+          <div class="p-3 rounded-xl bg-pastel-cream border border-slate-200">
+            <div class="text-xs text-slate-500">Taste groups</div>
+            <div class="text-base font-bold text-slate-900 font-mono">4</div>
+          </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-2">3. What the Analysis Explores</h4>
+          <ul class="space-y-2 text-sm text-slate-700">
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>Hours watched per subscriber per show (episodes × episode length)</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>A correlation matrix of viewing hours across all 36 show pairs</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>A ranked “up next” list: each show’s match score is its average correlation with the shows you picked</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0"></i><span>A scatter plot for any pair, plus four taste groups: sci-fi, crime thrillers, Korean romance and sitcom</span></li>
+          </ul>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-pink-50 border border-pink-100">
+          <h4 class="text-xs uppercase font-mono tracking-wider text-pink-700 font-bold mb-1">4. Finding</h4>
+          <p class="text-sm text-slate-800 leading-relaxed">Viewing hours form four taste groups. Stranger Things fans also put hours into Umbrella Academy (r = 0.85) and Dark (0.84), while Big Bang Theory has no meaningful link to any other show.</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs uppercase font-mono tracking-wider text-slate-500 font-bold mb-2">5. Why It Matters</h4>
+          <p class="text-sm text-slate-700 leading-relaxed">Recommending the next show is like suggesting a dish to a regular guest: you look at what people with similar tastes enjoyed.</p>
+          <p class="mt-2 text-xs text-slate-500 leading-relaxed">These are viewing patterns for this sample only. Correlation shows which shows are watched together, not that one causes interest in the other.</p>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-slate-100 text-right">
+        <button type="button" onclick="closeModal('netflixModal')" class="text-xs text-slate-500 hover:text-slate-800 underline">Close case study</button>
       </div>
     </div>
   </div>
