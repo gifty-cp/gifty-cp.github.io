@@ -317,6 +317,206 @@
           </article>
 
         </div>
+
+        <!-- ==================== ADVANCED FORMULAS & FUNCTIONS ==================== -->
+        <div id="advanced-formulas" class="mt-20 scroll-mt-24">
+          <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+            <div>
+              <div class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-semibold mb-2">Excel</div>
+              <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Advanced Formulas &amp; Functions</h2>
+            </div>
+            <p class="mt-2 md:mt-0 text-sm text-slate-600 max-w-md">
+              Lookups and logic I’ve been practising. Every example uses the two small sample tables below.
+            </p>
+          </div>
+
+          <!-- Sample data -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="table-2" class="w-4 h-4 text-indigo-500"></i>
+                <span class="text-sm font-semibold text-slate-800">Rates sheet</span>
+                <span class="text-xs text-slate-500 font-mono">A1:C4</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm text-slate-700">
+                  <thead><tr class="text-left text-xs font-mono uppercase tracking-wider text-slate-500 border-b border-slate-200"><th class="py-2 px-3 text-left font-semibold">Room Code</th><th class="py-2 px-3 text-left font-semibold">Room Type</th><th class="py-2 px-3 text-left font-semibold">Nightly Rate</th></tr></thead>
+                  <tbody>
+                    <tr class="border-b border-slate-100"><td class="py-2 px-3 font-mono">R01</td><td class="py-2 px-3">Standard</td><td class="py-2 px-3 font-mono">140</td></tr>
+                    <tr class="border-b border-slate-100"><td class="py-2 px-3 font-mono">R02</td><td class="py-2 px-3">Deluxe</td><td class="py-2 px-3 font-mono">220</td></tr>
+                    <tr><td class="py-2 px-3 font-mono">R03</td><td class="py-2 px-3">Suite</td><td class="py-2 px-3 font-mono">380</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+              <div class="flex items-center gap-2 mb-3">
+                <i data-lucide="table-2" class="w-4 h-4 text-purple-500"></i>
+                <span class="text-sm font-semibold text-slate-800">Bookings sheet</span>
+                <span class="text-xs text-slate-500 font-mono">A1:D2</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm text-slate-700">
+                  <tbody>
+                    <tr class="border-b border-slate-200 text-xs font-mono uppercase tracking-wider text-slate-500"><th class="py-2 px-3 text-left font-semibold">Month</th><th class="py-2 px-3 text-left font-semibold">Jan</th><th class="py-2 px-3 text-left font-semibold">Feb</th><th class="py-2 px-3 text-left font-semibold">Mar</th></tr>
+                    <tr><th class="py-2 px-3 text-left text-xs font-mono uppercase tracking-wider text-slate-500 font-semibold">Bookings</th><td class="py-2 px-3 font-mono">410</td><td class="py-2 px-3 font-mono">385</td><td class="py-2 px-3 font-mono">462</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Formula: VLOOKUP -->
+          <article class="p-6 sm:p-7 rounded-3xl bg-white border border-indigo-100 shadow-sm flex flex-col">
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-indigo-100 text-indigo-700 border border-indigo-200">Excel · Lookup</span>
+              <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center"><i data-lucide="search" class="w-4 h-4"></i></div>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">VLOOKUP</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">Find a value in the first column of a table and return something from the same row.</p>
+
+            <pre class="mt-4 p-4 rounded-xl bg-slate-900 ring-1 ring-white/10 text-[13px] leading-relaxed font-mono text-slate-200 overflow-x-auto"><code>=<span class="text-teal-400">VLOOKUP</span>(<span class="text-emerald-300">"R02"</span>,
+   Rates!$A$2:$C$4, <span class="text-amber-300">3</span>, <span class="text-pink-400">FALSE</span>)</code></pre>
+
+            <ul class="mt-5 space-y-2.5 text-sm text-slate-700">
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100 h-fit">&quot;R02&quot;</code><span>The value to find</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100 h-fit">Rates!$A$2:$C$4</code><span>The table. Excel searches its first column</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100 h-fit">3</code><span>Return the value from the 3rd column (Nightly Rate)</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100 h-fit">FALSE</code><span>Exact match only</span></li>
+            </ul>
+
+            <div class="mt-5 flex flex-wrap items-baseline gap-2 text-sm">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">Result</span>
+              <span class="font-mono text-slate-900 font-semibold">220</span>
+            </div>
+
+            <div class="mt-auto pt-5">
+              <div class="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-100 text-sm text-slate-700 leading-relaxed">
+                <span class="text-indigo-700 font-semibold">Tip:</span> The value you search for must be in the first column, and the column number (3) points at the wrong column if someone inserts a new one.
+              </div>
+            </div>
+          </article>
+          <!-- Formula: HLOOKUP -->
+          <article class="p-6 sm:p-7 rounded-3xl bg-white border border-purple-100 shadow-sm flex flex-col">
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-purple-100 text-purple-700 border border-purple-200">Excel · Lookup</span>
+              <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center"><i data-lucide="arrow-left-right" class="w-4 h-4"></i></div>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">HLOOKUP</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">The same idea as VLOOKUP, for tables laid out across rows, such as months along the top.</p>
+
+            <pre class="mt-4 p-4 rounded-xl bg-slate-900 ring-1 ring-white/10 text-[13px] leading-relaxed font-mono text-slate-200 overflow-x-auto"><code>=<span class="text-teal-400">HLOOKUP</span>(<span class="text-emerald-300">"Mar"</span>,
+   Bookings!$B$1:$D$2, <span class="text-amber-300">2</span>, <span class="text-pink-400">FALSE</span>)</code></pre>
+
+            <ul class="mt-5 space-y-2.5 text-sm text-slate-700">
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-100 h-fit">&quot;Mar&quot;</code><span>The value to find in the top row</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-100 h-fit">Bookings!$B$1:$D$2</code><span>The table with months across row 1</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-100 h-fit">2</code><span>Return the value from the 2nd row (Bookings)</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-100 h-fit">FALSE</code><span>Exact match only</span></li>
+            </ul>
+
+            <div class="mt-5 flex flex-wrap items-baseline gap-2 text-sm">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">Result</span>
+              <span class="font-mono text-slate-900 font-semibold">462</span>
+            </div>
+
+            <div class="mt-auto pt-5">
+              <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-100 text-sm text-slate-700 leading-relaxed">
+                <span class="text-purple-700 font-semibold">Tip:</span> VLOOKUP searches down the first column; HLOOKUP searches across the first row. Pick the one that matches your layout.
+              </div>
+            </div>
+          </article>
+          <!-- Formula: Nested IF -->
+          <article class="p-6 sm:p-7 rounded-3xl bg-white border border-emerald-100 shadow-sm flex flex-col">
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-emerald-100 text-emerald-700 border border-emerald-200">Excel · Logic</span>
+              <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center"><i data-lucide="git-branch" class="w-4 h-4"></i></div>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Nested IF</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">Sort values into more than two groups by putting one IF inside another.</p>
+
+            <pre class="mt-4 p-4 rounded-xl bg-slate-900 ring-1 ring-white/10 text-[13px] leading-relaxed font-mono text-slate-200 overflow-x-auto"><code>=<span class="text-teal-400">IF</span>(C2&gt;=<span class="text-amber-300">300</span>, <span class="text-emerald-300">"Premium"</span>,
+   <span class="text-teal-400">IF</span>(C2&gt;=<span class="text-amber-300">150</span>, <span class="text-emerald-300">"Mid-range"</span>, <span class="text-emerald-300">"Budget"</span>))</code></pre>
+
+            <ul class="mt-5 space-y-2.5 text-sm text-slate-700">
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100 h-fit">C2&gt;=300</code><span>If the rate is 300 or more → &quot;Premium&quot;</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100 h-fit">C2&gt;=150</code><span>Otherwise, if it’s 150 or more → &quot;Mid-range&quot;</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100 h-fit">&quot;Budget&quot;</code><span>Otherwise → &quot;Budget&quot;</span></li>
+            </ul>
+
+            <div class="mt-5 flex flex-wrap items-baseline gap-2 text-sm">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">Result</span>
+              <span class="font-mono text-slate-900 font-semibold">140 → Budget · 220 → Mid-range · 380 → Premium</span>
+            </div>
+
+            <div class="mt-auto pt-5">
+              <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-100 text-sm text-slate-700 leading-relaxed">
+                <span class="text-emerald-700 font-semibold">Tip:</span> Test the highest band first. Excel stops at the first test that’s TRUE, so if C2&gt;=150 came first, a 380 room would be labelled Mid-range.
+              </div>
+            </div>
+          </article>
+          <!-- Formula: IF + ISNUMBER -->
+          <article class="p-6 sm:p-7 rounded-3xl bg-white border border-pink-100 shadow-sm flex flex-col">
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-pink-100 text-pink-700 border border-pink-200">Excel · Logic</span>
+              <div class="w-9 h-9 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center"><i data-lucide="text-search" class="w-4 h-4"></i></div>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">IF + ISNUMBER</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">Flag text that contains a keyword, such as guest comments that mention a refund.</p>
+
+            <pre class="mt-4 p-4 rounded-xl bg-slate-900 ring-1 ring-white/10 text-[13px] leading-relaxed font-mono text-slate-200 overflow-x-auto"><code>=<span class="text-teal-400">IF</span>(<span class="text-teal-400">ISNUMBER</span>(<span class="text-teal-400">SEARCH</span>(<span class="text-emerald-300">"refund"</span>, D2)),
+   <span class="text-emerald-300">"Refund request"</span>, <span class="text-emerald-300">"Other"</span>)</code></pre>
+
+            <ul class="mt-5 space-y-2.5 text-sm text-slate-700">
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-pink-50 text-pink-700 border border-pink-100 h-fit">SEARCH(&quot;refund&quot;, D2)</code><span>Finds &quot;refund&quot; in D2 and returns its position (a number), or an error if it isn’t there</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-pink-50 text-pink-700 border border-pink-100 h-fit">ISNUMBER(…)</code><span>Turns that into TRUE (found) or FALSE (not found)</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-pink-50 text-pink-700 border border-pink-100 h-fit">IF(…)</code><span>Labels the row based on TRUE or FALSE</span></li>
+            </ul>
+
+            <div class="mt-5 flex flex-wrap items-baseline gap-2 text-sm">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">Result</span>
+              <span class="font-mono text-slate-900 font-semibold">&quot;Asked for a refund after late check-in&quot; → Refund request</span>
+            </div>
+
+            <div class="mt-auto pt-5">
+              <div class="p-3.5 rounded-xl bg-pink-50/70 border border-pink-100 text-sm text-slate-700 leading-relaxed">
+                <span class="text-pink-700 font-semibold">Tip:</span> SEARCH ignores upper and lower case. FIND does the same job but is case-sensitive.
+              </div>
+            </div>
+          </article>
+          <!-- Formula: INDEX + MATCH -->
+          <article class="p-6 sm:p-7 rounded-3xl bg-white border border-amber-100 shadow-sm flex flex-col lg:col-span-2">
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-amber-100 text-amber-700 border border-amber-200">Excel · Lookup</span>
+              <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center"><i data-lucide="crosshair" class="w-4 h-4"></i></div>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">INDEX + MATCH</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">A more flexible lookup: MATCH finds the position, INDEX returns the value at that position.</p>
+
+            <pre class="mt-4 p-4 rounded-xl bg-slate-900 ring-1 ring-white/10 text-[13px] leading-relaxed font-mono text-slate-200 overflow-x-auto"><code>=<span class="text-teal-400">INDEX</span>(Rates!$A$2:$A$4,
+   <span class="text-teal-400">MATCH</span>(<span class="text-emerald-300">"Deluxe"</span>, Rates!$B$2:$B$4, <span class="text-amber-300">0</span>))</code></pre>
+
+            <ul class="mt-5 space-y-2.5 text-sm text-slate-700">
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100 h-fit">MATCH(&quot;Deluxe&quot;, …, 0)</code><span>Finds &quot;Deluxe&quot; in the Room Type column and returns its position: 2</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100 h-fit">0</code><span>Exact match only</span></li>
+                <li class="flex gap-3"><code class="shrink-0 font-mono text-xs px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100 h-fit">INDEX(Rates!$A$2:$A$4, 2)</code><span>Returns the 2nd item from the Room Code column</span></li>
+            </ul>
+
+            <div class="mt-5 flex flex-wrap items-baseline gap-2 text-sm">
+              <span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">Result</span>
+              <span class="font-mono text-slate-900 font-semibold">R02</span>
+            </div>
+
+            <div class="mt-auto pt-5">
+              <div class="p-3.5 rounded-xl bg-amber-50/70 border border-amber-100 text-sm text-slate-700 leading-relaxed">
+                <span class="text-amber-700 font-semibold">Tip:</span> Unlike VLOOKUP, it can return a column to the left of the one you search (here Room Code sits left of Room Type), and inserting columns doesn’t break it.
+              </div>
+            </div>
+          </article>
+
+          </div>
+        </div>
       </div>
     </section>
   </main>
