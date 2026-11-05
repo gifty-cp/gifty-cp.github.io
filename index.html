@@ -6,6 +6,10 @@
   <title>Chanakarn (Gifty) Punyachai | Aspiring Data Analyst</title>
   <meta name="description" content="Aspiring Data Analyst in Adelaide with hospitality experience and a Master of IT (Business Analysis). Excel, SQL, Python and Power BI projects.">
   <meta name="author" content="Chanakarn Punyachai">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#6366F1">
   <meta property="og:title" content="Chanakarn (Gifty) Punyachai | Aspiring Data Analyst">
   <meta property="og:description" content="Hospitality experience, Business Analysis qualification, and hands-on data projects.">
   <meta property="og:image" content="https://gifty-cp.github.io/assets/commbank-dashboard.png">
@@ -137,6 +141,12 @@
     html.dark :is(.border-red-200,.hover\:border-red-300:hover) { border-color: rgba(221,24,44,.42); }
     html.dark :is(.text-red-700,.text-red-800,.group:hover .group-hover\:text-red-700) { color: #FCA5A5; }
     html.dark :is(.text-red-600,.hover\:text-red-700:hover) { color: #F87171; }
+    /* outline buttons on project cards */
+    html.dark .hover\:bg-amber-50:hover { background-color: rgba(245,158,11,.16); }
+    html.dark .hover\:bg-blue-50:hover { background-color: rgba(59,130,246,.16); }
+    html.dark .hover\:bg-red-50:hover { background-color: rgba(221,24,44,.16); }
+    html.dark .hover\:bg-emerald-50:hover { background-color: rgba(16,185,129,.16); }
+    html.dark .hover\:bg-pink-50:hover { background-color: rgba(236,72,153,.16); }
     html.dark .from-indigo-50.bg-gradient-to-br { background-image: linear-gradient(135deg, rgba(99,102,241,.16), rgba(168,85,247,.10), rgba(236,72,153,.10)); }
     #themeToggle .icon-sun { display: none; }
     html.dark #themeToggle .icon-sun { display: block; }
@@ -380,223 +390,212 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
           <!-- Project: Complaints Dashboard -->
-          <article class="group rounded-3xl bg-white border border-amber-200/90 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
-            <a href="commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="block h-56 overflow-hidden border-b border-amber-200/70 bg-amber-50" aria-label="Open the live Complaints Dashboard">
-              <img src="assets/commbank-dashboard.png" alt="Complaints dashboard with KPI cards (467 complaints, 94.4% timely response, 20.6% disputed), complaints by channel, monthly trend, a map by Australian state, and an annual breakdown" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
-            </a>
+          <article class="group rounded-3xl bg-white border border-amber-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+            <button type="button" onclick="openModal('commbankModal')" class="relative block w-full h-56 overflow-hidden border-b border-amber-100 bg-white text-left cursor-zoom-in" aria-label="Open the Complaints Dashboard case study">
+              <img src="assets/commbank-dashboard.png" alt="Complaints dashboard with KPI cards (467 complaints, 94.4% timely response, 20.6% disputed), complaints by channel, monthly trend, a map by Australian state, and an annual breakdown" loading="lazy" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
+              <span class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900/75 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition"><i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>Case study</span>
+            </button>
 
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
-                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-emerald-100 text-emerald-700 border border-emerald-200">Live</span>
-                  <span class="text-xs text-slate-500 font-mono">467 complaints · 2011–2020</span>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 group-hover:text-amber-700 transition-colors">Complaints Dashboard</h3>
-                <p class="text-sm text-slate-500 mb-4">Commonwealth Bank Customer Complaints Register &amp; SLA Performance (2011–2020)</p>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-amber-100 text-amber-700 border border-amber-200">Banking · Complaints analytics</span>
+                <span class="text-xs text-slate-500 font-mono">467 complaints · 2011–2020</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-amber-700 transition-colors">Complaints Dashboard</h3>
+              <p class="text-sm text-slate-500 mb-4">Commonwealth Bank Customer Complaints Register &amp; SLA Performance (2011–2020)</p>
 
-                <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
-                <p class="text-sm text-slate-700 leading-relaxed mb-4">A complaint can receive a response on time, but does that mean the customer’s concern has been resolved?</p>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
+              <p class="text-sm text-slate-700 leading-relaxed mb-4">A complaint can receive a response on time, but does that mean the customer’s concern has been resolved?</p>
 
-                <div class="p-3.5 rounded-xl bg-amber-50/70 border border-amber-100 mb-4 text-sm text-slate-700 leading-relaxed">
-                  <span class="text-amber-700 font-semibold">Finding:</span> 94.4% of complaints (441 of 467) received a timely response, yet 20.6% (96) were still escalated to a formal dispute, so on-time handling didn’t always mean the customer felt resolved.
-                </div>
+              <div class="p-3.5 rounded-xl bg-amber-50/70 border border-amber-100 mb-5 text-sm text-slate-700 leading-relaxed">
+                <span class="text-amber-700 font-semibold">Finding:</span> 94.4% of complaints (441 of 467) received a timely response, yet 20.6% (96) were still escalated to a formal dispute, so on-time handling didn’t always mean the customer felt resolved.
               </div>
 
-              <div class="flex items-center justify-between pt-4 border-t border-slate-100 flex-wrap gap-3">
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">HTML / JavaScript</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Chart.js</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Built with Claude AI</span>
-                </div>
-                <div class="flex items-center gap-4">
-                  <a href="commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-amber-700 transition">
-                    <span>Live App</span>
-                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                  </a>
-                  <button type="button" onclick="openModal('commbankModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600 hover:text-amber-700 transition">
-                    <span>Read Case Study</span>
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                  </button>
-                </div>
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">HTML / JavaScript</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Chart.js</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Built with Claude AI</span>
+              </div>
+
+              <div class="mt-auto pt-4 border-t border-slate-100 flex flex-wrap items-center gap-3">
+                <a href="commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white shadow-sm transition">
+                  <span>View Live Dashboard</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <button type="button" onclick="openModal('commbankModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-amber-200 text-amber-700 hover:bg-amber-50 transition">
+                  <span>Read Case Study</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
               </div>
             </div>
           </article>
 
           <!-- Project: BIG W Sales Dashboard -->
           <article class="group rounded-3xl bg-white border border-blue-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
-            <button type="button" onclick="openModal('bigwModal')" class="block w-full h-56 overflow-hidden border-b border-blue-100 bg-white text-left" aria-label="Read the BIG W Sales Dashboard case study">
+            <button type="button" onclick="openModal('bigwModal')" class="relative block w-full h-56 overflow-hidden border-b border-blue-100 bg-white text-left cursor-zoom-in" aria-label="Open the BIG W Sales Dashboard case study">
               <img src="assets/bigw-dashboard.png" alt="BIG W sales dashboard with KPI cards for total sales of $1,853,423 and average sales of $411.41, sales over time and a map of sales by state" loading="lazy" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
+              <span class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900/75 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition"><i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>Case study</span>
             </button>
 
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
-                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-blue-100 text-blue-700 border border-blue-200">Retail · Excel dashboard</span>
-                  <span class="text-xs text-slate-500 font-mono">4,505 sales · 2024–2025</span>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-700 transition-colors">BIG W Sales Dashboard</h3>
-                <p class="text-sm text-slate-500 mb-4">Interactive Excel dashboard of store and e-retail sales</p>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-blue-100 text-blue-700 border border-blue-200">Retail · Excel dashboard</span>
+                <span class="text-xs text-slate-500 font-mono">4,505 sales · 2024–2025</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-700 transition-colors">BIG W Sales Dashboard</h3>
+              <p class="text-sm text-slate-500 mb-4">Interactive Excel dashboard of store and e-retail sales</p>
 
-                <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
-                <p class="text-sm text-slate-700 leading-relaxed mb-4">Where are sales coming from, and how do they change over time?</p>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
+              <p class="text-sm text-slate-700 leading-relaxed mb-4">Where are sales coming from, and how do they change over time?</p>
 
-                <div class="p-3.5 rounded-xl bg-blue-50/70 border border-blue-100 mb-4 text-sm text-slate-700 leading-relaxed">
-                  <span class="text-blue-700 font-semibold">Finding:</span> Of $1.85M in sales, about 72% came from physical stores, and that store share held in every product category (66–75%). NSW, VIC and QLD together made up three-quarters of sales.
-                </div>
+              <div class="p-3.5 rounded-xl bg-blue-50/70 border border-blue-100 mb-5 text-sm text-slate-700 leading-relaxed">
+                <span class="text-blue-700 font-semibold">Finding:</span> Of $1.85M in sales, about 72% came from physical stores, and that store share held in every product category (66–75%). NSW, VIC and QLD together made up three-quarters of sales.
               </div>
 
-              <div class="flex items-center justify-between pt-4 border-t border-slate-100 flex-wrap gap-3">
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Excel</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">PivotTables</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Slicers</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Map chart</span>
-                </div>
-                <div class="flex flex-wrap items-center gap-4">
-                  <a href="projects/bigw-sales-dashboard.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-blue-700 transition">
-                    <span>Dashboard PDF</span>
-                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                  </a>
-                  <button type="button" onclick="openModal('bigwModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition">
-                    <span>Read Case Study</span>
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                  </button>
-                </div>
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Excel</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">PivotTables</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Slicers</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Map chart</span>
+              </div>
+
+              <div class="mt-auto pt-4 border-t border-slate-100 flex flex-wrap items-center gap-3">
+                <a href="projects/bigw-sales-dashboard.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition">
+                  <span>View Dashboard (PDF)</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <button type="button" onclick="openModal('bigwModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-blue-200 text-blue-700 hover:bg-blue-50 transition">
+                  <span>Read Case Study</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
               </div>
             </div>
           </article>
 
           <!-- Project: Kmart Sales Dashboard -->
           <article class="group rounded-3xl bg-white border border-red-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
-            <button type="button" onclick="openModal('kmartModal')" class="block w-full h-56 overflow-hidden border-b border-red-100 bg-white text-left" aria-label="Read how I built the Kmart Sales Dashboard">
+            <button type="button" onclick="openModal('kmartModal')" class="relative block w-full h-56 overflow-hidden border-b border-red-100 bg-white text-left cursor-zoom-in" aria-label="Open the Kmart Sales Dashboard case study">
               <img src="assets/kmart-dashboard.png" alt="Kmart sales dashboard with KPI cards for total sales of $3,186,258 and average sales of $707, online vs store split, sales by state, category, buyer and manager" loading="lazy" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
+              <span class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900/75 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition"><i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>Case study</span>
             </button>
 
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
-                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-red-100 text-red-700 border border-red-200">Retail · Data cleaning + Excel</span>
-                  <span class="text-xs text-slate-500 font-mono">4,505 sales · 2024–2025</span>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors">Kmart Sales Dashboard</h3>
-                <p class="text-sm text-slate-500 mb-4">From a messy data export to a dashboard built on Kmart’s brand colours</p>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-red-100 text-red-700 border border-red-200">Retail · Data cleaning + Excel</span>
+                <span class="text-xs text-slate-500 font-mono">4,505 sales · 2024–2025</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-red-700 transition-colors">Kmart Sales Dashboard</h3>
+              <p class="text-sm text-slate-500 mb-4">From a messy data export to a dashboard built on Kmart’s brand colours</p>
 
-                <p class="text-sm text-slate-700 leading-relaxed mb-4">
-                  I started with raw sales data that had text dates and missing suburbs and postcodes. I cleaned it, added formula columns for Australia’s July–June financial year, and turned it into a slicer-driven dashboard.
-                </p>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
+              <p class="text-sm text-slate-700 leading-relaxed mb-4">Can the raw sales export be trusted, and where do Kmart’s sales really come from?</p>
 
-                <div class="p-3.5 rounded-xl bg-red-50/70 border border-red-100 mb-4 text-sm text-slate-700 leading-relaxed">
-                  <span class="text-red-700 font-semibold">What surprised me:</span> stores took 79% of sales, yet 17 of 97 suburbs bought mostly online (Armidale: 90%). And the $707 “average sale” hides a skew: the typical sale was just $186.
-                </div>
+              <div class="p-3.5 rounded-xl bg-red-50/70 border border-red-100 mb-5 text-sm text-slate-700 leading-relaxed">
+                <span class="text-red-700 font-semibold">Finding:</span> After cleaning the export, stores took 79% of sales, yet 17 of 97 suburbs bought mostly online (Armidale: 90%). The $707 average hides a skew: the typical sale was just $186.
               </div>
 
-              <div class="flex items-center justify-between pt-4 border-t border-slate-100 flex-wrap gap-3">
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Data cleaning</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Excel formulas</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">PivotTables</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Brand guidelines</span>
-                </div>
-                <div class="flex flex-wrap items-center gap-4">
-                  <a href="projects/kmart-sales-dashboard.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-red-700 transition">
-                    <span>Dashboard PDF</span>
-                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                  </a>
-                  <button type="button" onclick="openModal('kmartModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-red-600 hover:text-red-700 transition">
-                    <span>See How I Built It</span>
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                  </button>
-                </div>
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Data cleaning</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Excel formulas</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">PivotTables</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Brand guidelines</span>
+              </div>
+
+              <div class="mt-auto pt-4 border-t border-slate-100 flex flex-wrap items-center gap-3">
+                <a href="projects/kmart-sales-dashboard.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-600 hover:bg-red-700 text-white shadow-sm transition">
+                  <span>View Dashboard (PDF)</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <button type="button" onclick="openModal('kmartModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-red-200 text-red-700 hover:bg-red-50 transition">
+                  <span>Read Case Study</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
               </div>
             </div>
           </article>
 
           <!-- Project: Woolworths Dark Store Category Analysis -->
           <article class="group rounded-3xl bg-white border border-emerald-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
-            <button type="button" onclick="openModal('woolworthsModal')" class="block w-full h-56 overflow-hidden border-b border-emerald-100 bg-emerald-50 text-left" aria-label="Read the Woolworths Dark Store Category Analysis case study">
-              <img src="assets/woolworths-correlation-thumb.png" alt="Correlation matrix of customer spend across 10 grocery categories, with the strongest pairs highlighted in green" loading="lazy" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
+            <button type="button" onclick="openModal('woolworthsModal')" class="relative block w-full h-56 overflow-hidden border-b border-emerald-100 bg-white text-left cursor-zoom-in" aria-label="Open the Woolworths Dark Store Category Analysis case study">
+              <img src="assets/woolworths-correlation-thumb.png" alt="Woolworths category correlation matrix of customer spend across 10 grocery categories, with the strongest pairs highlighted in green" loading="lazy" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
+              <span class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900/75 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition"><i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>Case study</span>
             </button>
 
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
-                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-emerald-100 text-emerald-700 border border-emerald-200">Retail · Customer analytics</span>
-                  <span class="text-xs text-slate-500 font-mono">100 customers · 8,902 order lines</span>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Woolworths Dark Store Category Analysis</h3>
-                <p class="text-sm text-slate-500 mb-4">Category correlation matrix &amp; dark store floor planner</p>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-emerald-100 text-emerald-700 border border-emerald-200">Retail · Customer analytics</span>
+                <span class="text-xs text-slate-500 font-mono">100 customers · 8,902 order lines</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Woolworths Dark Store Category Analysis</h3>
+              <p class="text-sm text-slate-500 mb-4">Category correlation matrix &amp; dark store floor planner</p>
 
-                <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
-                <p class="text-sm text-slate-700 leading-relaxed mb-4">Which product categories do the same customers spend on, and how should a dark store group them into aisles?</p>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
+              <p class="text-sm text-slate-700 leading-relaxed mb-4">Which product categories do the same customers spend on, and how should a dark store group them into aisles?</p>
 
-                <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-100 mb-4 text-sm text-slate-700 leading-relaxed">
-                  <span class="text-emerald-700 font-semibold">Finding:</span> Pasta and Pasta Sauce spend move almost in lockstep (r = 0.96). The 10 categories fall into four clear groups, which became four aisles: Milk, Bread &amp; Eggs · Pasta &amp; Pasta Sauce · Nachos &amp; Salsa · Diapers, Wet wipes &amp; Chocolates.
-                </div>
+              <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-100 mb-5 text-sm text-slate-700 leading-relaxed">
+                <span class="text-emerald-700 font-semibold">Finding:</span> Pasta and Pasta Sauce spend move almost in lockstep (r = 0.96). The 10 categories fall into four clear groups, which became four aisles: Milk, Bread &amp; Eggs · Pasta &amp; Pasta Sauce · Nachos &amp; Salsa · Diapers, Wet wipes &amp; Chocolates.
               </div>
 
-              <div class="flex items-center justify-between pt-4 border-t border-slate-100 flex-wrap gap-3">
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Pearson correlation</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">HTML / JavaScript</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Drag-and-drop planner</span>
-                </div>
-                <div class="flex flex-wrap items-center gap-4">
-                  <a href="projects/woolworths-category-correlation-matrix.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-emerald-700 transition">
-                    <span>Live Matrix</span>
-                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                  </a>
-                  <a href="projects/woolworths-dark-store-floor-planner.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-emerald-700 transition">
-                    <span>Floor Planner</span>
-                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                  </a>
-                  <button type="button" onclick="openModal('woolworthsModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition">
-                    <span>Read Case Study</span>
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                  </button>
-                </div>
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Pearson correlation</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">HTML / JavaScript</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Drag-and-drop planner</span>
+              </div>
+
+              <div class="mt-auto pt-4 border-t border-slate-100 flex flex-wrap items-center gap-3">
+                <a href="projects/woolworths-category-correlation-matrix.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
+                  <span>View Live Matrix</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <a href="projects/woolworths-dark-store-floor-planner.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
+                  <span>View Floor Planner</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <button type="button" onclick="openModal('woolworthsModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-emerald-200 text-emerald-700 hover:bg-emerald-50 transition">
+                  <span>Read Case Study</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
               </div>
             </div>
           </article>
 
           <!-- Project: Netflix Viewing-Pattern Recommender -->
           <article class="group rounded-3xl bg-white border border-pink-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
-            <button type="button" onclick="openModal('netflixModal')" class="block w-full h-56 overflow-hidden border-b border-pink-100 bg-pink-50 text-left" aria-label="Read the Netflix Viewing-Pattern Recommender case study">
+            <button type="button" onclick="openModal('netflixModal')" class="relative block w-full h-56 overflow-hidden border-b border-pink-100 bg-white text-left cursor-zoom-in" aria-label="Open the Netflix Viewing-Pattern Recommender case study">
               <img src="assets/netflix-recommender.png" alt="Show recommender ranking shows by how closely their viewing hours move with the selected show" loading="lazy" class="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300">
+              <span class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-900/75 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition"><i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>Case study</span>
             </button>
 
-            <div class="p-6 flex-1 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
-                  <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-pink-100 text-pink-700 border border-pink-200">Streaming · Recommendation</span>
-                  <span class="text-xs text-slate-500 font-mono">2,000 subscribers · 9 shows</span>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900 group-hover:text-pink-700 transition-colors">Netflix Viewing-Pattern Recommender</h3>
-                <p class="text-sm text-slate-500 mb-4">“What should you watch next?” based on shared viewing hours</p>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-pink-100 text-pink-700 border border-pink-200">Streaming · Recommendation</span>
+                <span class="text-xs text-slate-500 font-mono">2,000 subscribers · 9 shows</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 group-hover:text-pink-700 transition-colors">Netflix Viewing-Pattern Recommender</h3>
+              <p class="text-sm text-slate-500 mb-4">“What should you watch next?” based on shared viewing hours</p>
 
-                <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
-                <p class="text-sm text-slate-700 leading-relaxed mb-4">If a subscriber enjoyed one show, which show should we recommend next?</p>
+              <div class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Business question</div>
+              <p class="text-sm text-slate-700 leading-relaxed mb-4">If a subscriber enjoyed one show, which show should we recommend next?</p>
 
-                <div class="p-3.5 rounded-xl bg-pink-50/70 border border-pink-100 mb-4 text-sm text-slate-700 leading-relaxed">
-                  <span class="text-pink-700 font-semibold">Finding:</span> Viewing hours form four taste groups. Stranger Things fans also put hours into Umbrella Academy (r = 0.85) and Dark (0.84), while Big Bang Theory has no meaningful link to any other show.
-                </div>
+              <div class="p-3.5 rounded-xl bg-pink-50/70 border border-pink-100 mb-5 text-sm text-slate-700 leading-relaxed">
+                <span class="text-pink-700 font-semibold">Finding:</span> Viewing hours form four taste groups. Stranger Things fans also put hours into Umbrella Academy (r = 0.85) and Dark (0.84), while Big Bang Theory has no meaningful link to any other show.
               </div>
 
-              <div class="flex items-center justify-between pt-4 border-t border-slate-100 flex-wrap gap-3">
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Pearson correlation</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">HTML / JavaScript</span>
-                  <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Scatter plot</span>
-                </div>
-                <div class="flex flex-wrap items-center gap-4">
-                  <a href="projects/netflix-watch-next-matcher.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-pink-700 transition">
-                    <span>Live App</span>
-                    <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                  </a>
-                  <button type="button" onclick="openModal('netflixModal')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-pink-600 hover:text-pink-700 transition">
-                    <span>Read Case Study</span>
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                  </button>
-                </div>
+              <div class="flex flex-wrap gap-1.5 mb-5">
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Pearson correlation</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">HTML / JavaScript</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-mono">Scatter plot</span>
+              </div>
+
+              <div class="mt-auto pt-4 border-t border-slate-100 flex flex-wrap items-center gap-3">
+                <a href="projects/netflix-watch-next-matcher.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-pink-600 hover:bg-pink-700 text-white shadow-sm transition">
+                  <span>View Live App</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <button type="button" onclick="openModal('netflixModal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-pink-200 text-pink-700 hover:bg-pink-50 transition">
+                  <span>Read Case Study</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
               </div>
             </div>
           </article>
@@ -826,9 +825,9 @@
       <h2 id="commbankTitle" class="text-2xl font-bold text-slate-900 mb-1 pr-12">Complaints Dashboard</h2>
       <p class="text-sm text-slate-500 mb-4">Commonwealth Bank Customer Complaints Register &amp; SLA Performance (2011–2020)</p>
       <div class="flex flex-wrap items-center gap-3 pb-4 mb-5 border-b border-slate-100">
-        <span class="text-xs text-slate-500 font-mono">Dataset: 467 complaints (2011–2020)</span>
-        <a href="commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="sm:ml-auto inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white shadow-sm transition">
-          <span>Open Live Dashboard</span>
+        <span class="text-xs text-slate-500 font-mono sm:mr-auto">Dataset: 467 complaints (2011–2020)</span>
+        <a href="commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white shadow-sm transition">
+          <span>View Live Dashboard</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
         </a>
         <a href="https://github.com/gifty-cp/gifty-cp.github.io/blob/main/commbank-dashboard.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-indigo-600 transition">
@@ -888,7 +887,7 @@
       <p class="text-sm text-slate-500 mb-4">Interactive Excel dashboard of store and e-retail sales, 2024–2025</p>
       <div class="flex flex-wrap items-center gap-3 pb-4 mb-5 border-b border-slate-100">
         <a href="projects/bigw-sales-dashboard.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition">
-          <span>Open Dashboard PDF</span>
+          <span>View Dashboard (PDF)</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
         </a>
       </div>
@@ -973,7 +972,7 @@
       <p class="text-sm text-slate-500 mb-4">4,505 sales from January 2024 to December 2025, from messy data to dashboard in five steps.</p>
       <div class="flex flex-wrap items-center gap-3 pb-4 mb-5 border-b border-slate-100">
         <a href="projects/kmart-sales-dashboard.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white shadow-sm transition">
-          <span>Open Dashboard PDF</span>
+          <span>View Dashboard (PDF)</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
         </a>
       </div>
@@ -1072,11 +1071,11 @@
       <p class="text-sm text-slate-500 mb-4">Category correlation matrix &amp; dark store floor planner</p>
       <div class="flex flex-wrap items-center gap-3 pb-4 mb-5 border-b border-slate-100">
         <a href="projects/woolworths-category-correlation-matrix.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
-          <span>Open Live Matrix</span>
+          <span>View Live Matrix</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
         </a>
-        <a href="projects/woolworths-dark-store-floor-planner.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-indigo-600 transition">
-          <span>Open Floor Planner</span>
+        <a href="projects/woolworths-dark-store-floor-planner.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
+          <span>View Floor Planner</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
         </a>
       </div>
@@ -1159,7 +1158,7 @@
       <p class="text-sm text-slate-500 mb-4">“What should you watch next?” based on shared viewing hours</p>
       <div class="flex flex-wrap items-center gap-3 pb-4 mb-5 border-b border-slate-100">
         <a href="projects/netflix-watch-next-matcher.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-pink-600 hover:bg-pink-700 text-white shadow-sm transition">
-          <span>Open Live App</span>
+          <span>View Live App</span>
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
         </a>
       </div>
