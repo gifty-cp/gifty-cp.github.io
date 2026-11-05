@@ -515,6 +515,74 @@
             </div>
           </article>
 
+          <!-- Formula: INDEX + MATCH + MAX (BIG W) -->
+          <article id="top-performer" class="p-6 sm:p-7 rounded-3xl bg-white border border-blue-200 shadow-sm flex flex-col lg:col-span-2 scroll-mt-24">
+            <div class="flex items-center justify-between gap-2 mb-4 flex-wrap">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-blue-100 text-blue-700 border border-blue-200">Excel · Lookup</span>
+                <a href="index.html#projects" class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-amber-100 text-amber-800 border border-amber-200 hover:border-amber-300 transition">Used in: BIG W Sales Dashboard →</a>
+              </div>
+              <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center"><i data-lucide="trophy" class="w-4 h-4"></i></div>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">INDEX + MATCH + MAX: finding the top performer</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed max-w-3xl">
+              My BIG W dashboard has KPI cards for the top manager and top buyer. I used this formula next to each PivotTable to pull out the name of whoever had the highest sales, so the card updates on its own.
+            </p>
+
+            <div class="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <pre class="p-4 rounded-xl bg-slate-900 ring-1 ring-white/10 text-[13px] leading-relaxed font-mono text-slate-200 overflow-x-auto"><code>=<span class="text-teal-400">INDEX</span>(A5:A14,
+   <span class="text-teal-400">MATCH</span>(<span class="text-teal-400">MAX</span>(D5:D14), D5:D14, <span class="text-amber-300">0</span>))</code></pre>
+
+                <div class="mt-4 overflow-x-auto">
+                  <table class="w-full text-sm text-slate-700">
+                    <thead><tr class="text-left text-xs font-mono uppercase tracking-wider text-slate-500 border-b border-slate-200"><th class="py-2 pr-3 font-semibold">Part</th><th class="py-2 pr-3 font-semibold">What it does</th><th class="py-2 font-semibold">Result</th></tr></thead>
+                    <tbody>
+                  <tr class="border-b border-slate-100"><td class="py-2 pr-3 font-mono text-xs whitespace-nowrap">MAX(D5:D14)</td><td class="py-2 pr-3">Finds the highest sales total</td><td class="py-2 font-mono text-xs whitespace-nowrap">148,593</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-2 pr-3 font-mono text-xs whitespace-nowrap">MATCH(148593, D5:D14, 0)</td><td class="py-2 pr-3">Finds which position that total is in (0 = exact match)</td><td class="py-2 font-mono text-xs whitespace-nowrap">1</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-2 pr-3 font-mono text-xs whitespace-nowrap">INDEX(A5:A14, 1)</td><td class="py-2 pr-3">Returns the name in that position</td><td class="py-2 font-mono text-xs whitespace-nowrap">Jarrah Walker</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <div class="p-4 rounded-2xl bg-white border border-slate-200">
+                  <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="table-2" class="w-4 h-4 text-blue-500"></i>
+                    <span class="text-sm font-semibold text-slate-800">Sales by manager PivotTable</span>
+                    <span class="text-xs text-slate-500 font-mono">top 10</span>
+                  </div>
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-slate-700">
+                      <thead><tr class="text-left text-xs font-mono uppercase tracking-wider text-slate-500 border-b border-slate-200"><th class="py-1.5 px-3 font-semibold">Row</th><th class="py-1.5 px-3 font-semibold">A · Manager</th><th class="py-1.5 px-3 font-semibold text-right">D · Total sales</th></tr></thead>
+                      <tbody>
+                    <tr class="border-b border-slate-100 bg-blue-50/70"><td class="py-1.5 px-3 font-mono text-xs text-slate-400">5</td><td class="py-1.5 px-3 font-semibold text-slate-900">Jarrah Walker</td><td class="py-1.5 px-3 font-mono text-right font-semibold text-slate-900">148,593</td></tr>
+                    <tr class="border-b border-slate-100"><td class="py-1.5 px-3 font-mono text-xs text-slate-400">6</td><td class="py-1.5 px-3">Arjun Sharma</td><td class="py-1.5 px-3 font-mono text-right">148,583</td></tr>
+                    <tr class="border-b border-slate-100"><td class="py-1.5 px-3 font-mono text-xs text-slate-400">7</td><td class="py-1.5 px-3">Bao Hoang</td><td class="py-1.5 px-3 font-mono text-right">139,548</td></tr>
+                    <tr class="border-b border-slate-100"><td class="py-1.5 px-3 font-mono text-xs text-slate-400">…</td><td class="py-1.5 px-3">…</td><td class="py-1.5 px-3 font-mono text-right">…</td></tr>
+                    <tr class="border-b border-slate-100"><td class="py-1.5 px-3 font-mono text-xs text-slate-400">14</td><td class="py-1.5 px-3">Lowitja Mundine</td><td class="py-1.5 px-3 font-mono text-right">79,388</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                  <div><span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">Top manager</span> <span class="font-mono font-semibold text-slate-900">Jarrah Walker</span></div>
+                  <div><span class="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">Top buyer</span> <span class="font-mono font-semibold text-slate-900">Adelaide Scott</span></div>
+                </div>
+                <p class="mt-2 text-xs text-slate-500 leading-relaxed">Same formula on the buyers PivotTable. Jarrah beat Arjun by just $10, a reminder that a “top” label can hide a near tie.</p>
+              </div>
+            </div>
+
+            <div class="mt-6 p-4 rounded-xl bg-amber-50/70 border border-amber-100 text-sm text-slate-700 leading-relaxed">
+              <p><span class="text-amber-700 font-semibold">Watch out with slicers:</span> filtering the dashboard can leave fewer than 10 people in the PivotTable. The <span class="font-mono">Grand Total</span> row then moves up into A5:A14 and, being the biggest number, wins the MAX, so the card shows “Grand Total”. For example, setting the State slicer to NSW leaves only 5 managers.</p>
+              <p class="mt-3"><span class="text-amber-700 font-semibold">Fix:</span> use MAXIFS so the Grand Total row is ignored:</p>
+              <pre class="mt-2 p-4 rounded-xl bg-slate-900 ring-1 ring-white/10 text-[13px] leading-relaxed font-mono text-slate-200 overflow-x-auto"><code>=<span class="text-teal-400">INDEX</span>(A5:A14,
+   <span class="text-teal-400">MATCH</span>(<span class="text-teal-400">MAXIFS</span>(D5:D14, A5:A14, <span class="text-emerald-300">"&lt;&gt;Grand Total"</span>),
+         D5:D14, <span class="text-amber-300">0</span>))</code></pre>
+            </div>
+          </article>
+
           </div>
         </div>
       </div>
